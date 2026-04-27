@@ -25,8 +25,8 @@ export default function HomePage() {
             Reclamação com força de lei
           </div>
           <h1 className="hero-title">
-            A loja te<br />
-            <em>passou a perna?</em><br />
+            A loja<br />
+            <em>não cumpriu?</em><br />
             A gente desamarra.
           </h1>
           <p className="hero-sub">
@@ -50,7 +50,7 @@ export default function HomePage() {
           <div className="phone">
             <div className="phone-screen">
               <div className="screen-hero-title">
-                Loja te passou<br /><em>a perna?</em>
+                Loja não<br /><em>cumpriu?</em>
               </div>
               <div className="screen-hero-sub">A gente gera a reclamação perfeita.</div>
               <div className="screen-prob"><div className="screen-prob-icon">⏰</div><div className="screen-prob-text">Meu pedido atrasou</div></div>
@@ -66,7 +66,7 @@ export default function HomePage() {
 
       <section className="stats">
         <div className="stats-inner">
-          <div><div className="stat-num">5min</div><div className="stat-label">do problema à reclamação pronta</div></div>
+          <div><div className="stat-num">3min</div><div className="stat-label">do problema à reclamação pronta</div></div>
           <div><div className="stat-num">3</div><div className="stat-label">canais cobertos no plano grátis</div></div>
           <div><div className="stat-num">R$ 0</div><div className="stat-label">custo pra começar</div></div>
           <div><div className="stat-num">CDC</div><div className="stat-label">embasamento legal real</div></div>
@@ -76,7 +76,7 @@ export default function HomePage() {
       <section className="how" id="como-funciona">
         <div className="section-kicker">Como funciona</div>
         <h2 className="section-title">Três passos. <em>Resolvido.</em></h2>
-        <p className="section-sub">A gente transforma sua raiva em um texto com base no Código de Defesa do Consumidor.</p>
+        <p className="section-sub">A gente transforma sua frustração em um texto com base no Código de Defesa do Consumidor.</p>
         <div className="steps">
           <div className="step">
             <div className="step-num">1</div>
@@ -145,7 +145,7 @@ export default function HomePage() {
 
       <section className="stores">
         <div className="section-kicker">Lojas suportadas</div>
-        <h2 className="section-title">Mais de 40 lojas.<br /><em>E contando.</em></h2>
+        <h2 className="section-title">20+ lojas.<br /><em>E contando.</em></h2>
         <div className="store-grid">
           <div className="store-chip">👗 Shein</div>
           <div className="store-chip">🛒 Shopee</div>
@@ -157,6 +157,18 @@ export default function HomePage() {
           <div className="store-chip">👕 Renner</div>
           <div className="store-chip">👖 C&amp;A</div>
           <div className="store-chip">🏠 Americanas</div>
+          <div className="store-chip">🌐 Submarino</div>
+          <div className="store-chip">🛏️ Tok&amp;Stok</div>
+          <div className="store-chip">🛋️ Mobly</div>
+          <div className="store-chip">💄 Sephora</div>
+          <div className="store-chip">💊 Drogaria SP</div>
+          <div className="store-chip">🥾 Centauro</div>
+          <div className="store-chip">⚽ Netshoes</div>
+          <div className="store-chip">📚 Saraiva</div>
+          <div className="store-chip">🎮 Kabum</div>
+          <div className="store-chip">💻 Dell</div>
+          <div className="store-chip">📱 Samsung</div>
+          <div className="store-chip">🍎 Apple</div>
           <div className="store-chip">+ outras</div>
         </div>
       </section>
@@ -182,7 +194,7 @@ export default function HomePage() {
         </details>
         <details>
           <summary>Funciona pra lojas internacionais (Shein, AliExpress)?</summary>
-          <p>Funciona. Mesmo com sede fora, essas lojas têm CNPJ no Brasil e são obrigadas a cumprir o Código de Defesa do Consumidor.</p>
+          <p>Funciona, mas com nuances. Lojas com CNPJ brasileiro (como Shein BR e Shopee BR) são obrigadas a seguir o CDC normalmente. Para vendedores internacionais em marketplaces (alguns produtos do AliExpress, por exemplo), a reclamação ainda tem peso, mas a aplicação pode variar. Sempre vale tentar — boa parte das lojas resolve pra evitar dor de cabeça.</p>
         </details>
       </section>
 
@@ -198,9 +210,9 @@ export default function HomePage() {
         <div className="footer-inner">
           <div className="logo"><div className="logo-mark">📦</div>cademeupacote.com.br</div>
           <div className="footer-links">
-            <a href="#">Termos</a>
-            <a href="#">Privacidade</a>
-            <a href="#">Contato</a>
+            <a href="/termos">Termos</a>
+            <a href="/privacidade">Privacidade</a>
+            <a href="/contato">Contato</a>
           </div>
           <div className="footer-meta">© 2026 · feito com 🧡 e CDC</div>
         </div>

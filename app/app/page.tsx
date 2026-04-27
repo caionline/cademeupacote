@@ -10,6 +10,7 @@ import {
   type FormState,
   initialFormState,
 } from "@/lib/constants";
+import { formatCPF, validateCPF } from "@/lib/cpf";
 
 const STORAGE_KEY = "cmp.app.v1";
 
@@ -123,7 +124,7 @@ export default function AppPage() {
   const canNext1 = !!form.problem;
   const canNext2 = !!form.store && (form.store !== "other" || form.storeOtherName.trim().length > 1);
   const canNext3 = form.product.trim().length > 1 && form.value.trim().length > 0;
-  const canGenerate = form.name.trim().length > 1;
+  const canGenerate = form.name.trim().length > 1 && (form.cpf === "" || validateCPF(form.cpf));
 
   const totalSteps = 4;
 
@@ -324,9 +325,14 @@ export default function AppPage() {
                   type="text"
                   placeholder="000.000.000-00"
                   value={form.cpf}
-                  onChange={e => update("cpf", e.target.value)}
+                  onChange={e => update("cpf", formatCPF(e.target.value))}
                 />
                 <span className="field-hint">Opcional. Não armazenamos.</span>
+                {form.cpf && !validateCPF(form.cpf) && (
+                  <span style={{ color: "var(--danger)", fontSize: 13, marginTop: 4, display: "block" }}>
+                    CPF inválido
+                  </span>
+                )}
               </div>
             </div>
 

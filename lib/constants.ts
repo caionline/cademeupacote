@@ -25,8 +25,20 @@ export const STORES = [
   { id: "casasbahia", name: "Casas Bahia",    emoji: "📱" },
   { id: "renner",     name: "Renner",         emoji: "👕" },
   { id: "cea",        name: "C&A",            emoji: "👖" },
-  { id: "americanas", name: "Americanas",     emoji: "🏠" },
-  { id: "other",      name: "Outra loja",     emoji: "🏬" },
+  { id: "americanas", name: "Americanas",        emoji: "🏠" },
+  { id: "submarino",  name: "Submarino",         emoji: "🌐" },
+  { id: "tokstok",    name: "Tok&Stok",          emoji: "🛏️" },
+  { id: "mobly",      name: "Mobly",             emoji: "🛋️" },
+  { id: "sephora",    name: "Sephora",           emoji: "💄" },
+  { id: "drogariasp", name: "Drogaria São Paulo", emoji: "💊" },
+  { id: "centauro",   name: "Centauro",          emoji: "🥾" },
+  { id: "netshoes",   name: "Netshoes",          emoji: "⚽" },
+  { id: "saraiva",    name: "Saraiva",           emoji: "📚" },
+  { id: "kabum",      name: "Kabum",             emoji: "🎮" },
+  { id: "dell",       name: "Dell",              emoji: "💻" },
+  { id: "samsung",    name: "Samsung",           emoji: "📱" },
+  { id: "apple",      name: "Apple",             emoji: "🍎" },
+  { id: "other",      name: "Outra loja",        emoji: "🏬" },
 ];
 
 export type Channel = "whatsapp" | "reclameaqui" | "consumidor";
