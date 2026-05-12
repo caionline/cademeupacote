@@ -91,7 +91,7 @@ export default function HomePage() {
           <div className="step">
             <div className="step-num">3</div>
             <h3>Você manda</h3>
-            <p>WhatsApp, Reclame Aqui, Consumidor.gov. Se enrolarem, a gente escala o caso até resolver.</p>
+            <p>SAC da loja, Reclame Aqui, Consumidor.gov. Se enrolarem, a gente escala o caso até resolver.</p>
           </div>
         </div>
       </section>
@@ -111,7 +111,7 @@ export default function HomePage() {
               <div className="rung-dot">1</div>
               <div>
                 <div className="rung-day">Hoje</div>
-                <div className="rung-title">💬 SAC / WhatsApp da loja</div>
+                <div className="rung-title">💬 SAC da loja</div>
                 <div className="rung-meta">Começa leve. Maioria dos casos resolve aqui.</div>
               </div>
             </div>

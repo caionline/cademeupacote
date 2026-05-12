@@ -26,8 +26,11 @@ export default function AppPage() {
   const [copied, setCopied] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const [emailCaptured, setEmailCaptured] = useState(false);
+  const [shareOpen, setShareOpen] = useState(false);
 
   const selectedStore = STORES.find(s => s.id === form.store) ?? null;
+
+  const shareText = "Achei esse site que gera reclamação com base no CDC em 3 minutos. Tava precisando! 👀\n\nhttps://www.cademeupacote.com.br";
 
   // Carrega rascunho do localStorage
   useEffect(() => {
@@ -43,6 +46,13 @@ export default function AppPage() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(form));
     } catch {}
   }, [form]);
+
+  useEffect(() => {
+    if (!shareOpen) return;
+    function onKey(e: KeyboardEvent) { if (e.key === "Escape") setShareOpen(false); }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [shareOpen]);
 
   function showToast(msg: string) {
     setToast(msg);
@@ -123,6 +133,20 @@ export default function AppPage() {
     // Próximo passo: integrar com Mailchimp/Brevo/Google Sheets.
     setEmailCaptured(true);
     showToast("Pronto! Vamos te lembrar em 7 dias 📧");
+  }
+
+  function shareWhatsApp() {
+    window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, "_blank");
+  }
+
+  function shareTwitter() {
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`, "_blank");
+  }
+
+  async function shareLink() {
+    try { await navigator.clipboard.writeText(shareText); } catch {}
+    showToast("Link copiado! ✓");
+    setShareOpen(false);
   }
 
   // Pode avançar?
@@ -443,6 +467,14 @@ export default function AppPage() {
             )}
 
             <div className="next-step-card">
+              <h4 style={{ fontFamily: "Fraunces, serif" }}>🚀 Conhece alguém que precisa disso?</h4>
+              <p>Compartilha o site. Você pode ajudar muita gente.</p>
+              <button className="btn btn-ghost" onClick={() => setShareOpen(true)}>
+                Compartilhar →
+              </button>
+            </div>
+
+            <div className="next-step-card">
               <h4>📬 Quer um lembrete em 7 dias?</h4>
               <p>A gente te avisa pra acompanhar a resposta da loja. Se ela não responder, mandamos o texto pronto pro próximo canal (Reclame Aqui ou Consumidor.gov).</p>
               {emailCaptured ? (
@@ -463,6 +495,64 @@ export default function AppPage() {
           </>
         )}
       </main>
+
+      {shareOpen && (
+        <div
+          style={{
+            position: "fixed", inset: 0, zIndex: 100,
+            background: "rgba(0,0,0,0.5)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "24px",
+          }}
+          onClick={() => setShareOpen(false)}
+        >
+          <div
+            style={{
+              background: "#fff", borderRadius: 20, padding: 28,
+              width: "100%", maxWidth: 420,
+              position: "relative",
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              autoFocus
+              aria-label="Fechar"
+              onClick={() => setShareOpen(false)}
+              style={{
+                position: "absolute", top: 16, right: 16,
+                background: "none", border: "none", cursor: "pointer",
+                fontSize: 22, color: "#78716C", lineHeight: 1, padding: "4px 8px",
+              }}
+            >
+              ×
+            </button>
+            <h3 style={{ fontFamily: "Fraunces, serif", fontSize: 24, margin: "0 0 20px" }}>
+              Compartilhar com...
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {[
+                { label: "WhatsApp", icon: "💚", action: shareWhatsApp },
+                { label: "Twitter / X", icon: "🐦", action: shareTwitter },
+                { label: "Copiar link", icon: "🔗", action: shareLink },
+              ].map(({ label, icon, action }) => (
+                <button
+                  key={label}
+                  onClick={action}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 14,
+                    height: 56, borderRadius: 14,
+                    border: "1px solid #E7E5E4", background: "#fff",
+                    cursor: "pointer", fontSize: 16, fontWeight: 500,
+                    padding: "0 20px", textAlign: "left",
+                  }}
+                >
+                  <span style={{ fontSize: 22 }}>{icon}</span> {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {toast && <div className="toast show">{toast}</div>}
     </div>
