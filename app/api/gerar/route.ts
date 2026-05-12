@@ -1,6 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { PROBLEMS, STORES, type FormState } from "@/lib/constants";
+import { registrarCaso } from "@/lib/kv";
+import { getValueRange } from "@/lib/value-ranges";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -95,6 +97,17 @@ export async function POST(req: Request) {
 
     if (!parsed.whatsapp || !parsed.reclameaqui || !parsed.consumidor) {
       return NextResponse.json({ error: "Resposta da IA incompleta." }, { status: 502 });
+    }
+
+    // Coleta anônima — nunca quebra a resposta principal
+    try {
+      await registrarCaso({
+        storeId:    body.store ?? "unknown",
+        problemId:  body.problem ?? "unknown",
+        valueRange: getValueRange(body.value),
+      });
+    } catch (kvErr) {
+      console.error("KV registrarCaso error:", kvErr);
     }
 
     return NextResponse.json(parsed);

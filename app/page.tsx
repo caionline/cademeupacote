@@ -13,6 +13,7 @@ export default function HomePage() {
             <a href="#como-funciona">Como funciona</a>
             <a href="#escalada">Escalada</a>
             <a href="#faq">FAQ</a>
+            <a href="/ranking">Ranking</a>
             <Link href="/app" className="nav-cta">Resolver agora →</Link>
           </div>
         </div>
@@ -212,6 +213,7 @@ export default function HomePage() {
           <div className="footer-links">
             <a href="/termos">Termos</a>
             <a href="/privacidade">Privacidade</a>
+            <a href="/ranking">Ranking</a>
             <a href="/contato">Contato</a>
           </div>
           <div className="footer-meta">© 2026 · feito com 🧡 e CDC</div>

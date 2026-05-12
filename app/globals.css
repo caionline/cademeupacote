@@ -481,6 +481,86 @@ footer.site-footer { padding: 48px 24px; background: var(--bg); border-top: 1px 
 .loading-text { color: var(--text-muted); font-size: 15px; text-align: center; }
 .loading-substep { color: var(--text-subtle); font-size: 13px; font-family: var(--mono); }
 
+/* ===== RANKING / LOJA PAGES ===== */
+.ranking-page { max-width: 720px; margin: 0 auto; padding: 64px 24px 96px; }
+
+.ranking-info-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 18px; margin-bottom: 40px;
+  font-size: 13px; color: var(--text-muted);
+  display: flex; gap: 10px; align-items: flex-start; line-height: 1.5;
+}
+
+.ranking-empty {
+  text-align: center; padding: 64px 32px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.ranking-list { display: flex; flex-direction: column; gap: 14px; }
+
+.ranking-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 18px 20px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.ranking-item:hover { border-color: var(--primary-border); box-shadow: var(--shadow-sm); }
+
+.ranking-item-inner { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+
+.ranking-position {
+  font-family: var(--font-display); font-size: 28px; font-weight: 700;
+  color: var(--primary); min-width: 34px; text-align: center; flex-shrink: 0;
+}
+
+.ranking-meta { flex: 1; min-width: 0; }
+
+.ranking-store-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ranking-store-name { font-weight: 600; font-size: 15px; }
+
+.ranking-badge {
+  font-size: 12px; font-weight: 600;
+  background: #FEF3C7; color: #92400E;
+  border-radius: 20px; padding: 2px 10px; white-space: nowrap;
+}
+
+.ranking-problem { font-size: 12px; color: var(--text-subtle); margin-top: 3px; }
+
+.ranking-cta {
+  font-size: 12px; color: var(--primary); font-weight: 600;
+  white-space: nowrap; text-decoration: none;
+  padding: 6px 12px; border: 1px solid var(--primary);
+  border-radius: 8px; flex-shrink: 0; transition: background 0.15s;
+}
+.ranking-cta:hover { background: var(--primary-soft); }
+
+.ranking-bar-track { height: 6px; background: var(--surface-alt); border-radius: 3px; overflow: hidden; }
+.ranking-bar-fill { height: 100%; background: var(--primary); border-radius: 3px; }
+
+.ranking-footnote {
+  margin-top: 48px; font-size: 13px; color: var(--text-subtle);
+  text-align: center; line-height: 1.7;
+}
+
+.loja-back {
+  font-size: 13px; color: var(--text-subtle); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 4px; margin-bottom: 20px;
+}
+.loja-back:hover { color: var(--text); }
+
+.loja-stat-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px 24px; margin-bottom: 20px;
+}
+.loja-stat-card h2 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+
+.stat-bar-row { margin-bottom: 10px; }
+.stat-bar-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+.stat-bar-labels .label { color: var(--text-muted); }
+.stat-bar-labels .value { font-weight: 600; }
+.stat-bar-track { height: 6px; background: var(--surface-alt); border-radius: 3px; overflow: hidden; }
+.stat-bar-fill { height: 100%; background: var(--primary); border-radius: 3px; }
+
 /* ===== TOAST ===== */
 .toast {
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);

@@ -39,6 +39,27 @@ export default function PrivacidadePage() {
         </section>
 
         <section style={{ marginBottom: 32 }}>
+          <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.2px" }}>1b. ESTATÍSTICAS ANÔNIMAS</h2>
+          <p style={{ lineHeight: 1.7, color: "var(--text-muted)" }}>
+            Ao gerar uma reclamação, coletamos dados <strong>100% anônimos</strong> para mapear quais lojas acumulam mais reclamações e que tipos de problemas são mais frequentes. Esses dados alimentam o Ranking público de lojas do site.
+          </p>
+          <p style={{ marginTop: 12, lineHeight: 1.7, color: "var(--text-muted)" }}>O que coletamos de forma anônima:</p>
+          <ul style={{ marginTop: 8, paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
+            <li>Identificador da loja (ex: "shein", "amazon")</li>
+            <li>Tipo de problema (ex: "pedido atrasou", "produto errado")</li>
+            <li>Faixa de valor da compra (ex: "R$ 200–500") — nunca o valor exato</li>
+            <li>Timestamp da reclamação</li>
+          </ul>
+          <p style={{ marginTop: 12, lineHeight: 1.7, color: "var(--text-muted)" }}>O que <strong>não</strong> coletamos nessa etapa:</p>
+          <ul style={{ marginTop: 8, paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
+            <li>Seu nome ou CPF</li>
+            <li>O texto da reclamação gerada</li>
+            <li>Seu email (o email é coletado <em>apenas</em> se você solicitar o lembrete de 7 dias)</li>
+            <li>Qualquer dado que permita identificar você individualmente</li>
+          </ul>
+        </section>
+
+        <section style={{ marginBottom: 32 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.2px" }}>2. COMO USAMOS</h2>
           <ul style={{ paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
             <li>Os dados do formulário são enviados à API da Anthropic (Claude) para gerar o texto da reclamação. A Anthropic não treina modelos com esses dados (configuração padrão do produto).</li>

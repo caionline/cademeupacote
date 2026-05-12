@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
   PROBLEMS,
@@ -15,6 +16,17 @@ import { formatCPF, validateCPF } from "@/lib/cpf";
 const STORAGE_KEY = "cmp.app.v1";
 
 type Step = 1 | 2 | 3 | 4 | 5;
+
+function SearchParamEffect({ onStore }: { onStore: (id: string) => void }) {
+  const params = useSearchParams();
+  useEffect(() => {
+    const storeParam = params.get("store");
+    if (storeParam && STORES.find(s => s.id === storeParam)) {
+      onStore(storeParam);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
 
 export default function AppPage() {
   const [step, setStep] = useState<Step>(1);
@@ -129,10 +141,21 @@ export default function AppPage() {
   async function captureEmail(e: React.FormEvent) {
     e.preventDefault();
     if (!form.email) return;
-    // Por enquanto só marca como capturado.
-    // Próximo passo: integrar com Mailchimp/Brevo/Google Sheets.
     setEmailCaptured(true);
     showToast("Pronto! Vamos te lembrar em 7 dias 📧");
+    try {
+      await fetch("/api/capturar-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email:     form.email,
+          storeId:   form.store,
+          problemId: form.problem,
+        }),
+      });
+    } catch (err) {
+      console.error("Erro ao capturar email:", err);
+    }
   }
 
   function shareWhatsApp() {
@@ -189,6 +212,10 @@ export default function AppPage() {
       </header>
 
       <main className="app-main">
+        <Suspense>
+          <SearchParamEffect onStore={(id) => update("store", id)} />
+        </Suspense>
+
         {/* STEP 1 — PROBLEMA */}
         {step === 1 && (
           <>
@@ -364,6 +391,10 @@ export default function AppPage() {
                 )}
               </div>
             </div>
+
+            <p style={{ fontSize: 12, color: "var(--text-subtle)", marginTop: 12, lineHeight: 1.6 }}>
+              📊 Dados anônimos (loja + tipo de problema) nos ajudam a mapear lojas problemáticas. Não coletamos seu nome, CPF ou email.
+            </p>
 
             {error && (
               <div style={{ marginTop: 16, padding: 14, background: "var(--hot)", border: "1px solid var(--hot-border)", borderRadius: 12, color: "var(--danger)", fontSize: 14 }}>
