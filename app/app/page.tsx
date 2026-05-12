@@ -27,6 +27,8 @@ export default function AppPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [emailCaptured, setEmailCaptured] = useState(false);
 
+  const selectedStore = STORES.find(s => s.id === form.store) ?? null;
+
   // Carrega rascunho do localStorage
   useEffect(() => {
     try {
@@ -95,10 +97,13 @@ export default function AppPage() {
     }
   }
 
-  function openWhatsApp() {
-    if (!results) return;
-    const text = encodeURIComponent(results.whatsapp);
-    window.open(`https://wa.me/?text=${text}`, "_blank");
+  async function openSAC() {
+    if (!results || !selectedStore?.sacUrl) return;
+    try {
+      await navigator.clipboard.writeText(results.whatsapp);
+    } catch {}
+    window.open(selectedStore.sacUrl, "_blank");
+    showToast("Texto copiado! Cole no chat da loja ✓");
   }
 
   function openReclameAqui() {
@@ -397,9 +402,24 @@ export default function AppPage() {
 
             <div className="send-actions">
               {activeChannel === "whatsapp" && (
-                <button className="btn btn-primary" onClick={openWhatsApp}>
-                  Abrir no WhatsApp →
-                </button>
+                selectedStore?.sacUrl ? (
+                  <button
+                    className="btn btn-primary"
+                    onClick={openSAC}
+                    title="Copia o texto e abre o atendimento oficial"
+                  >
+                    Abrir SAC da {selectedStore.name} →
+                  </button>
+                ) : (
+                  <>
+                    <button className="btn btn-primary" onClick={copyText}>
+                      📋 Copiar texto
+                    </button>
+                    <p style={{ fontSize: 13, color: "var(--text-subtle)", marginTop: 4, textAlign: "center" }}>
+                      Copie o texto e cole no canal de atendimento da sua loja
+                    </p>
+                  </>
+                )
               )}
               {activeChannel === "reclameaqui" && (
                 <button className="btn btn-primary" onClick={openReclameAqui}>
@@ -415,6 +435,12 @@ export default function AppPage() {
                 Nova reclamação
               </button>
             </div>
+
+            {activeChannel === "whatsapp" && (
+              <p style={{ fontSize: 12, color: "var(--text-subtle)", textAlign: "center", marginTop: 8, lineHeight: 1.5 }}>
+                Se o canal direto não abrir, copie o texto acima e procure o atendimento da loja diretamente.
+              </p>
+            )}
 
             <div className="next-step-card">
               <h4>📬 Quer um lembrete em 7 dias?</h4>
