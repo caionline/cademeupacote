@@ -12,6 +12,16 @@ import {
   initialFormState,
 } from "@/lib/constants";
 import { formatCPF, validateCPF } from "@/lib/cpf";
+import { formatBRL, parseBRL } from "@/lib/currency";
+
+const LOADING_MSGS = [
+  "Analisando seu caso...",
+  "Consultando o CDC...",
+  "Escrevendo pra SAC da loja...",
+  "Adaptando pra Reclame Aqui...",
+  "Formalizando pra Consumidor.gov...",
+  "Quase pronto...",
+];
 
 const STORAGE_KEY = "cmp.app.v1";
 
@@ -39,10 +49,16 @@ export default function AppPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [emailCaptured, setEmailCaptured] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
+  const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
 
   const selectedStore = STORES.find(s => s.id === form.store) ?? null;
 
-  const shareText = "Achei esse site que gera reclamação com base no CDC em 3 minutos. Tava precisando! 👀\n\nhttps://www.cademeupacote.com.br";
+  const storeName = form.store === "other"
+    ? (form.storeOtherName.trim() || null)
+    : (selectedStore?.name ?? null);
+  const shareText = storeName
+    ? `Acabei de gerar uma reclamação contra ${storeName} no Cadê Meu Pacote. Site bom demais, gera tudo com base no CDC em 3 minutos. 👀\n\nhttps://www.cademeupacote.com.br`
+    : "Achei esse site que gera reclamação com base no CDC em 3 minutos. Tava precisando! 👀\n\nhttps://www.cademeupacote.com.br";
 
   // Carrega rascunho do localStorage
   useEffect(() => {
@@ -65,6 +81,15 @@ export default function AppPage() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [shareOpen]);
+
+  useEffect(() => {
+    if (!loading) return;
+    setLoadingMsgIdx(0);
+    const id = setInterval(() => {
+      setLoadingMsgIdx(i => (i + 1) % LOADING_MSGS.length);
+    }, 2500);
+    return () => clearInterval(id);
+  }, [loading]);
 
   function showToast(msg: string) {
     setToast(msg);
@@ -175,7 +200,10 @@ export default function AppPage() {
   // Pode avançar?
   const canNext1 = !!form.problem;
   const canNext2 = !!form.store && (form.store !== "other" || form.storeOtherName.trim().length > 1);
-  const canNext3 = form.product.trim().length > 1 && form.value.trim().length > 0;
+  const dateError = form.purchaseDate && form.promisedDate && form.promisedDate < form.purchaseDate
+    ? "A data prometida não pode ser anterior à data da compra"
+    : null;
+  const canNext3 = form.product.trim().length > 1 && form.value.trim().length > 0 && !dateError;
   const canGenerate = form.name.trim().length > 1 && (form.cpf === "" || validateCPF(form.cpf));
 
   const totalSteps = 4;
@@ -305,10 +333,14 @@ export default function AppPage() {
                   <label>Valor pago (R$) *</label>
                   <input
                     type="text"
-                    inputMode="decimal"
-                    placeholder="Ex: 299,90"
-                    value={form.value}
-                    onChange={e => update("value", e.target.value)}
+                    inputMode="numeric"
+                    placeholder="R$ 0,00"
+                    value={form.value ? `R$ ${form.value}` : ""}
+                    onChange={e => {
+                      const digits = e.target.value.replace(/\D/g, "");
+                      if (!digits) { update("value", ""); return; }
+                      update("value", parseBRL(formatBRL(digits)));
+                    }}
                   />
                 </div>
                 <div className="field">
@@ -340,6 +372,11 @@ export default function AppPage() {
                   />
                 </div>
               </div>
+              {dateError && (
+                <span style={{ color: "var(--danger)", fontSize: 13, marginTop: -8, display: "block" }}>
+                  {dateError}
+                </span>
+              )}
 
               <div className="field">
                 <label>Algo a mais que queira contar?</label>
@@ -415,8 +452,9 @@ export default function AppPage() {
             {loading && (
               <div className="loading-state">
                 <div className="loading-spinner"></div>
-                <div className="loading-text">A IA está escrevendo sua reclamação...</div>
-                <div className="loading-substep">consultando o Código de Defesa do Consumidor</div>
+                <div key={loadingMsgIdx} className="loading-text loading-fade">
+                  {LOADING_MSGS[loadingMsgIdx]}
+                </div>
               </div>
             )}
           </>
@@ -488,6 +526,9 @@ export default function AppPage() {
               )}
               <button className="btn btn-ghost" onClick={() => { setResults(null); setStep(1); setForm(initialFormState); }}>
                 Nova reclamação
+              </button>
+              <button className="btn btn-ghost" onClick={() => { setResults(null); setStep(1); }}>
+                ← Editar dados
               </button>
             </div>
 

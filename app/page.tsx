@@ -216,6 +216,7 @@ export default function HomePage() {
             <a href="/termos">Termos</a>
             <a href="/privacidade">Privacidade</a>
             <a href="/ranking">Ranking</a>
+            <a href="/lojas">Todas as lojas</a>
             <a href="/contato">Contato</a>
           </div>
           <div className="footer-meta">© 2026 · feito com 🧡 e CDC</div>

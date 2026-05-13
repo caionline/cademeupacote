@@ -79,8 +79,32 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
   const maxProb     = problems[0]?.[1] ?? 1;
   const maxVal      = valueRanges[0]?.[1] ?? 1;
 
+  const notaImpacto = Math.min(4.0, stats.total / 25);
+  const ratingValue = parseFloat((5 - notaImpacto).toFixed(1));
+  const jsonLd = stats.total >= 5
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: `Reclamações ${store.name}`,
+        description: `${stats.total} reclamações registradas contra ${store.name} nos últimos 30 dias. Gere sua reclamação grátis com base no Código de Defesa do Consumidor.`,
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue,
+          bestRating: 5,
+          worstRating: 1,
+          ratingCount: stats.total,
+        },
+      }
+    : null;
+
   return (
     <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
       <nav className="site-nav">
         <div className="nav-inner">
           <Link href="/" className="logo">
