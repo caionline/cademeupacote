@@ -140,12 +140,30 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
 
         {/* Estado vazio */}
         {!hasData && (
-          <div className="ranking-empty" style={{ marginBottom: 32 }}>
-            <p style={{ color: "var(--text-muted)", lineHeight: 1.7, marginBottom: 24 }}>
-              Sem reclamações registradas ainda pra esta loja. Foi o primeiro? Use o app pra registrar.
+          <div style={{
+            maxWidth:     600,
+            margin:       "0 auto 40px",
+            background:   "var(--primary-soft)",
+            border:       "1px solid var(--primary-border)",
+            borderRadius: 20,
+            padding:      40,
+            textAlign:    "center",
+          }}>
+            <div style={{ fontSize: 60, marginBottom: 16 }}>🌟</div>
+            <h2 style={{
+              fontFamily:    "var(--font-display)",
+              fontSize:      28,
+              fontWeight:    700,
+              letterSpacing: "-0.4px",
+              marginBottom:  12,
+            }}>
+              Seja o primeiro
+            </h2>
+            <p style={{ fontSize: 16, color: "var(--text-muted)", lineHeight: 1.7, marginBottom: 28 }}>
+              Ainda não temos reclamações registradas contra {store.name}. Teve algum problema com essa loja? Sua reclamação vira o primeiro caso público — e ajuda outros consumidores a se prepararem.
             </p>
-            <Link href={`/app?store=${slug}`} className="btn btn-primary">
-              Tive problema com {store.name} →
+            <Link href={`/app?store=${slug}`} className="btn btn-primary" style={{ fontSize: 16, padding: "16px 28px" }}>
+              Gerar reclamação contra {store.name} →
             </Link>
           </div>
         )}

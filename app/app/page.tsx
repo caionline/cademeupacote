@@ -233,9 +233,9 @@ export default function AppPage() {
             </div>
           )}
 
-          <div className="logo" style={{ fontSize: 14 }}>
+          <Link href="/" className="logo" style={{ fontSize: 14, cursor: "pointer" }} title="Voltar para home">
             <div className="logo-mark" style={{ width: 28, height: 28, fontSize: 14 }}>📦</div>
-          </div>
+          </Link>
         </div>
       </header>
 

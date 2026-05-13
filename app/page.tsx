@@ -12,10 +12,10 @@ export default async function HomePage() {
     <>
       <nav className="site-nav">
         <div className="nav-inner">
-          <div className="logo">
+          <Link href="/" className="logo">
             <div className="logo-mark">📦</div>
             Cadê meu pacote?
-          </div>
+          </Link>
           <div className="nav-links">
             <a href="#como-funciona">Como funciona</a>
             <a href="#escalada">Escalada</a>
@@ -124,7 +124,7 @@ export default async function HomePage() {
               Se o SAC ignorar,<br /><em>a gente aperta.</em>
             </h2>
             <p className="section-sub">Cada passo aumenta a pressão. Comece simples, escale só se precisar.</p>
-            <Link href="/app" className="btn btn-primary">Gerar minha reclamação →</Link>
+            <Link href="/app" className="btn btn-primary">Começar agora →</Link>
           </div>
           <div className="ladder">
             <div className="rung hot">
@@ -227,7 +227,7 @@ export default async function HomePage() {
         <h2>Chega de <em>enrolação</em>.</h2>
         <p>3 minutos. Sem cadastro. Resolve hoje.</p>
         <Link href="/app" className="btn btn-primary" style={{ fontSize: 17, padding: "18px 32px" }}>
-          Abrir o app agora →
+          Começar agora →
         </Link>
       </section>
 
