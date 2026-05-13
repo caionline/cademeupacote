@@ -13,6 +13,7 @@ export default function HomePage() {
             <a href="#como-funciona">Como funciona</a>
             <a href="#escalada">Escalada</a>
             <a href="#faq">FAQ</a>
+            <Link href="/sobre">Sobre</Link>
             <a href="/ranking">Ranking</a>
             <Link href="/app" className="nav-cta">Resolver agora →</Link>
           </div>
@@ -211,6 +212,7 @@ export default function HomePage() {
         <div className="footer-inner">
           <div className="logo"><div className="logo-mark">📦</div>cademeupacote.com.br</div>
           <div className="footer-links">
+            <a href="/sobre">Sobre</a>
             <a href="/termos">Termos</a>
             <a href="/privacidade">Privacidade</a>
             <a href="/ranking">Ranking</a>
