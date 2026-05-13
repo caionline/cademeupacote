@@ -21,7 +21,9 @@ export async function generateMetadata(
   try {
     const stats = await getStatsLoja(slug, 30);
     total = stats.total;
-  } catch {}
+  } catch (err) {
+    console.error("[KV ERROR] getStatsLoja (metadata) falhou:", err instanceof Error ? err.message : err, err);
+  }
 
   return {
     title: `Reclamações ${store.name} — Estatísticas e Direitos`,
@@ -68,7 +70,7 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
   try {
     stats = await getStatsLoja(slug, 30);
   } catch (err) {
-    console.error("KV getStatsLoja error:", err);
+    console.error("[KV ERROR] getStatsLoja (page) falhou:", err instanceof Error ? err.message : err, err);
   }
 
   const hasData     = stats.total > 0;

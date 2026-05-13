@@ -20,8 +20,7 @@ export async function POST(req: Request) {
         problemId: String(problemId ?? "unknown"),
       });
     } catch (kvErr) {
-      console.error("KV capturarEmail error:", kvErr);
-      // KV not configured — still return ok so user isn't frustrated
+      console.error("[KV ERROR] capturarEmail falhou:", kvErr instanceof Error ? kvErr.message : kvErr, kvErr);
     }
 
     return NextResponse.json({ ok: true });

@@ -21,7 +21,7 @@ export default async function RankingPage() {
   try {
     ranking = await getRankingLojas(30);
   } catch (err) {
-    console.error("Ranking KV error:", err);
+    console.error("[KV ERROR] getRankingLojas falhou:", err instanceof Error ? err.message : err, err);
   }
 
   const top10      = ranking.slice(0, 10);
