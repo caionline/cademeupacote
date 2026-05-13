@@ -192,6 +192,43 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
           </>
         )}
 
+        {/* Seção educativa: como reclamar */}
+        <div className="loja-stat-card" style={{ marginTop: 40 }}>
+          <h2>Como reclamar da {store.name}</h2>
+          <p style={{ color: "var(--text-muted)", fontSize: 15, lineHeight: 1.75, marginBottom: 20 }}>
+            Antes de partir pro Reclame Aqui, tente primeiro o SAC oficial. Se não resolverem em 48h, escale pro Reclame Aqui (lojas grandes monitoram score). Se passar de 5 dias sem solução, abra no Consumidor.gov.br — empresa cadastrada tem 10 dias por lei pra responder.
+          </p>
+          <Link href={`/app?store=${slug}`} className="btn btn-primary" style={{ fontSize: 15, padding: "12px 22px" }}>
+            Gerar reclamação contra {store.name} →
+          </Link>
+        </div>
+
+        {/* Seção educativa: direitos do consumidor */}
+        <div className="loja-stat-card" style={{ marginTop: 20 }}>
+          <h2>Seus direitos como consumidor</h2>
+          <p style={{ color: "var(--text-muted)", fontSize: 15, lineHeight: 1.75, marginBottom: 16 }}>
+            Independente da loja, o Código de Defesa do Consumidor (Lei 8.078/90) te garante:
+          </p>
+          <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+            {[
+              { art: "Art. 35", texto: "a loja é obrigada a cumprir a oferta como anunciada. Atraso ou cancelamento dá direito a reembolso integral com correção." },
+              { art: "Art. 18", texto: "produto com defeito tem 30 dias pra ser consertado. Se não for, você escolhe: troca, reembolso ou abatimento do preço." },
+              { art: "Art. 49", texto: "compras online têm 7 dias de arrependimento contados do recebimento — sem motivo, sem multa." },
+              { art: "Direito básico", texto: "NÃO existe \"política da loja\" que invalide o CDC. Cláusula contratual contra a lei é nula." },
+            ].map(({ art, texto }) => (
+              <li key={art} style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.7, display: "flex", gap: 10 }}>
+                <span style={{ color: "var(--primary)", fontWeight: 700, whiteSpace: "nowrap", flexShrink: 0 }}>{art}:</span>
+                <span>{texto}</span>
+              </li>
+            ))}
+          </ul>
+          <p style={{ marginTop: 20 }}>
+            <Link href="/dicas" style={{ color: "var(--primary)", fontWeight: 600, fontSize: 15 }}>
+              Veja todas as dicas pra reclamar com força →
+            </Link>
+          </p>
+        </div>
+
         <p className="ranking-footnote">
           <Link href="/ranking" style={{ color: "var(--primary)" }}>← Ver ranking completo</Link>
         </p>
@@ -206,7 +243,7 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
             <a href="/ranking">Ranking</a>
             <a href="/contato">Contato</a>
           </div>
-          <div className="footer-meta">© 2026 · feito com 🧡 e CDC</div>
+          <div className="footer-meta">© {new Date().getFullYear()} · feito com 🧡 e CDC</div>
         </div>
       </footer>
     </>

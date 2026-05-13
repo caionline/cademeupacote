@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { getTotalCasos } from "@/lib/kv";
+import ProWaitlistBanner from "@/app/components/ProWaitlistBanner";
 
-export default function HomePage() {
+export default async function HomePage() {
+  let totalCasos = 0;
+  try {
+    totalCasos = await getTotalCasos(30);
+  } catch {}
+
   return (
     <>
       <nav className="site-nav">
@@ -14,6 +21,7 @@ export default function HomePage() {
             <a href="#escalada">Escalada</a>
             <a href="#faq">FAQ</a>
             <Link href="/sobre">Sobre</Link>
+            <Link href="/dicas">Dicas</Link>
             <a href="/ranking">Ranking</a>
             <Link href="/app" className="nav-cta">Resolver agora →</Link>
           </div>
@@ -45,6 +53,9 @@ export default function HomePage() {
             <span>✓ LGPD</span>
             <span>✓ Em 3 minutos</span>
           </div>
+          <p style={{ fontSize: 13, fontStyle: "italic", color: "var(--text-muted)", marginTop: 12 }}>
+            Site criado por quem ganhou no Juizado — sozinho, sem advogado.
+          </p>
         </div>
 
         <div className="hero-phone">
@@ -69,7 +80,14 @@ export default function HomePage() {
       <section className="stats">
         <div className="stats-inner">
           <div><div className="stat-num">3min</div><div className="stat-label">do problema à reclamação pronta</div></div>
-          <div><div className="stat-num">3</div><div className="stat-label">canais cobertos no plano grátis</div></div>
+          {totalCasos >= 100 ? (
+            <div>
+              <div className="stat-num">{totalCasos.toLocaleString("pt-BR")}</div>
+              <div className="stat-label">reclamações geradas</div>
+            </div>
+          ) : (
+            <div><div className="stat-num">3</div><div className="stat-label">canais cobertos no plano grátis</div></div>
+          )}
           <div><div className="stat-num">R$ 0</div><div className="stat-label">custo pra começar</div></div>
           <div><div className="stat-num">CDC</div><div className="stat-label">embasamento legal real</div></div>
         </div>
@@ -163,7 +181,7 @@ export default function HomePage() {
           <div className="store-chip">🛏️ Tok&amp;Stok</div>
           <div className="store-chip">🛋️ Mobly</div>
           <div className="store-chip">💄 Sephora</div>
-          <div className="store-chip">💊 Drogaria SP</div>
+          <div className="store-chip">💊 Drogaria São Paulo</div>
           <div className="store-chip">🥾 Centauro</div>
           <div className="store-chip">⚽ Netshoes</div>
           <div className="store-chip">📚 Saraiva</div>
@@ -171,9 +189,10 @@ export default function HomePage() {
           <div className="store-chip">💻 Dell</div>
           <div className="store-chip">📱 Samsung</div>
           <div className="store-chip">🍎 Apple</div>
-          <div className="store-chip">+ outras</div>
         </div>
       </section>
+
+      <ProWaitlistBanner />
 
       <section className="faq" id="faq">
         <div className="section-kicker">Perguntas frequentes</div>
@@ -183,8 +202,12 @@ export default function HomePage() {
           <p>É. Você usa tudo sem pagar nada: gerar reclamação, enviar pra SAC, Reclame Aqui e Consumidor.gov. No futuro vamos ter um plano Pro com peças prontas pro Juizado Especial — aí é opcional.</p>
         </details>
         <details>
+          <summary>Quem escreve a reclamação? É uma IA?</summary>
+          <p>É, sim. Usamos o Claude (IA da Anthropic) treinado pra escrever textos formais baseados no Código de Defesa do Consumidor. A IA monta o texto inicial com base nos seus dados e no tipo de problema. Mas a decisão de enviar é sempre sua — recomendamos sempre revisar antes de mandar pra loja, Reclame Aqui ou Consumidor.gov. A IA é o motor; você é o piloto.</p>
+        </details>
+        <details>
           <summary>Preciso de CPF?</summary>
-          <p>Não pra começar. Você pode gerar a reclamação só com seu nome. Mas adicionar CPF faz o texto ter mais peso jurídico.</p>
+          <p>Não. O CPF é opcional. Você pode gerar a reclamação completa só com seu nome — mas incluir o CPF faz o texto ter mais peso jurídico, especialmente em canais formais como Consumidor.gov e Procon.</p>
         </details>
         <details>
           <summary>Vocês guardam meus dados?</summary>
@@ -213,13 +236,14 @@ export default function HomePage() {
           <div className="logo"><div className="logo-mark">📦</div>cademeupacote.com.br</div>
           <div className="footer-links">
             <a href="/sobre">Sobre</a>
+            <a href="/dicas">Dicas</a>
             <a href="/termos">Termos</a>
             <a href="/privacidade">Privacidade</a>
             <a href="/ranking">Ranking</a>
             <a href="/lojas">Todas as lojas</a>
             <a href="/contato">Contato</a>
           </div>
-          <div className="footer-meta">© 2026 · feito com 🧡 e CDC</div>
+          <div className="footer-meta">© {new Date().getFullYear()} · feito com 🧡 e CDC</div>
         </div>
       </footer>
     </>

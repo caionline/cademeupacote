@@ -130,6 +130,22 @@ export async function getRankingLojas(diasAtras = 30): Promise<Array<{
   });
 }
 
+export async function getTotalCasos(diasAtras = 30): Promise<number> {
+  const dates = datesFor(diasAtras);
+  const p = redis.pipeline();
+  for (const date of dates) {
+    p.zrange(K.rankLoja(date), 0, -1, { withScores: true });
+  }
+  const results = (await p.exec()) as unknown[][];
+  let total = 0;
+  for (const raw of results) {
+    for (const [, score] of parsePairs(raw)) {
+      total += score;
+    }
+  }
+  return total;
+}
+
 export async function getStatsLoja(storeId: string, diasAtras = 30): Promise<{
   total: number;
   porProblema: Record<string, number>;

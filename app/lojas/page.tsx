@@ -80,7 +80,7 @@ export default function LojasPage() {
             <a href="/lojas">Todas as lojas</a>
             <a href="/contato">Contato</a>
           </div>
-          <div className="footer-meta">© 2026 · feito com 🧡 e CDC</div>
+          <div className="footer-meta">© {new Date().getFullYear()} · feito com 🧡 e CDC</div>
         </div>
       </footer>
     </>
