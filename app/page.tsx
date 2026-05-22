@@ -22,7 +22,7 @@ export default async function HomePage() {
             <a href="#faq">FAQ</a>
             <Link href="/sobre">Sobre</Link>
             <Link href="/dicas">Dicas</Link>
-            <a href="/ranking">Ranking</a>
+            {totalCasos >= 50 && <a href="/ranking">Ranking</a>}
             <Link href="/app" className="nav-cta">Resolver agora →</Link>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default async function HomePage() {
               <div className="stat-label">reclamações geradas</div>
             </div>
           ) : (
-            <div><div className="stat-num">3</div><div className="stat-label">canais cobertos no plano grátis</div></div>
+            <div><div className="stat-num">22</div><div className="stat-label">lojas suportadas</div></div>
           )}
           <div><div className="stat-num">R$ 0</div><div className="stat-label">custo pra começar</div></div>
           <div><div className="stat-num">CDC</div><div className="stat-label">embasamento legal real</div></div>
@@ -187,7 +187,7 @@ export default async function HomePage() {
           <div className="store-chip">📚 Saraiva</div>
           <div className="store-chip">🎮 Kabum</div>
           <div className="store-chip">💻 Dell</div>
-          <div className="store-chip">📱 Samsung</div>
+          <div className="store-chip">🖥️ Samsung</div>
           <div className="store-chip">🍎 Apple</div>
         </div>
       </section>
@@ -215,7 +215,7 @@ export default async function HomePage() {
         </details>
         <details>
           <summary>E se a loja não responder?</summary>
-          <p>A gente tem um plano de escalada: SAC → Reclame Aqui → Consumidor.gov → JEC. Cada passo aumenta a pressão.</p>
+          <p>A gente tem um plano de escalada de 4 passos. SAC não respondeu em 48h? Vai pro Reclame Aqui — lojas grandes monitoram o score público obsessivamente. Passou de 5 dias? Consumidor.gov.br: empresa cadastrada tem 10 dias por lei pra responder. Se nada funcionar, o Juizado Especial resolve sem advogado e sem custas até 20 salários mínimos. Cada etapa aumenta a pressão. A loja conta com você desistir. A gente não deixa.</p>
         </details>
         <details>
           <summary>Funciona pra lojas internacionais (Shein, AliExpress)?</summary>
@@ -224,8 +224,8 @@ export default async function HomePage() {
       </section>
 
       <section className="cta-band" id="resolver">
-        <h2>Chega de <em>enrolação</em>.</h2>
-        <p>3 minutos. Sem cadastro. Resolve hoje.</p>
+        <h2>Pacote sumiu? <em>Produto veio errado?</em></h2>
+        <p>Para de esperar. Gere sua reclamação em 3 minutos, com base no CDC. De graça.</p>
         <Link href="/app" className="btn btn-primary" style={{ fontSize: 17, padding: "18px 32px" }}>
           Começar agora →
         </Link>
@@ -239,7 +239,7 @@ export default async function HomePage() {
             <a href="/dicas">Dicas</a>
             <a href="/termos">Termos</a>
             <a href="/privacidade">Privacidade</a>
-            <a href="/ranking">Ranking</a>
+            {totalCasos >= 50 && <a href="/ranking">Ranking</a>}
             <a href="/lojas">Todas as lojas</a>
             <a href="/contato">Contato</a>
           </div>

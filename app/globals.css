@@ -132,6 +132,9 @@ h1.hero-title {
   font-size: 13px; color: var(--text-subtle);
   display: flex; gap: 16px; flex-wrap: wrap;
 }
+@media (max-width: 520px) {
+  .trust-line { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; }
+}
 
 /* ===== HERO PHONE PREVIEW ===== */
 .hero-phone {

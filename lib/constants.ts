@@ -43,7 +43,7 @@ export const STORES: Store[] = [
   { id: "saraiva",      name: "Saraiva",           emoji: "📚", sacUrl: "https://www.saraiva.com.br/atendimento" },
   { id: "kabum",        name: "Kabum",             emoji: "🎮", sacUrl: "https://www.kabum.com.br/atendimento-ao-cliente" },
   { id: "dell",         name: "Dell",              emoji: "💻", sacUrl: "https://www.dell.com/support/contents/pt-br/category/contact-information" },
-  { id: "samsung",      name: "Samsung",           emoji: "📱", sacUrl: "https://www.samsung.com/br/info/contactus/" },
+  { id: "samsung",      name: "Samsung",           emoji: "🖥️", sacUrl: "https://www.samsung.com/br/info/contactus/" },
   { id: "apple",        name: "Apple",             emoji: "🍎", sacUrl: "https://support.apple.com/pt-br/contact" },
   { id: "other",        name: "Outra loja",        emoji: "🏬", sacUrl: null },
 ];

@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { STORES } from "@/lib/constants";
+import { getStatsLoja } from "@/lib/kv";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -16,8 +17,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: "https://www.cademeupacote.com.br/contato",     lastModified: now, changeFrequency: "monthly", priority: 0.5 },
   ];
 
-  const lojaPages: MetadataRoute.Sitemap = STORES
-    .filter(s => s.id !== "other")
+  const activeStores = STORES.filter(s => s.id !== "other");
+
+  const totals = await Promise.all(
+    activeStores.map(s =>
+      getStatsLoja(s.id, 30).then(r => r.total).catch(() => 0)
+    )
+  );
+
+  const lojaPages: MetadataRoute.Sitemap = activeStores
+    .filter((_, i) => totals[i] > 0)
     .map(s => ({
       url: `https://www.cademeupacote.com.br/loja/${s.id}`,
       lastModified: now,

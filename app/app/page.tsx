@@ -247,6 +247,7 @@ export default function AppPage() {
         {/* STEP 1 — PROBLEMA */}
         {step === 1 && (
           <>
+            <div className="section-kicker" style={{ fontFamily: "var(--mono)", fontSize: 13, marginBottom: 12 }}>4 passos · sem cadastro · menos de 3 minutos</div>
             <h1 className="app-h1">O que <em>aconteceu?</em></h1>
             <p className="app-sub">Escolha o problema que mais bate. Você poderá detalhar nos próximos passos.</p>
             <div className="option-list">
