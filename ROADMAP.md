@@ -14,10 +14,13 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 - [x] Copiar os dados atuais do Redis (10 casos + 1 e-mail) — falta só cancelar o Upstash na Vercel
 
 ## Fase 2 — Login + "Meus casos"
-- [ ] Login sem senha (link mágico por e-mail) via Supabase Auth
-- [ ] Cada reclamação gerada vira um **caso** salvo na conta: loja, problema, datas, textos gerados
-- [ ] Tela "Meus casos" com status (aberto / resolvido)
-- [ ] Usuário sem login continua usando o grátis normalmente
+- [x] Login sem senha (link mágico por e-mail) via Supabase Auth
+- [ ] Login com Google (código pronto; falta configurar o app no Google Cloud)
+- [x] Cadastro: nome, WhatsApp, CPF opcional, aceite dos termos com data
+- [x] Cada reclamação gerada vira um **caso** salvo na conta: loja, problema, datas, textos gerados
+- [x] Tela "Meus casos" com status (aberto / resolvido)
+- [x] Usuário sem login continua usando o grátis normalmente
+- [ ] Configurar no Supabase: endereço do site + envio de e-mail pelo Resend (sem isso o link de login só chega pra e-mails da equipe)
 
 ## Fase 3 — Custo de IA no mínimo
 - [ ] Ideias de cache do Caio (a detalhar)
@@ -38,7 +41,11 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 - [ ] Assinatura mensal + compra avulsa por caso
 - [ ] Liberar o Pro automaticamente ao confirmar pagamento
 
-## Fase 6 — Lançamento
+## Fase 6 — Divulgação
+- [ ] O site nunca foi divulgado: definir canais (SEO, redes sociais, grupos, conteúdo) e começar
+- [ ] Medir visitas → reclamações geradas → contas criadas
+
+## Fase 7 — Lançamento do Pro
 - [ ] Avisar a lista de espera do Pro
 - [ ] Página de preços
 - [ ] Acompanhar conversão grátis → Pro
