@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   PROBLEMS,
@@ -13,6 +13,8 @@ import {
 } from "@/lib/constants";
 import { formatCPF, validateCPF } from "@/lib/cpf";
 import { formatBRL, parseBRL } from "@/lib/currency";
+import { supabaseBrowser } from "@/lib/supabase/client";
+import { salvarCaso, guardarPendente } from "@/lib/casos";
 
 const LOADING_MSGS = [
   "Analisando seu caso...",
@@ -50,6 +52,9 @@ export default function AppPage() {
   const [emailCaptured, setEmailCaptured] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
+  const [logado, setLogado] = useState(false);
+  const [salvo, setSalvo] = useState<"nao" | "salvando" | "sim" | "erro">("nao");
+  const router = useRouter();
 
   const selectedStore = STORES.find(s => s.id === form.store) ?? null;
 
@@ -66,6 +71,22 @@ export default function AppPage() {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) setForm({ ...initialFormState, ...JSON.parse(raw) });
     } catch {}
+  }, []);
+
+  // Logado: preenche nome/CPF com o cadastro
+  useEffect(() => {
+    const supabase = supabaseBrowser();
+    supabase.auth.getUser().then(async ({ data: { user } }) => {
+      if (!user) return;
+      setLogado(true);
+      const { data: perfil } = await supabase.from("perfis").select("nome, cpf").eq("id", user.id).single();
+      if (!perfil) return;
+      setForm(prev => ({
+        ...prev,
+        name: prev.name || perfil.nome || "",
+        cpf:  prev.cpf  || (perfil.cpf ? formatCPF(perfil.cpf) : ""),
+      }));
+    });
   }, []);
 
   // Salva rascunho enquanto preenche
@@ -125,6 +146,11 @@ export default function AppPage() {
       if (!r.ok) throw new Error(data?.error || "Erro ao gerar.");
       setResults(data);
       setStep(5);
+      setSalvo("nao");
+      if (logado) {
+        setSalvo("salvando");
+        salvarCaso(form, data).then(r => setSalvo(r ? "sim" : "erro"));
+      }
     } catch (e: any) {
       setError(e.message || "Erro inesperado.");
     } finally {
@@ -538,6 +564,38 @@ export default function AppPage() {
                 Se o canal direto não abrir, copie o texto acima e procure o atendimento da loja diretamente.
               </p>
             )}
+
+            <div className="next-step-card next-step-destaque">
+              {logado ? (
+                salvo === "sim" ? (
+                  <>
+                    <h4>✓ Salvo em Meus casos</h4>
+                    <p>Acompanhe a resposta da loja e marque como resolvido quando der certo.</p>
+                    <Link href="/meus-casos" className="btn btn-ghost">Ver meus casos →</Link>
+                  </>
+                ) : salvo === "salvando" ? (
+                  <h4>Salvando na sua conta...</h4>
+                ) : (
+                  <>
+                    <h4>💾 Não conseguimos salvar</h4>
+                    <p>Tente de novo pra guardar este caso na sua conta.</p>
+                    <button className="btn btn-ghost" onClick={() => {
+                      setSalvo("salvando");
+                      salvarCaso(form, results).then(r => setSalvo(r ? "sim" : "erro"));
+                    }}>Tentar de novo</button>
+                  </>
+                )
+              ) : (
+                <>
+                  <h4>💾 Guarde este caso</h4>
+                  <p>Crie sua conta grátis em 1 minuto: seus textos ficam salvos e você acompanha cada reclamação até resolver.</p>
+                  <button className="btn btn-primary" onClick={() => {
+                    guardarPendente(form, results);
+                    router.push("/entrar?next=/meus-casos");
+                  }}>Salvar na minha conta →</button>
+                </>
+              )}
+            </div>
 
             <div className="next-step-card">
               <h4 style={{ fontFamily: "Fraunces, serif" }}>🚀 Conhece alguém que precisa disso?</h4>

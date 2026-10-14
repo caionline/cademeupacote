@@ -23,7 +23,7 @@ export default function PrivacidadePage() {
         <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 700, letterSpacing: "-0.5px", marginBottom: 8 }}>
           Política de Privacidade
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 48 }}>Última atualização: abril de 2026.</p>
+        <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 48 }}>Última atualização: outubro de 2026.</p>
 
         <p style={{ marginBottom: 32, lineHeight: 1.7, color: "var(--text-muted)" }}>
           Sua privacidade é prioridade. Esta política explica como tratamos seus dados.
@@ -35,6 +35,15 @@ export default function PrivacidadePage() {
           <ul style={{ marginTop: 12, paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
             <li>Dados que você digita no formulário (nome, CPF opcional, detalhes da compra, problema relatado)</li>
             <li>E-mail (apenas se você optar por receber lembrete em 7 dias — totalmente opcional)</li>
+          </ul>
+          <p style={{ marginTop: 12, lineHeight: 1.7, color: "var(--text-muted)" }}>
+            Se você <strong>criar uma conta</strong> (opcional), também guardamos:
+          </p>
+          <ul style={{ marginTop: 12, paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
+            <li>E-mail de acesso e, se entrar com Google, seu nome no Google</li>
+            <li>Nome completo, WhatsApp e CPF (o CPF é opcional)</li>
+            <li>As reclamações que você salvar: loja, problema, produto, valor, número do pedido, datas e os textos gerados. O CPF não é copiado para cada reclamação.</li>
+            <li>Data e versão dos termos que você aceitou, e se quer receber novidades</li>
           </ul>
         </section>
 
@@ -54,7 +63,7 @@ export default function PrivacidadePage() {
           <ul style={{ marginTop: 8, paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
             <li>Seu nome ou CPF</li>
             <li>O texto da reclamação gerada</li>
-            <li>Seu email (o email é coletado <em>apenas</em> se você solicitar o lembrete de 7 dias)</li>
+            <li>Seu email</li>
             <li>Qualquer dado que permita identificar você individualmente</li>
           </ul>
         </section>
@@ -64,14 +73,18 @@ export default function PrivacidadePage() {
           <ul style={{ paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
             <li>Os dados do formulário são enviados à API da Anthropic (Claude) para gerar o texto da reclamação. A Anthropic não treina modelos com esses dados (configuração padrão do produto).</li>
             <li>O e-mail (se fornecido) é usado exclusivamente para enviar o lembrete acordado. Não vendemos, não compartilhamos, não usamos para spam.</li>
+            <li>Os dados da conta servem para guardar e acompanhar seus casos, assinar as reclamações, avisar você sobre prazos (por e-mail ou WhatsApp) e, no futuro, preencher formulários do Consumidor.gov e do Juizado Especial a seu pedido.</li>
+            <li>Só enviamos novidades e dicas se você marcar essa opção no cadastro.</li>
           </ul>
         </section>
 
         <section style={{ marginBottom: 32 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.2px" }}>3. ARMAZENAMENTO</h2>
           <ul style={{ paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
-            <li>Dados do formulário NÃO são armazenados em nossos servidores. Ficam apenas no seu navegador (localStorage) para você não perder o rascunho, e são apagados quando você limpa os dados do site.</li>
-            <li>E-mails capturados ficam armazenados em ferramenta de e-mail marketing.</li>
+            <li>Sem conta, os dados do formulário NÃO são armazenados em nossos servidores. Ficam apenas no seu navegador (localStorage) para você não perder o rascunho, e são apagados quando você limpa os dados do site.</li>
+            <li>Com conta, os dados ficam no Supabase (banco de dados hospedado em São Paulo), com acesso restrito: cada pessoa só consegue ver os próprios dados.</li>
+            <li>E-mails de lembrete ficam no mesmo banco e são enviados pelo Resend.</li>
+            <li>Você pode apagar qualquer caso a qualquer momento em &quot;Meus casos&quot;. Para apagar a conta inteira, escreva para o e-mail abaixo.</li>
           </ul>
         </section>
 
@@ -92,7 +105,7 @@ export default function PrivacidadePage() {
         <section style={{ marginBottom: 48 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.2px" }}>5. COOKIES</h2>
           <p style={{ lineHeight: 1.7, color: "var(--text-muted)" }}>
-            Não usamos cookies de rastreamento. Apenas armazenamento local do navegador para guardar seu rascunho.
+            Não usamos cookies de rastreamento. Usamos o armazenamento local do navegador para guardar seu rascunho e, se você entrar na sua conta, um cookie de sessão para manter o login.
           </p>
         </section>
       </main>

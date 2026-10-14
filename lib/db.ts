@@ -131,3 +131,14 @@ export async function cancelarLembrete(id: string): Promise<void> {
   const { error } = await db().from("lembretes").delete().eq("id", id);
   if (error) throw error;
 }
+
+// ---------------------------------------------------------------------------
+// Lista de espera do Plano Pro
+// ---------------------------------------------------------------------------
+
+export async function entrarWaitlistPro(email: string): Promise<void> {
+  const { error } = await db()
+    .from("waitlist_pro")
+    .upsert({ email: email.toLowerCase() }, { onConflict: "email", ignoreDuplicates: true });
+  if (error) throw error;
+}

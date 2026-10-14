@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { capturarEmail } from "@/lib/db";
+import { capturarEmail, entrarWaitlistPro } from "@/lib/db";
 
 export const runtime = "nodejs";
 
@@ -14,6 +14,10 @@ export async function POST(req: Request) {
     }
 
     try {
+      if (problemId === "pro-waitlist") {
+        await entrarWaitlistPro(String(email));
+        return NextResponse.json({ ok: true });
+      }
       await capturarEmail({
         email:     String(email),
         storeId:   String(storeId ?? "unknown"),

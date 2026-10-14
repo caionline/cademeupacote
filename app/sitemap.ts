@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { STORES } from "@/lib/constants";
 import { getStatsLoja } from "@/lib/db";
 
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 

@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { getTotalCasos } from "@/lib/db";
 import ProWaitlistBanner from "@/app/components/ProWaitlistBanner";
+import AuthNav from "@/app/components/AuthNav";
+
+export const revalidate = 300;
 
 export default async function HomePage() {
   let totalCasos = 0;
@@ -23,6 +26,7 @@ export default async function HomePage() {
             <Link href="/sobre">Sobre</Link>
             <Link href="/dicas">Dicas</Link>
             {totalCasos >= 50 && <a href="/ranking">Ranking</a>}
+            <AuthNav />
             <Link href="/app" className="nav-cta">Resolver agora →</Link>
           </div>
         </div>
