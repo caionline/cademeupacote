@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getLembretesVencidos, marcarLembreteEnviado } from "@/lib/kv";
+import { getLembretesVencidos, marcarLembreteEnviado } from "@/lib/db";
 import { enviarLembrete } from "@/lib/lembrete-email";
 
 export const runtime = "nodejs";
@@ -22,7 +22,7 @@ export async function GET(req: Request) {
   for (const l of vencidos) {
     try {
       await enviarLembrete(l);
-      await marcarLembreteEnviado(l.hash);
+      await marcarLembreteEnviado(l.id);
       enviados++;
     } catch (err) {
       // Fica na fila e tenta de novo amanhã.

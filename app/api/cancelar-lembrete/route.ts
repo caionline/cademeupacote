@@ -1,5 +1,5 @@
 import { timingSafeEqual } from "crypto";
-import { cancelarLembrete } from "@/lib/kv";
+import { cancelarLembrete } from "@/lib/db";
 import { tokenCancelamento } from "@/lib/lembrete-email";
 
 export const runtime = "nodejs";
@@ -20,7 +20,7 @@ export async function GET(req: Request) {
   const t   = url.searchParams.get("t") ?? "";
   const esperado = tokenCancelamento(id);
 
-  const valido = /^[a-f0-9]{32}$/.test(id) && t.length === esperado.length &&
+  const valido = /^[0-9a-f-]{36}$/.test(id) && t.length === esperado.length &&
     timingSafeEqual(Buffer.from(t), Buffer.from(esperado));
   if (!valido) {
     return pagina("Link inválido", "Esse link de cancelamento não é válido.", 400);

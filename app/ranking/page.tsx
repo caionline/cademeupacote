@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getRankingLojas } from "@/lib/kv";
+import { getRankingLojas } from "@/lib/db";
 import { STORES, PROBLEMS } from "@/lib/constants";
 
 export const revalidate = 300;

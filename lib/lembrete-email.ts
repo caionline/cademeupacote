@@ -1,20 +1,20 @@
 import { createHmac } from "crypto";
 import { PROBLEMS, STORES } from "@/lib/constants";
-import type { Lembrete } from "@/lib/kv";
+import type { Lembrete } from "@/lib/db";
 
 const SITE = "https://www.cademeupacote.com.br";
 const FROM = process.env.LEMBRETE_FROM || "Cadê Meu Pacote <lembrete@cademeupacote.com.br>";
 
 /** Assinatura do link de cancelamento — impede que alguém cancele o lembrete de outra pessoa. */
-export function tokenCancelamento(hash: string): string {
-  return createHmac("sha256", process.env.CRON_SECRET || "").update(hash).digest("hex").slice(0, 32);
+export function tokenCancelamento(id: string): string {
+  return createHmac("sha256", process.env.CRON_SECRET || "").update(id).digest("hex").slice(0, 32);
 }
 
 function montarEmail(l: Lembrete): { subject: string; html: string; text: string } {
   const loja     = STORES.find(s => s.id === l.storeId)?.name;
   const problema = PROBLEMS.find(p => p.id === l.problemId)?.title.toLowerCase();
   const comLoja  = loja ? ` com a ${loja}` : "";
-  const cancelar = `${SITE}/api/cancelar-lembrete?id=${l.hash}&t=${tokenCancelamento(l.hash)}`;
+  const cancelar = `${SITE}/api/cancelar-lembrete?id=${l.id}&t=${tokenCancelamento(l.id)}`;
 
   const subject = loja ? `E aí, a ${loja} resolveu?` : "E aí, a loja resolveu?";
 

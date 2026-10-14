@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { PROBLEMS, STORES, type FormState } from "@/lib/constants";
-import { registrarCaso } from "@/lib/kv";
+import { registrarCaso } from "@/lib/db";
 import { getValueRange } from "@/lib/value-ranges";
 
 export const runtime = "nodejs";

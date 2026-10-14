@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { capturarEmail } from "@/lib/kv";
+import { capturarEmail } from "@/lib/db";
 
 export const runtime = "nodejs";
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getTotalCasos } from "@/lib/kv";
+import { getTotalCasos } from "@/lib/db";
 import ProWaitlistBanner from "@/app/components/ProWaitlistBanner";
 
 export default async function HomePage() {
