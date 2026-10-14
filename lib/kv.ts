@@ -15,7 +15,10 @@ const K = {
   rankProb: (storeId: string, date: string)         => `rank:prob:${storeId}:${date}`,
   rankVal:  (storeId: string, date: string)         => `rank:val:${storeId}:${date}`,
   email:    (hash: string)                          => `email:${hash}`,
+  lembretes: "lembretes",
 };
+
+const SETE_DIAS_MS = 7 * 24 * 60 * 60 * 1000;
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -73,16 +76,66 @@ export async function capturarEmail(data: {
   problemId: string;
 }): Promise<void> {
   const hash = createHash("md5").update(data.email.toLowerCase()).digest("hex");
-  await redis.set(
+  const ts   = Date.now();
+  // Sobrescreve: se a pessoa fizer outra reclamação, o lembrete passa a ser sobre a mais recente.
+  const p = redis.pipeline();
+  p.set(
     K.email(hash),
     JSON.stringify({
       email:     data.email,
       storeId:   data.storeId,
       problemId: data.problemId,
-      ts:        Date.now(),
+      ts,
     }),
-    { nx: true },
   );
+  p.zadd(K.lembretes, { score: ts + SETE_DIAS_MS, member: hash });
+  await p.exec();
+}
+
+export type Lembrete = {
+  hash: string;
+  email: string;
+  storeId: string;
+  problemId: string;
+  ts: number;
+};
+
+/** Lembretes cujo prazo de 7 dias já venceu. */
+export async function getLembretesVencidos(limite = 100): Promise<Lembrete[]> {
+  const hashes = (await redis.zrange(K.lembretes, 0, Date.now(), {
+    byScore: true,
+    offset:  0,
+    count:   limite,
+  })) as string[];
+  if (hashes.length === 0) return [];
+
+  const p = redis.pipeline();
+  for (const h of hashes) p.get(K.email(h));
+  const dados = (await p.exec()) as unknown[];
+
+  const out: Lembrete[] = [];
+  hashes.forEach((hash, i) => {
+    const raw = dados[i];
+    const d = typeof raw === "string" ? JSON.parse(raw) : raw;
+    if (d && typeof d === "object" && "email" in d) {
+      out.push({ hash, ...(d as Omit<Lembrete, "hash">) });
+    } else {
+      // Dado sumiu: tira da fila pra não ficar tentando pra sempre.
+      void redis.zrem(K.lembretes, hash);
+    }
+  });
+  return out;
+}
+
+export async function marcarLembreteEnviado(hash: string): Promise<void> {
+  await redis.zrem(K.lembretes, hash);
+}
+
+export async function cancelarLembrete(hash: string): Promise<void> {
+  const p = redis.pipeline();
+  p.zrem(K.lembretes, hash);
+  p.del(K.email(hash));
+  await p.exec();
 }
 
 export async function getRankingLojas(diasAtras = 30): Promise<Array<{
