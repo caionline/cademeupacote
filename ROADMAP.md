@@ -1,0 +1,49 @@
+# Roadmap — Cadê Meu Pacote vira SaaS
+
+Objetivo: receita mensal recorrente com o **Plano Pro (acompanhamento de caso)**, sem perder o plano grátis que traz tráfego.
+
+Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14/10/2026.
+
+---
+
+## Fase 1 — Fundação: trocar Upstash Redis por Supabase
+- [ ] Criar o projeto no Supabase (Caio cria/autoriza) e colocar as chaves na Vercel
+- [ ] Tabelas: `casos` (estatística anônima), `lembretes`
+- [ ] Trocar `lib/kv.ts` por `lib/db.ts` com **as mesmas funções** (o resto do site não muda)
+- [ ] Ranking, página da loja e contador da home lendo do Supabase
+- [ ] Copiar os dados atuais do Redis (ranking + e-mails) e desligar o Upstash
+
+## Fase 2 — Login + "Meus casos"
+- [ ] Login sem senha (link mágico por e-mail) via Supabase Auth
+- [ ] Cada reclamação gerada vira um **caso** salvo na conta: loja, problema, datas, textos gerados
+- [ ] Tela "Meus casos" com status (aberto / resolvido)
+- [ ] Usuário sem login continua usando o grátis normalmente
+
+## Fase 3 — Custo de IA no mínimo
+- [ ] Ideias de cache do Caio (a detalhar)
+- [ ] Prompt caching da Anthropic: a parte fixa do prompt (regras do CDC, instruções) fica em cache e sai bem mais barata
+- [ ] Limite por pessoa/dia no grátis (protege a conta da Anthropic contra abuso)
+- [ ] Atualizar o modelo (`claude-sonnet-4-5` está defasado) e avaliar modelo menor onde a qualidade aguentar
+- [ ] Medir custo real por reclamação antes e depois
+
+## Fase 4 — Plano Pro: acompanhamento do caso
+- [ ] Linha do tempo do caso com os prazos legais (ex.: 30 dias pra loja consertar defeito, 7 dias de arrependimento, prazo de resposta no Consumidor.gov)
+- [ ] Lembretes automáticos em cada prazo ("a loja não respondeu — hora de subir o tom")
+- [ ] Gerar o texto do próximo canal já com o histórico do caso
+- [ ] Petição pronta para o Juizado Especial Cível
+- [ ] Definir preço (por caso avulso e/ou mensal)
+
+## Fase 5 — Pagamento
+- [ ] Comparar taxas atuais de Pix e cartão (Mercado Pago, Asaas, Stripe, Pagar.me, AbacatePay…) e escolher a menor
+- [ ] Assinatura mensal + compra avulsa por caso
+- [ ] Liberar o Pro automaticamente ao confirmar pagamento
+
+## Fase 6 — Lançamento
+- [ ] Avisar a lista de espera do Pro
+- [ ] Página de preços
+- [ ] Acompanhar conversão grátis → Pro
+
+---
+
+## Já feito
+- Lembrete de 7 dias por e-mail (código no ar; falta configurar o Resend — vai migrar pro Supabase na Fase 1)
