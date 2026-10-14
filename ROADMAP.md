@@ -7,11 +7,11 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 ---
 
 ## Fase 1 — Fundação: trocar Upstash Redis por Supabase
-- [ ] Criar o projeto no Supabase (Caio cria/autoriza) e colocar as chaves na Vercel
-- [ ] Tabelas: `casos` (estatística anônima), `lembretes`
-- [ ] Trocar `lib/kv.ts` por `lib/db.ts` com **as mesmas funções** (o resto do site não muda)
-- [ ] Ranking, página da loja e contador da home lendo do Supabase
-- [ ] Copiar os dados atuais do Redis (ranking + e-mails) e desligar o Upstash
+- [x] Criar o projeto no Supabase e colocar as chaves na Vercel
+- [x] Tabelas: `casos` (estatística anônima), `lembretes`
+- [x] Trocar `lib/kv.ts` por `lib/db.ts` com **as mesmas funções** (o resto do site não muda)
+- [x] Ranking, página da loja e contador da home lendo do Supabase
+- [x] Copiar os dados atuais do Redis (10 casos + 1 e-mail) — falta só cancelar o Upstash na Vercel
 
 ## Fase 2 — Login + "Meus casos"
 - [ ] Login sem senha (link mágico por e-mail) via Supabase Auth
