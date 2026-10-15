@@ -5,6 +5,8 @@ import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
 import { GUIAS, getGuia } from "@/lib/guias";
 import { STORES } from "@/lib/constants";
+import { seo } from "@/lib/seo";
+import { MODELOS } from "@/lib/modelos";
 
 const SITE = "https://www.cademeupacote.com.br";
 
@@ -16,12 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const g = getGuia(slug);
   if (!g) return {};
-  return {
-    title: g.tituloSeo,
-    description: g.descricao,
-    alternates: { canonical: `${SITE}/guias/${g.slug}` },
-    openGraph: { title: g.titulo, description: g.descricao, url: `${SITE}/guias/${g.slug}`, type: "article" },
-  };
+  return seo({ titulo: g.tituloSeo, descricao: g.descricao, caminho: `/guias/${g.slug}`, tipo: "article" });
 }
 
 function linkApp(cta: { problema?: string; loja?: string }) {
@@ -36,6 +33,9 @@ export default async function GuiaPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const g = getGuia(slug);
   if (!g) notFound();
+
+  const diretos = MODELOS.filter(m => m.guia === g.slug);
+  const modelos = diretos.length > 0 ? diretos : MODELOS.filter(m => g.cta.problema && m.problema === g.cta.problema).slice(0, 2);
 
   const loja = g.lojaRelacionada ? STORES.find(s => s.id === g.lojaRelacionada) : null;
   const outros = GUIAS.filter(x => x.slug !== g.slug).slice(0, 4);
@@ -110,6 +110,15 @@ export default async function GuiaPage({ params }: { params: Promise<{ slug: str
           <Link href={linkApp(g.cta)} className="btn btn-primary">{g.cta.texto} →</Link>
           {loja && <p className="guia-cta-loja"><Link href={`/loja/${loja.id}`}>Ver reclamações e direitos sobre a {loja.name}</Link></p>}
         </div>
+
+        {modelos.length > 0 && (
+          <section className="guia-secao">
+            <h2>Modelo pronto pra copiar</h2>
+            <ul className="guia-outros">
+              {modelos.map(m => <li key={m.slug}><Link href={`/modelos/${m.slug}`}>{m.titulo}</Link></li>)}
+            </ul>
+          </section>
+        )}
 
         <p className="guia-aviso">
           Conteúdo informativo, com base no Código de Defesa do Consumidor (Lei 8.078/90). Não é assessoria jurídica:

@@ -3,12 +3,13 @@ import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
 import type { Metadata } from "next";
 import { GUIAS } from "@/lib/guias";
+import { seo } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Como reclamar e dar certo — 8 dicas práticas | Cadê Meu Pacote",
-  description:
-    "Dicas práticas pra reclamar de compra online: protocolo, CDC, prazos, escalada. Aumente suas chances de resolver rápido.",
-};
+export const metadata = seo({
+  titulo: "Como reclamar de uma loja e dar certo: 8 dicas práticas | Cadê Meu Pacote",
+  descricao: "Protocolo, prazo por escrito, artigo certo do CDC, Reclame Aqui, Consumidor.gov, Procon e Juizado: 8 dicas pra resolver sua reclamação mais rápido.",
+  caminho: "/dicas",
+});
 
 const dicas = [
   {

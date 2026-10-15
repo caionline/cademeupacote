@@ -3,12 +3,13 @@ import type { Metadata } from "next";
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
 import { GUIAS } from "@/lib/guias";
+import { seo } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Guias: como reclamar de compra online e conhecer seus direitos | Cadê Meu Pacote",
-  description: "Passo a passo para reclamar de Shopee, Mercado Livre, Shein, Amazon e outras lojas: atraso, defeito, estorno, pedido cancelado e Juizado Especial.",
-  alternates: { canonical: "https://www.cademeupacote.com.br/guias" },
-};
+export const metadata = seo({
+  titulo: "Guias: como reclamar de compra online e conhecer seus direitos | Cadê Meu Pacote",
+  descricao: "Passo a passo para reclamar de Shopee, Mercado Livre, Shein, Amazon e outras lojas: atraso, defeito, estorno, pedido cancelado, Procon e Juizado Especial.",
+  caminho: "/guias",
+});
 
 export default function GuiasPage() {
   return (

@@ -443,6 +443,233 @@ export const GUIAS: Guia[] = [
     cta: { texto: "Começar pela reclamação com a loja" },
     atualizado: "2026-10-15",
   },
+  {
+    slug: "correios-objeto-nao-entregue",
+    titulo: "Correios: objeto não entregue, extraviado ou parado no rastreio",
+    tituloSeo: "Correios: objeto não entregue ou extraviado, o que fazer | Cadê Meu Pacote",
+    descricao: "Compra online parada nos Correios, extraviada ou 'não entregue'? Saiba quem é responsável (a loja), como reclamar e o que exigir pelo CDC.",
+    resumo: "Se você comprou de uma loja e ela enviou pelos Correios, quem responde pela entrega é a loja, não você. Reclame com a loja pedindo a entrega ou o reembolso (CDC, art. 35). A reclamação nos Correios ajuda a localizar o objeto, mas quem tem que resolver a compra é a loja.",
+    secoes: [
+      {
+        titulo: "Quem é responsável?",
+        paragrafos: [
+          "Quando a loja escolhe os Correios (ou qualquer transportadora) para entregar, ela continua responsável pela entrega. O problema no transporte não tira da loja a obrigação de cumprir a oferta (CDC, arts. 30 e 35).",
+          "Se foi você quem postou ou contratou o envio diretamente nos Correios (por exemplo, uma venda entre pessoas), aí a reclamação é com os próprios Correios, pelos canais deles.",
+        ],
+      },
+      {
+        titulo: "O que fazer, passo a passo",
+        lista: [
+          "Guarde o print do rastreio com o último status e a data.",
+          "Reclame com a loja pedindo a entrega com nova data ou o reembolso integral. Anote o protocolo.",
+          "Se quiser, abra também uma manifestação nos Correios pelo código de rastreio: ajuda a localizar o objeto.",
+          "Sem solução da loja: Reclame Aqui e, depois, Consumidor.gov.br ou Procon.",
+        ],
+      },
+      {
+        titulo: "Status comuns e o que significam na prática",
+        lista: [
+          "\"Objeto não entregue - endereço incorreto\" ou \"destinatário ausente\": confira o endereço do pedido. Se estava certo, a loja deve providenciar a reentrega.",
+          "\"Objeto em trânsito\" parado há muitos dias: se o prazo prometido já passou, você já pode cobrar a loja.",
+          "\"Objeto extraviado\" ou \"roubado\": peça direto o reenvio ou o reembolso à loja.",
+        ],
+      },
+    ],
+    faq: [
+      { p: "Preciso reclamar nos Correios antes de cobrar a loja?", r: "Não. Você pode cobrar a loja direto. A manifestação nos Correios é opcional e ajuda a localizar o objeto." },
+      { p: "A loja pode dizer que o problema é dos Correios?", r: "Pode tentar, mas a responsabilidade pela entrega da compra é da loja, inclusive pela transportadora que ela escolheu." },
+      { p: "E se a compra foi internacional?", r: "Atrasos na fiscalização acontecem, mas o prazo informado pela loja continua valendo. Passado o prazo, você pode pedir o cancelamento com reembolso." },
+    ],
+    cta: { problema: "late", texto: "Gerar minha reclamação contra a loja" },
+    atualizado: "2026-10-16",
+  },
+  {
+    slug: "como-reclamar-no-reclame-aqui",
+    titulo: "Como reclamar no Reclame Aqui e aumentar a chance de resolver",
+    tituloSeo: "Como reclamar no Reclame Aqui (e ser respondido) | Cadê Meu Pacote",
+    descricao: "Passo a passo para fazer uma reclamação no Reclame Aqui que a loja responde: o que escrever, o que pedir, o que evitar e o que fazer se não resolver.",
+    resumo: "Crie a conta no reclameaqui.com.br, busque a empresa, descreva os fatos em ordem com datas e diga exatamente o que você quer (entrega, troca ou reembolso). Reclamações objetivas, sem ofensas e com o pedido claro costumam ser respondidas mais rápido. O Reclame Aqui não é órgão oficial: se não resolver, o próximo passo é o Consumidor.gov.br ou o Procon.",
+    secoes: [
+      {
+        titulo: "Passo a passo",
+        lista: [
+          "Entre em reclameaqui.com.br e crie sua conta.",
+          "Busque o nome da empresa e clique para reclamar.",
+          "Título curto e direto (ex.: \"Pedido cancelado e estorno não devolvido\").",
+          "No texto: fatos em ordem cronológica, número do pedido, datas, protocolos e o seu pedido final.",
+          "Acompanhe a resposta. Depois, você pode avaliar se o problema foi resolvido.",
+        ],
+      },
+      {
+        titulo: "O que faz a diferença",
+        lista: [
+          "Pedido claro: diga o que resolve o seu problema.",
+          "Tom firme e educado. Ofensas tiram a força da reclamação.",
+          "Cite o artigo do CDC aplicável (ex.: art. 35 para atraso ou cancelamento, art. 18 para defeito).",
+          "Não publique dados sensíveis (CPF, endereço completo) no texto público.",
+        ],
+      },
+      {
+        titulo: "E se não resolver?",
+        paragrafos: [
+          "O Reclame Aqui é uma plataforma privada: funciona pela pressão da reputação, não obriga a empresa. Se a empresa não resolver, use os canais oficiais: Consumidor.gov.br (a empresa tem 10 dias para responder) ou o Procon do seu estado. O último degrau é o Juizado Especial Cível.",
+        ],
+      },
+    ],
+    faq: [
+      { p: "Reclamar no Reclame Aqui é de graça?", r: "Sim, para o consumidor é gratuito." },
+      { p: "A empresa é obrigada a responder?", r: "Não por lei. Mas muitas empresas respondem por causa da nota pública de reputação." },
+      { p: "Posso reclamar no Reclame Aqui e no Consumidor.gov ao mesmo tempo?", r: "Pode, mas o mais comum é tentar o Reclame Aqui primeiro e, sem solução, subir para o canal oficial." },
+    ],
+    cta: { texto: "Gerar meu texto pro Reclame Aqui" },
+    atualizado: "2026-10-16",
+  },
+  {
+    slug: "contestacao-no-cartao-chargeback",
+    titulo: "Contestação no cartão de crédito (chargeback): quando e como pedir",
+    tituloSeo: "Contestação no cartão (chargeback): quando e como pedir | Cadê Meu Pacote",
+    descricao: "Comprou e não recebeu, ou o estorno não caiu? Veja quando vale pedir a contestação da compra ao banco do cartão, como fazer e quais provas juntar.",
+    resumo: "A contestação (chargeback) é um pedido ao banco emissor do cartão para desfazer uma compra que não foi entregue, foi cancelada sem estorno ou foi cobrada indevidamente. É um procedimento do banco, com prazos e regras próprios de cada emissor, por isso peça o quanto antes e junte provas. Em geral, vale tentar resolver com a loja primeiro.",
+    secoes: [
+      {
+        titulo: "Quando faz sentido",
+        lista: [
+          "O produto não foi entregue e a loja não resolve.",
+          "A compra foi cancelada e o estorno não apareceu na fatura.",
+          "Você foi cobrado em duplicidade ou por algo que não comprou.",
+        ],
+      },
+      {
+        titulo: "Como pedir",
+        lista: [
+          "Entre em contato com o banco do cartão (app, site ou central) e peça a contestação da compra.",
+          "Explique o motivo e informe data, valor e nome da loja como aparece na fatura.",
+          "Envie as provas: pedido, prints da conversa com a loja, protocolos e o comprovante de cancelamento, se houver.",
+          "Guarde o número do protocolo do banco e acompanhe a resposta.",
+        ],
+      },
+      {
+        titulo: "Cuidados",
+        paragrafos: [
+          "Cada banco tem seu próprio prazo para aceitar contestações: não deixe passar muito tempo. Se a loja ainda estiver resolvendo, avise o banco. E se o problema for resolvido pela loja depois, informe o banco para não haver devolução em dobro.",
+        ],
+      },
+    ],
+    faq: [
+      { p: "Preciso reclamar com a loja antes?", r: "Não é obrigatório em todos os bancos, mas ter tentado resolver (com protocolos) fortalece o seu pedido." },
+      { p: "Funciona para Pix?", r: "Não. Pix não tem chargeback. Para Pix, reclame com a loja e use os canais oficiais; em caso de golpe, existe o Mecanismo Especial de Devolução, acionado pelo seu banco." },
+      { p: "O banco pode negar?", r: "Pode, se entender que faltam provas ou que o prazo passou. Por isso, junte tudo o que tiver." },
+    ],
+    cta: { problema: "refund", texto: "Gerar minha reclamação pro estorno" },
+    atualizado: "2026-10-16",
+  },
+  {
+    slug: "prazo-de-entrega-o-que-diz-a-lei",
+    titulo: "Prazo de entrega: o que diz a lei e o que fazer quando a loja atrasa",
+    tituloSeo: "Prazo de entrega de compra online: o que diz a lei | Cadê Meu Pacote",
+    descricao: "Existe prazo máximo de entrega por lei? Entenda o que o CDC diz sobre o prazo prometido, quando a loja não informa prazo e o que fazer quando atrasa.",
+    resumo: "O CDC não fixa um prazo máximo de entrega, mas o prazo que a loja informa faz parte da oferta e é obrigatório (art. 30). Deixar de informar prazo para cumprir a obrigação é prática abusiva (art. 39, XII). Se a loja atrasar, você pode exigir a entrega, aceitar um produto equivalente ou cancelar com devolução do valor (art. 35).",
+    secoes: [
+      {
+        titulo: "O que a lei diz",
+        lista: [
+          "O prazo prometido no anúncio ou no pedido vincula a loja (CDC, art. 30).",
+          "A loja deve informar de forma clara as condições da compra, incluindo a entrega (Decreto 7.962/2013, sobre comércio eletrônico).",
+          "Não estipular prazo para cumprir a obrigação é prática abusiva (CDC, art. 39, XII).",
+          "Alguns estados têm leis próprias de entrega. Em São Paulo, por exemplo, a lei estadual exige que a loja ofereça data e turno para a entrega.",
+        ],
+      },
+      {
+        titulo: "A loja atrasou: o que fazer",
+        lista: [
+          "Tire print do prazo prometido.",
+          "Reclame com a loja e escolha: entrega com nova data, produto equivalente ou cancelamento com reembolso (art. 35).",
+          "Sem solução: Reclame Aqui, depois Consumidor.gov.br ou Procon.",
+        ],
+      },
+    ],
+    faq: [
+      { p: "Existe um prazo máximo de entrega por lei?", r: "Não há um número fixo no CDC. Vale o prazo que a loja informou, e ela é obrigada a informar um." },
+      { p: "Posso cancelar se atrasar só um dia?", r: "O descumprimento do prazo já permite usar o art. 35. Na prática, muitas pessoas aceitam uma nova data curta; a escolha é sua." },
+      { p: "E se a loja não informou prazo nenhum?", r: "Isso é prática abusiva (art. 39, XII). Peça por escrito uma data de entrega e, sem resposta, use os canais oficiais." },
+    ],
+    cta: { problema: "late", texto: "Gerar minha reclamação por atraso" },
+    atualizado: "2026-10-16",
+  },
+  {
+    slug: "produto-errado-o-que-fazer",
+    titulo: "Recebi o produto errado: troca, dinheiro de volta e quem paga o frete",
+    tituloSeo: "Recebi o produto errado: o que fazer (troca ou reembolso) | Cadê Meu Pacote",
+    descricao: "Chegou outro modelo, cor, tamanho ou quantidade? Veja seus direitos pelo CDC, quem paga a devolução e como pedir a troca ou o reembolso.",
+    resumo: "Produto diferente do anunciado é descumprimento da oferta (CDC, art. 30). Você pode exigir o produto correto, aceitar um equivalente ou receber o dinheiro de volta (art. 35), e a loja deve arcar com a coleta ou o frete da devolução.",
+    secoes: [
+      {
+        titulo: "O que fazer",
+        lista: [
+          "Fotografe o produto recebido, a etiqueta e a embalagem, ao lado do anúncio.",
+          "Reclame com a loja pedindo o produto correto ou o reembolso, com coleta do item errado por conta dela.",
+          "Guarde a embalagem até resolver.",
+          "Sem solução: Reclame Aqui, depois Consumidor.gov.br ou Procon.",
+        ],
+      },
+      {
+        titulo: "Seus direitos",
+        lista: [
+          "Oferta não cumprida: arts. 30 e 35 do CDC.",
+          "Produto em desacordo com o anunciado também é vício de qualidade (art. 18).",
+          "Os custos da troca ou da devolução são da loja, porque o erro foi dela.",
+        ],
+      },
+    ],
+    faq: [
+      { p: "Tenho prazo para reclamar?", r: "Reclame o quanto antes. Para problemas aparentes, o CDC prevê 30 dias (não duráveis) ou 90 dias (duráveis) a partir do recebimento." },
+      { p: "A loja pode me dar só um cupom?", r: "Só se você aceitar. Você tem direito ao produto certo ou ao dinheiro de volta." },
+      { p: "E se eu já usei o produto errado?", r: "Se o uso foi apenas para conferir, isso não tira seu direito. Explique na reclamação." },
+    ],
+    cta: { problema: "wrong", texto: "Gerar minha reclamação por produto errado" },
+    atualizado: "2026-10-16",
+  },
+  {
+    slug: "como-reclamar-da-magalu",
+    titulo: "Como reclamar da Magalu: pedido atrasado, cancelado ou com defeito",
+    tituloSeo: "Como reclamar da Magalu (passo a passo com o CDC) | Cadê Meu Pacote",
+    descricao: "Problema com compra na Magalu (Magazine Luiza)? Veja como falar com o atendimento, o que exigir pelo CDC e como escalar para Reclame Aqui, Consumidor.gov e Procon.",
+    resumo: "Comece pelo atendimento oficial da Magalu, no app ou no site, com o número do pedido, e guarde o protocolo. Se a compra foi de um vendedor parceiro do marketplace, a Magalu também faz parte da cadeia de venda e pode ser cobrada (CDC, art. 7º, parágrafo único). Sem solução, escale para o Reclame Aqui, o Consumidor.gov.br ou o Procon.",
+    secoes: [
+      {
+        titulo: "1. Atendimento oficial",
+        lista: [
+          "No app ou no site, abra o pedido e use a opção de ajuda ou atendimento.",
+          "Explique o problema com datas e anexe prints.",
+          "Anote o protocolo de cada contato.",
+        ],
+      },
+      {
+        titulo: "2. O que exigir",
+        lista: [
+          "Atraso ou cancelamento: entrega, produto equivalente ou reembolso integral (CDC, art. 35).",
+          "Defeito: conserto em até 30 dias e, depois, troca, devolução ou abatimento (art. 18).",
+          "Arrependimento em até 7 dias do recebimento: devolução de tudo o que foi pago (art. 49).",
+        ],
+      },
+      {
+        titulo: "3. Se não resolver",
+        lista: [
+          "Reclame Aqui: reclamação pública.",
+          "Consumidor.gov.br ou Procon: canais oficiais e gratuitos.",
+          "Juizado Especial Cível: sem custas na 1ª instância e, até 20 salários mínimos, sem advogado.",
+        ],
+      },
+    ],
+    faq: [
+      { p: "Comprei de um vendedor parceiro. A Magalu responde?", r: "O CDC prevê responsabilidade de todos na cadeia de fornecimento. Na prática, inclua a Magalu na reclamação." },
+      { p: "Quanto tempo a Magalu tem para responder no Consumidor.gov?", r: "Pelas regras da plataforma, a empresa tem até 10 dias para responder." },
+      { p: "Posso ir direto ao Procon?", r: "Pode. Mas ter tentado o atendimento antes, com protocolo, fortalece o seu caso." },
+    ],
+    cta: { loja: "magalu", texto: "Gerar minha reclamação contra a Magalu" },
+    lojaRelacionada: "magalu",
+    atualizado: "2026-10-16",
+  },
 ];
 
 export function getGuia(slug: string): Guia | undefined {

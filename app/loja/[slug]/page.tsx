@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { STORES, PROBLEMS } from "@/lib/constants";
 import { getStatsLoja } from "@/lib/db";
+import { MODELOS } from "@/lib/modelos";
+import { jsonLd as ld, seo, SITE } from "@/lib/seo";
 
 export const revalidate = 300;
 
@@ -28,12 +30,14 @@ export async function generateMetadata(
     console.error("[KV ERROR] getStatsLoja (metadata) falhou:", err instanceof Error ? err.message : err, err);
   }
 
-  return {
-    title: `Reclamações ${store.name} — Estatísticas e Direitos`,
-    description: total > 0
-      ? `${total} reclamações registradas. Veja os problemas mais comuns e gere sua reclamação grátis com base no CDC.`
-      : `Veja estatísticas de reclamações da ${store.name} e gere sua reclamação grátis com base no Código de Defesa do Consumidor.`,
-  };
+  return seo({
+    titulo: `${store.name}: SAC, reclamações e seus direitos | Cadê Meu Pacote`,
+    descricao: total > 0
+      ? `${total} reclamações contra a ${store.name} no último mês. Veja como falar com o SAC, os problemas mais comuns e gere sua reclamação grátis com base no CDC.`
+      : `Como falar com o SAC da ${store.name}, o que o Código de Defesa do Consumidor garante e como reclamar quando a loja não resolve. Reclamação grátis em 3 minutos.`,
+    caminho: `/loja/${store.id}`,
+    noindex: store.encerrada,
+  });
 }
 
 const VALUE_RANGE_LABELS: Record<string, string> = {
@@ -60,6 +64,21 @@ function BarRow({ label, value, max }: { label: string; value: number; max: numb
   );
 }
 
+/** Lojas que também vendem produtos de vendedores parceiros (marketplace). */
+const MARKETPLACES = new Set(["shopee", "amazon", "magalu", "mercadolivre", "aliexpress", "americanas", "casasbahia", "shein", "netshoes", "centauro", "kabum"]);
+
+function faqLoja(nome: string, marketplace: boolean) {
+  const faq = [
+    { p: `Como falar com o SAC da ${nome}?`, r: `Use o atendimento oficial da ${nome} (site ou app), sempre com o número do pedido em mãos, e anote o protocolo de cada contato. Ele é a sua prova se precisar escalar.` },
+    { p: `A ${nome} atrasou meu pedido. O que posso exigir?`, r: "Pelo art. 35 do CDC, você escolhe: a entrega, um produto equivalente ou o cancelamento com devolução integral do valor pago." },
+    { p: `Quanto tempo a ${nome} tem para resolver um produto com defeito?`, r: "Até 30 dias para consertar (art. 18 do CDC). Passado esse prazo, você escolhe entre troca, dinheiro de volta ou abatimento do preço." },
+    { p: `Posso devolver uma compra online da ${nome} por arrependimento?`, r: "Sim. Compras fora da loja física têm 7 dias de arrependimento a partir do recebimento, sem precisar de motivo, com devolução de tudo o que foi pago (art. 49)." },
+    { p: `A ${nome} não resolveu. Para onde eu vou?`, r: "Reclame Aqui (reclamação pública), depois Consumidor.gov.br ou Procon (oficiais e grátis). O último degrau é o Juizado Especial Cível: sem custas na 1ª instância e, até 20 salários mínimos, sem advogado." },
+  ];
+  if (marketplace) faq.splice(1, 0, { p: `Comprei de um vendedor parceiro na ${nome}. Ela responde?`, r: `O CDC prevê responsabilidade de todos na cadeia de fornecimento (art. 7º, parágrafo único). Na prática, inclua a ${nome} na reclamação, não só o vendedor.` });
+  return faq;
+}
+
 export default async function LojaPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const store = STORES.find(s => s.id === slug);
@@ -82,34 +101,30 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
   const maxProb     = problems[0]?.[1] ?? 1;
   const maxVal      = valueRanges[0]?.[1] ?? 1;
 
-  const notaImpacto = Math.min(4.0, stats.total / 25);
-  const ratingValue = parseFloat((5 - notaImpacto).toFixed(1));
-  const jsonLd = stats.total >= 5
-    ? {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        name: `Reclamações ${store.name}`,
-        description: `${stats.total} reclamações registradas contra ${store.name} nos últimos 30 dias. Gere sua reclamação grátis com base no Código de Defesa do Consumidor.`,
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue,
-          bestRating: 5,
-          worstRating: 1,
-          ratingCount: stats.total,
-        },
-      }
-    : null;
+  const marketplace = MARKETPLACES.has(store.id);
+  const faq = faqLoja(store.name, marketplace);
+  const dadosEstruturados = [
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map(f => ({ "@type": "Question", name: f.p, acceptedAnswer: { "@type": "Answer", text: f.r } })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Início", item: SITE },
+        { "@type": "ListItem", position: 2, name: "Lojas", item: `${SITE}/lojas` },
+        { "@type": "ListItem", position: 3, name: store.name, item: `${SITE}/loja/${store.id}` },
+      ],
+    },
+  ];
 
   const guia = GUIAS.find(g => g.lojaRelacionada === slug);
 
   return (
     <>
-      {jsonLd && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      )}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(dadosEstruturados) }} />
       <SiteNav ativo="lojas" />
 
       <main className="ranking-page">
@@ -206,6 +221,15 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
         {/* Seção educativa: como reclamar */}
         <div className="loja-stat-card" style={{ marginTop: 40 }}>
           <h2>Como reclamar da {store.name}</h2>
+          {store.sacUrl && !store.encerrada && (
+            <p style={{ color: "var(--text-muted)", fontSize: 15, lineHeight: 1.75, marginBottom: 12 }}>
+              <strong style={{ color: "var(--text)" }}>Atendimento oficial:</strong>{" "}
+              <a href={store.sacUrl} target="_blank" rel="noopener noreferrer nofollow" style={{ color: "var(--primary)", fontWeight: 600 }}>
+                central de atendimento da {store.name} ↗
+              </a>
+              {marketplace && <> Se a compra foi de um vendedor parceiro, abra a reclamação pelo pedido e mantenha a {store.name} na conversa.</>}
+            </p>
+          )}
           <p style={{ color: "var(--text-muted)", fontSize: 15, lineHeight: 1.75, marginBottom: 20 }}>
             Comece pelo SAC oficial e anote o protocolo. Sem solução em 2 a 3 dias, publique no Reclame Aqui (lojas grandes cuidam da nota pública). Se ainda não resolver, use um canal oficial: no Consumidor.gov.br a empresa cadastrada tem 10 dias pra responder, e o Procon do seu estado pode notificar a loja e chamar pra conciliação. O último degrau é o Juizado Especial Cível: sem custas na 1ª instância e, até 20 salários mínimos, sem advogado.
           </p>
@@ -244,6 +268,27 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
               </Link>
             )}
           </p>
+        </div>
+
+        <div className="loja-stat-card" style={{ marginTop: 20 }}>
+          <h2>Modelos de reclamação pra usar com a {store.name}</h2>
+          <ul style={{ paddingLeft: 18, display: "flex", flexDirection: "column", gap: 8 }}>
+            {MODELOS.map(m => (
+              <li key={m.slug} style={{ fontSize: 15 }}>
+                <Link href={`/modelos/${m.slug}`} style={{ color: "var(--primary)", fontWeight: 600 }}>{m.titulo}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="loja-stat-card" style={{ marginTop: 20 }}>
+          <h2>Perguntas frequentes sobre a {store.name}</h2>
+          {faq.map(f => (
+            <details key={f.p} className="guia-faq">
+              <summary>{f.p}</summary>
+              <p>{f.r}</p>
+            </details>
+          ))}
         </div>
 
         <p className="ranking-footnote">

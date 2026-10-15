@@ -3,12 +3,13 @@ import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
 import type { Metadata } from "next";
 import { STORES } from "@/lib/constants";
+import { seo } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Todas as lojas — Cadê Meu Pacote",
-  description:
-    "Veja estatísticas de reclamações e dicas para reclamar em cada loja: Shein, Shopee, Amazon, Magalu, Mercado Livre e mais.",
-};
+export const metadata = seo({
+  titulo: "Como reclamar de lojas online: SAC, direitos e reclamações | Cadê Meu Pacote",
+  descricao: "Escolha a loja (Shopee, Shein, Amazon, Mercado Livre, Magalu e mais) e veja como falar com o SAC, os problemas mais comuns e como reclamar com base no CDC.",
+  caminho: "/lojas",
+});
 
 export default function LojasPage() {
   const stores = STORES.filter(s => s.id !== "other" && !s.encerrada);

@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { seo } from "@/lib/seo";
 
-export const metadata = {
-  title: "Política de Privacidade — Cadê Meu Pacote",
-};
+export const metadata = seo({
+  titulo: "Política de Privacidade | Cadê Meu Pacote",
+  descricao: "Como o Cadê Meu Pacote trata seus dados: o que coletamos, como usamos, onde fica guardado, serviços parceiros e seus direitos pela LGPD.",
+  caminho: "/privacidade",
+});
 
 export default function PrivacidadePage() {
   return (

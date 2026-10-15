@@ -1,9 +1,12 @@
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
+import { seo } from "@/lib/seo";
 
-export const metadata = {
-  title: "Contato — Cadê Meu Pacote",
-};
+export const metadata = seo({
+  titulo: "Contato | Cadê Meu Pacote",
+  descricao: "Fale com o Cadê Meu Pacote: dúvidas, sugestões de lojas, imprensa e parcerias.",
+  caminho: "/contato",
+});
 
 export default function ContatoPage() {
   return (

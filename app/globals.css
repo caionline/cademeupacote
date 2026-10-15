@@ -1046,3 +1046,16 @@ footer.site-footer { padding: 56px var(--gutter) 32px; background: var(--bg); bo
 /* Turnstile: invisível; só ocupa espaço se a Cloudflare pedir um desafio */
 .turnstile-caixa { display: flex; justify-content: center; margin-top: 8px; }
 .turnstile-caixa:empty { display: none; }
+
+/* Home: guias em destaque */
+.home-guias { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.home-guias a { display: block; padding: 14px 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); font-weight: 600; font-size: 15px; line-height: 1.4; transition: border-color 0.15s; }
+.home-guias a:hover { border-color: var(--primary); }
+.home-guias-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+@media (max-width: 640px) { .home-guias { grid-template-columns: 1fr; } }
+
+/* Modelos de reclamação */
+.modelo-caixa { margin-top: 28px; border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--surface); }
+.modelo-caixa-topo { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface-alt); font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.modelo-texto { margin: 0; padding: 18px; font-family: var(--font); font-size: 15px; line-height: 1.7; white-space: pre-wrap; word-wrap: break-word; color: var(--text); }
+.guia-intro a { color: var(--primary); font-weight: 600; }

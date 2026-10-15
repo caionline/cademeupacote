@@ -2,16 +2,22 @@ import Link from "next/link";
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
 import type { Metadata } from "next";
-import { getRankingLojas } from "@/lib/db";
+import { getRankingLojas, getTotalCasos } from "@/lib/db";
+import { seo } from "@/lib/seo";
 import { STORES, PROBLEMS } from "@/lib/constants";
 
 export const revalidate = 300;
 
-export const metadata: Metadata = {
-  title: "Ranking das lojas mais reclamadas — Cadê Meu Pacote",
-  description:
-    "Veja em tempo real quais lojas têm mais reclamações de consumidores brasileiros. Dados anônimos atualizados nos últimos 30 dias.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  let total = 0;
+  try { total = await getTotalCasos(30); } catch {}
+  return seo({
+    titulo: "Ranking das lojas mais reclamadas | Cadê Meu Pacote",
+    descricao: "Quais lojas online mais recebem reclamações de consumidores brasileiros nos últimos 30 dias, com os problemas mais comuns. Dados anônimos.",
+    caminho: "/ranking",
+    noindex: total < 50, // com poucos dados a página é rasa pro Google
+  });
+}
 
 function problemLabel(id: string | null): string {
   if (!id) return "—";

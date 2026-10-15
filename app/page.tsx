@@ -3,8 +3,57 @@ import { getTotalCasos } from "@/lib/db";
 import { PROBLEMS, STORES } from "@/lib/constants";
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
+import { GUIAS } from "@/lib/guias";
+import { jsonLd, seo, SITE } from "@/lib/seo";
 
 export const revalidate = 300;
+
+export const metadata = seo({
+  titulo: "Cadê Meu Pacote: reclamação contra loja online com base no CDC, grátis",
+  descricao: "Pedido atrasado, não entregue, cancelado, com defeito ou estorno que não caiu? Gere em 3 minutos a reclamação pronta pro SAC, Reclame Aqui, Consumidor.gov e Procon. Grátis.",
+  caminho: "/",
+});
+
+const FAQ_HOME: { p: string; r: string }[] = [
+  { p: "É grátis mesmo?", r: "É. Gerar a reclamação e os textos para SAC, Reclame Aqui e Consumidor.gov (ou Procon) é grátis e sem cadastro: até 5 reclamações por dia sem conta, 15 com conta. O Pro (a partir de R$ 11,63/mês) é opcional: serve pra quem quer que a gente acompanhe o caso, avise os prazos e escreva os próximos passos." },
+  { p: "Quem escreve a reclamação? É uma IA?", r: "É uma IA (o Claude, da Anthropic), orientada a escrever textos formais com base no Código de Defesa do Consumidor, usando os dados do seu pedido e o tipo de problema. A decisão de enviar é sempre sua: revise o texto antes de mandar." },
+  { p: "A loja cancelou meu pedido (ou a promoção). Tem jeito?", r: "Às vezes sim. A oferta anunciada obriga a loja (art. 30 e 35 do CDC), e o site te ajuda a cobrar do jeito certo. Mas quando o erro de preço é muito absurdo, a Justiça costuma dar razão à loja. Ninguém pode garantir o resultado." },
+  { p: "Preciso de CPF ou de conta?", r: "Não. O CPF é opcional no texto, mas é pedido em canais formais como Consumidor.gov, Procon e Juizado. A conta também é opcional: ela serve pra guardar seus casos em “Meus casos” e acompanhar cada um." },
+  { p: "Vocês guardam meus dados?", r: "Sem conta, o rascunho fica no seu navegador e os dados do caso só passam pela IA pra gerar o texto. Com conta, guardamos seus casos pra você acompanhar. Não vendemos seus dados. Usamos alguns serviços pra funcionar (IA, envio de e-mail, medição de anúncios) e seguimos a LGPD. Os detalhes estão na política de privacidade." },
+  { p: "E se a loja não responder?", r: "Você sobe um degrau: SAC, depois Reclame Aqui, depois os canais oficiais (Consumidor.gov.br ou o Procon do seu estado) e, por último, o Juizado Especial Cível. No Juizado não há custas na 1ª instância, e causas de até 20 salários mínimos dispensam advogado. Cada etapa aperta mais. No Pro, a gente conta os prazos e escreve o próximo texto pra você." },
+  { p: "Qual a diferença entre Procon e Consumidor.gov?", r: "Os dois são gratuitos e oficiais. O Consumidor.gov.br é uma plataforma online do governo federal: você fala direto com a empresa, que tem 10 dias pra responder, mas só vale pra empresas cadastradas. O Procon é o órgão de defesa do consumidor do seu estado ou cidade: atende reclamações contra qualquer empresa, pode notificá-la, chamar pra uma audiência de conciliação e aplicar multas. Muitos Procons recebem reclamações pela internet. Se a loja não estiver no Consumidor.gov, vá direto ao Procon." },
+  { p: "Vocês são advogados?", r: "Não. O Cadê meu pacote? é uma ferramenta de autoatendimento, não assessoria jurídica. Pra casos complexos, procure um advogado ou a Defensoria Pública." },
+  { p: "Funciona pra lojas internacionais (Shein, AliExpress)?", r: "Funciona, com nuances. Quem vende para consumidores no Brasil, especialmente com operação aqui (como Shein e Shopee), segue o CDC. Com vendedores de fora em marketplaces, a reclamação ainda tem peso (a plataforma costuma intermediar), mas cobrar na Justiça pode ser mais difícil." },
+];
+
+const GUIAS_DESTAQUE = GUIAS.filter(g => [
+  "loja-cancelou-pedido-promocao", "como-reclamar-da-shopee", "mercado-livre-compra-nao-chegou",
+  "estorno-nao-caiu-prazo", "produto-com-defeito-troca-conserto-ou-dinheiro", "procon-como-reclamar",
+].includes(g.slug));
+
+const DADOS_ESTRUTURADOS = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Cadê Meu Pacote",
+    url: SITE,
+    logo: `${SITE}/apple-icon`,
+    email: "contato@cademeupacote.com.br",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Cadê Meu Pacote",
+    url: SITE,
+    inLanguage: "pt-BR",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_HOME.map(f => ({ "@type": "Question", name: f.p, acceptedAnswer: { "@type": "Answer", text: f.r } })),
+  },
+];
+
 
 const LOJAS = STORES.filter(s => s.id !== "other" && !s.encerrada);
 const PROBLEMAS = PROBLEMS.filter(p => p.id !== "other");
@@ -24,6 +73,7 @@ export default async function HomePage() {
         <span className="announce-link">Conhecer →</span>
       </a>
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(DADOS_ESTRUTURADOS) }} />
       <SiteNav showRanking={totalCasos >= 50} />
 
       <header className="hero">
@@ -254,46 +304,33 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="sec">
+        <div className="sec-inner">
+          <div className="section-kicker">Guias e modelos</div>
+          <h2 className="section-title">Seus direitos, <em>sem juridiquês.</em></h2>
+          <p className="section-sub">Respostas diretas para os problemas mais comuns, com o que diz o CDC e o passo a passo.</p>
+          <ul className="home-guias">
+            {GUIAS_DESTAQUE.map(g => (
+              <li key={g.slug}><Link href={`/guias/${g.slug}`}>{g.titulo} →</Link></li>
+            ))}
+          </ul>
+          <div className="home-guias-links">
+            <Link href="/guias" className="link-mais">Todos os guias →</Link>
+            <Link href="/modelos" className="link-mais">Modelos de reclamação →</Link>
+          </div>
+        </div>
+      </section>
+
       <section className="sec sec-alt" id="faq">
         <div className="sec-inner faq">
           <div className="section-kicker">Perguntas frequentes</div>
           <h2 className="section-title">Antes de começar, <em>tire suas dúvidas.</em></h2>
-          <details open>
-            <summary>É grátis mesmo?</summary>
-            <p>É. Gerar a reclamação e os textos para SAC, Reclame Aqui e Consumidor.gov (ou Procon) é grátis e sem cadastro: até 5 reclamações por dia sem conta, 15 com conta. O Pro (a partir de R$ 11,63/mês) é opcional: serve pra quem quer que a gente acompanhe o caso, avise os prazos e escreva os próximos passos.</p>
-          </details>
-          <details>
-            <summary>Quem escreve a reclamação? É uma IA?</summary>
-            <p>É uma IA (o Claude, da Anthropic), orientada a escrever textos formais com base no Código de Defesa do Consumidor, usando os dados do seu pedido e o tipo de problema. A decisão de enviar é sempre sua: revise o texto antes de mandar.</p>
-          </details>
-          <details>
-            <summary>A loja cancelou meu pedido (ou a promoção). Tem jeito?</summary>
-            <p>Às vezes sim. A oferta anunciada obriga a loja (art. 30 e 35 do CDC), e o site te ajuda a cobrar do jeito certo. Mas quando o erro de preço é muito absurdo, a Justiça costuma dar razão à loja. Ninguém pode garantir o resultado.</p>
-          </details>
-          <details>
-            <summary>Preciso de CPF ou de conta?</summary>
-            <p>Não. O CPF é opcional no texto, mas é pedido em canais formais como Consumidor.gov, Procon e Juizado. A conta também é opcional: ela serve pra guardar seus casos em “Meus casos” e acompanhar cada um.</p>
-          </details>
-          <details>
-            <summary>Vocês guardam meus dados?</summary>
-            <p>Sem conta, o rascunho fica no seu navegador e os dados do caso só passam pela IA pra gerar o texto. Com conta, guardamos seus casos pra você acompanhar. Não vendemos seus dados. Usamos alguns serviços pra funcionar (IA, envio de e-mail, medição de anúncios) e seguimos a LGPD. Os detalhes estão na <Link href="/privacidade">política de privacidade</Link>.</p>
-          </details>
-          <details>
-            <summary>E se a loja não responder?</summary>
-            <p>Você sobe um degrau: SAC, depois Reclame Aqui, depois os canais oficiais (Consumidor.gov.br ou o Procon do seu estado) e, por último, o Juizado Especial Cível. No Juizado não há custas na 1ª instância, e causas de até 20 salários mínimos dispensam advogado. Cada etapa aperta mais. No Pro, a gente conta os prazos e escreve o próximo texto pra você.</p>
-          </details>
-          <details>
-            <summary>Qual a diferença entre Procon e Consumidor.gov?</summary>
-            <p>Os dois são gratuitos e oficiais. O Consumidor.gov.br é uma plataforma online do governo federal: você fala direto com a empresa, que tem 10 dias pra responder, mas só vale pra empresas cadastradas. O Procon é o órgão de defesa do consumidor do seu estado ou cidade: atende reclamações contra qualquer empresa, pode notificá-la, chamar pra uma audiência de conciliação e aplicar multas. Muitos Procons recebem reclamações pela internet. Se a loja não estiver no Consumidor.gov, vá direto ao Procon.</p>
-          </details>
-          <details>
-            <summary>Vocês são advogados?</summary>
-            <p>Não. O Cadê meu pacote? é uma ferramenta de autoatendimento, não assessoria jurídica. Pra casos complexos, procure um advogado ou a Defensoria Pública.</p>
-          </details>
-          <details>
-            <summary>Funciona pra lojas internacionais (Shein, AliExpress)?</summary>
-            <p>Funciona, com nuances. Quem vende para consumidores no Brasil, especialmente com operação aqui (como Shein e Shopee), segue o CDC. Com vendedores de fora em marketplaces, a reclamação ainda tem peso (a plataforma costuma intermediar), mas cobrar na Justiça pode ser mais difícil.</p>
-          </details>
+          {FAQ_HOME.map((f, i) => (
+            <details key={f.p} open={i === 0}>
+              <summary>{f.p}</summary>
+              <p>{f.r}{f.p === "Vocês guardam meus dados?" && <> Veja a <Link href="/privacidade">política de privacidade</Link>.</>}</p>
+            </details>
+          ))}
         </div>
       </section>
 

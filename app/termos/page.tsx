@@ -1,10 +1,13 @@
 import Link from "next/link";
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
+import { seo } from "@/lib/seo";
 
-export const metadata = {
-  title: "Termos de Uso — Cadê Meu Pacote",
-};
+export const metadata = seo({
+  titulo: "Termos de Uso | Cadê Meu Pacote",
+  descricao: "Termos de uso do Cadê Meu Pacote: o que a ferramenta faz, limites de uso, plano Pro, direito de arrependimento e uso adequado.",
+  caminho: "/termos",
+});
 
 const secoes: { titulo: string; paragrafos: string[] }[] = [
   {

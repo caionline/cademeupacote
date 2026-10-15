@@ -23,6 +23,7 @@ export default function SiteFooter() {
             <div className="footer-col-titulo">Conteúdo</div>
             <Link href="/dicas">Dicas</Link>
             <Link href="/guias">Guias</Link>
+            <Link href="/modelos">Modelos de reclamação</Link>
             <Link href="/lojas">Lojas</Link>
             <Link href="/ranking">Ranking</Link>
           </div>

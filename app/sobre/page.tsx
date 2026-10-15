@@ -1,12 +1,13 @@
 import Link from "next/link";
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
+import { seo } from "@/lib/seo";
 
-export const metadata = {
-  title: "Sobre — Cadê Meu Pacote",
-  description:
-    "A história, o manifesto e os princípios por trás do Cadê Meu Pacote. Ferramenta gratuita pra gerar reclamações com força de lei.",
-};
+export const metadata = seo({
+  titulo: "Sobre o Cadê Meu Pacote: feito por quem venceu uma loja no Juizado",
+  descricao: "A história por trás do Cadê Meu Pacote, a ferramenta grátis que escreve reclamações com base no Código de Defesa do Consumidor.",
+  caminho: "/sobre",
+});
 
 const h2Style = {
   fontFamily: "var(--font-display)",

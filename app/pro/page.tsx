@@ -3,11 +3,13 @@ import { getUsuario } from "@/lib/supabase/server";
 import { ehPro } from "@/lib/pro";
 import { PLANOS_PUBLICOS, planoValido, type Plano } from "@/lib/planos";
 import Assinar from "./Assinar";
+import { seo } from "@/lib/seo";
 
-export const metadata = {
-  title: "Cadê Meu Pacote Pro — a gente acompanha seu caso até o fim",
-  description: "Prazos, lembretes, análise da resposta da loja e o próximo texto pronto em cada etapa: SAC, Reclame Aqui, Consumidor.gov, Procon e Juizado. 7 dias de garantia.",
-};
+export const metadata = seo({
+  titulo: "Cadê Meu Pacote Pro: acompanhamento do seu caso até resolver",
+  descricao: "Prazos, lembretes, análise da resposta da loja e o próximo texto pronto em cada etapa: SAC, Reclame Aqui, Consumidor.gov, Procon e Juizado. 7 dias de garantia.",
+  caminho: "/pro",
+});
 
 const FAQ = [
   { p: "E se a loja resolver logo no primeiro dia?", r: "Ótimo! Se foi na primeira semana, você pode pedir a devolução de 100% (temos 7 dias de garantia). Se preferir, o Pro continua valendo para os próximos casos até o fim do período." },
