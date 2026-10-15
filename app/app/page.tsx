@@ -31,12 +31,17 @@ const STORAGE_KEY = "cmp.app.v1";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
-function SearchParamEffect({ onStore }: { onStore: (id: string) => void }) {
+function SearchParamEffect({ onStore, onProblem }: { onStore: (id: string) => void; onProblem: (id: string) => void }) {
   const params = useSearchParams();
   useEffect(() => {
     const storeParam = params.get("store");
     if (storeParam && STORES.find(s => s.id === storeParam)) {
       onStore(storeParam);
+    }
+    // Vindo de um guia: já marca o problema.
+    const problemParam = params.get("problema");
+    if (problemParam && PROBLEMS.find(p => p.id === problemParam)) {
+      onProblem(problemParam);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return null;
@@ -71,7 +76,13 @@ export default function AppPage() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setForm({ ...initialFormState, ...JSON.parse(raw) });
+      // Loja/problema vindos do link (ex.: de um guia) valem mais que o rascunho salvo.
+      const q = new URLSearchParams(window.location.search);
+      const doLink: Partial<FormState> = {};
+      const loja = q.get("store"), prob = q.get("problema");
+      if (loja && STORES.some(s => s.id === loja)) doLink.store = loja;
+      if (prob && PROBLEMS.some(p => p.id === prob)) doLink.problem = prob;
+      if (raw) setForm({ ...initialFormState, ...JSON.parse(raw), ...doLink });
     } catch {}
   }, []);
 
@@ -270,7 +281,7 @@ export default function AppPage() {
 
       <main className="app-main">
         <Suspense>
-          <SearchParamEffect onStore={(id) => update("store", id)} />
+          <SearchParamEffect onStore={(id) => update("store", id)} onProblem={(id) => update("problem", id)} />
         </Suspense>
 
         {/* STEP 1 — PROBLEMA */}

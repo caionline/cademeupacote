@@ -920,3 +920,36 @@ footer.site-footer { padding: 56px var(--gutter) 32px; background: var(--bg); bo
 .pro-ativo { background: #F0FDF4; border: 1px solid #BBF7D0; color: var(--text); border-radius: 12px; padding: 12px 14px; font-size: 14px; margin-bottom: 16px; }
 .pro-assinar { background: var(--surface); border: 2px solid var(--primary); border-radius: 20px; padding: 24px 18px 16px; box-shadow: var(--shadow-primary); }
 .pro-legal { font-size: 12px; line-height: 1.6; color: var(--text-subtle); margin-top: 18px; }
+
+/* ===== GUIAS (SEO) ===== */
+.guia { max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }
+.guia-trilha { font-size: 13px; color: var(--text-subtle); margin-bottom: 14px; }
+.guia-trilha a { color: var(--text-muted); }
+.guia-h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 40px); font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 8px; }
+.guia-data { font-size: 13px; color: var(--text-subtle); margin-bottom: 24px; }
+.guia-intro { font-size: 17px; color: var(--text-muted); line-height: 1.7; }
+.guia-intro a { color: var(--primary); font-weight: 600; }
+.guia-resumo { background: var(--primary-soft); border-left: 4px solid var(--primary); border-radius: 12px; padding: 16px 18px; margin-bottom: 18px; }
+.guia-resumo strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--primary-dark); margin-bottom: 6px; }
+.guia-resumo p { font-size: 16.5px; line-height: 1.65; }
+.guia-cta-topo { margin-bottom: 36px; }
+.guia-secao { margin-top: 36px; }
+.guia-secao h2 { font-family: var(--font-display); font-size: 23px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 12px; }
+.guia-secao p { font-size: 16px; line-height: 1.75; color: var(--text-muted); margin-bottom: 12px; }
+.guia-secao ul { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.guia-secao li { font-size: 16px; line-height: 1.65; color: var(--text-muted); }
+.guia-faq { border-bottom: 1px solid var(--border); padding: 14px 0; }
+.guia-faq summary { cursor: pointer; font-weight: 600; font-size: 16px; }
+.guia-faq p { margin: 10px 0 0; }
+.guia-cta { margin-top: 48px; background: var(--surface); border: 2px solid var(--primary); border-radius: 20px; padding: 28px 22px; text-align: center; box-shadow: var(--shadow-primary); }
+.guia-cta-titulo { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.guia-cta p { color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 18px; }
+.guia-cta-loja { margin: 16px 0 0 !important; font-size: 14px !important; }
+.guia-cta-loja a { color: var(--primary); }
+.guia-aviso { font-size: 12.5px; color: var(--text-subtle); line-height: 1.6; margin-top: 24px; }
+.guia-outros a { color: var(--primary); font-weight: 600; }
+.guias-lista { list-style: none; padding: 0; margin: 28px 0 0; display: flex; flex-direction: column; gap: 12px; }
+.guias-lista a { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); transition: border-color 0.15s; }
+.guias-lista a:hover { border-color: var(--primary); }
+.guias-lista strong { font-size: 16.5px; }
+.guias-lista span { font-size: 14px; color: var(--text-muted); line-height: 1.5; }

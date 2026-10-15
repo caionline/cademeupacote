@@ -2,6 +2,7 @@ import Link from "next/link";
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
 import type { Metadata } from "next";
+import { GUIAS } from "@/lib/guias";
 
 export const metadata: Metadata = {
   title: "Como reclamar e dar certo — 7 dicas práticas | Cadê Meu Pacote",
@@ -122,6 +123,14 @@ export default function DicasPage() {
           <Link href="/app" className="btn btn-primary" style={{ fontSize: 16, padding: "14px 28px" }}>
             Gerar minha reclamação →
           </Link>
+        </div>
+        <div style={{ marginTop: 48 }}>
+          <h2 style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700, marginBottom: 12 }}>Guias completos</h2>
+          <ul style={{ paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+            {GUIAS.map(g => (
+              <li key={g.slug}><Link href={`/guias/${g.slug}`} style={{ color: "var(--primary)", fontWeight: 600 }}>{g.titulo}</Link></li>
+            ))}
+          </ul>
         </div>
       </main>
 

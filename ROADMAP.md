@@ -29,7 +29,7 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 - [x] Limite por dia: 5 sem conta, 15 com conta, 500 no site inteiro
 - [x] Modelo: Claude Haiku 5.5 (esforço médio), escolhido em teste lado a lado com Sonnet 5.5
 - [x] Custo medido: ~R$ 0,01 por reclamação (antes ~R$ 0,11 com Sonnet 4.5)
-- [ ] Conferir qualidade com mais casos reais (defeito, produto errado, reembolso)
+- [x] Conferir qualidade com mais casos reais (produto errado, estorno, atraso) — ok
 
 ## Fase 4 — Plano Pro: acompanhamento do caso
 - [x] Oferta do Pro na tela de resultado (captura interessados + funil: visto → clique → contato)
@@ -49,7 +49,12 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 - [ ] Liberar o Pro automaticamente ao confirmar pagamento
 
 ## Fase 6 — Divulgação
-- [ ] O site nunca foi divulgado: definir canais (SEO, redes sociais, grupos, conteúdo) e começar
+- [x] Plano completo em docs/PLANO-DIVULGACAO.md (Copping, Meta Ads, conteúdo, 30 dias)
+- [x] Pixel da Meta + API de Conversões (liga quando o ID for cadastrado) e canal de origem das visitas
+- [x] 10 guias de SEO em /guias (Shopee, Mercado Livre, Shein, Amazon, cancelamento, estorno, defeito, arrependimento, Consumidor.gov, Juizado)
+- [x] Links de SAC das lojas revisados (Americanas, Submarino, Tok&Stok, Sephora corrigidos; Saraiva faliu; AliExpress só por chat)
+- [ ] Cadastrar o site no Google Search Console e enviar o sitemap
+- [ ] Começar a executar o plano de 30 dias
 - [ ] Medir visitas → reclamações geradas → contas criadas
 
 ## Fase 7 — Lançamento do Pro

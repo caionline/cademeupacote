@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { STORES } from "@/lib/constants";
 import { getStatsLoja } from "@/lib/db";
+import { GUIAS } from "@/lib/guias";
 
 export const revalidate = 3600;
 
@@ -36,5 +37,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-  return [...staticPages, ...lojaPages];
+  const guiaPages: MetadataRoute.Sitemap = [
+    { url: "https://www.cademeupacote.com.br/guias", lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 },
+    ...GUIAS.map(g => ({
+      url: `https://www.cademeupacote.com.br/guias/${g.slug}`,
+      lastModified: new Date(`${g.atualizado}T12:00:00`),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  return [...staticPages, ...guiaPages, ...lojaPages];
 }
