@@ -295,3 +295,55 @@ export async function registrarUsoIa(tipo: TipoUsoIa, modelo: string, uso: { inp
     console.error("[IA log] falha ao registrar uso:", e);
   }
 }
+
+// ---------------------------------------------------------------------------
+// E-mails do ciclo de vida (compra, pagamento não concluído, Pro venceu, boas-vindas)
+// ---------------------------------------------------------------------------
+
+/** Dados pro e-mail de confirmação de uma compra aprovada. */
+export async function dadosConfirmacao(pagamentoId: string): Promise<{ email: string; nome: string | null; plano: string; valor: number; proAte: string } | null> {
+  const d = db();
+  const { data: pg } = await d.from("pagamentos").select("user_id, plano, valor").eq("id", pagamentoId).single();
+  if (!pg) return null;
+  const [{ data: u }, { data: perfil }] = await Promise.all([
+    d.auth.admin.getUserById(pg.user_id),
+    d.from("perfis").select("nome, pro_ate").eq("id", pg.user_id).single(),
+  ]);
+  if (!u.user?.email || !perfil?.pro_ate) return null;
+  return { email: u.user.email, nome: perfil.nome, plano: pg.plano, valor: Number(pg.valor), proAte: perfil.pro_ate };
+}
+
+export async function getPagamentosAbandonados(): Promise<{ pagamento_id: string; email: string; nome: string | null; plano: string }[]> {
+  const { data, error } = await db().rpc("pagamentos_abandonados", { limite: 100 });
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function marcarLembretePagamento(pagamentoId: string): Promise<void> {
+  const { error } = await db().from("pagamentos").update({ lembrete_enviado_em: new Date().toISOString() }).eq("id", pagamentoId);
+  if (error) throw error;
+}
+
+export async function getProExpirados(): Promise<{ user_id: string; email: string; nome: string | null; pro_ate: string }[]> {
+  const { data, error } = await db().rpc("pro_expirados", { limite: 100 });
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function marcarAvisoExpirou(userId: string, proAte: string): Promise<void> {
+  const { error } = await db().from("perfis").update({ pro_expirou_aviso_para: proAte }).eq("id", userId);
+  if (error) throw error;
+}
+
+/** Marca as boas-vindas como enviadas. Devolve false se já tinham sido (evita e-mail repetido). */
+export async function reservarBoasVindas(userId: string): Promise<boolean> {
+  const { data, error } = await db()
+    .from("perfis")
+    .update({ boas_vindas_em: new Date().toISOString() })
+    .eq("id", userId)
+    .is("boas_vindas_em", null)
+    .not("termos_aceitos_em", "is", null)
+    .select("id");
+  if (error) throw error;
+  return (data ?? []).length > 0;
+}

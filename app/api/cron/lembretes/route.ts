@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getCasosPrazoVencido, getLembretesVencidos, getProVencendo, marcarLembreteEnviado, marcarLembretePro, marcarPrazoAvisado } from "@/lib/db";
-import { enviarAvisoPrazo, enviarAvisoRenovacao, enviarLembrete } from "@/lib/lembrete-email";
+import { getCasosPrazoVencido, getLembretesVencidos, getPagamentosAbandonados, getProExpirados, getProVencendo, marcarAvisoExpirou, marcarLembreteEnviado, marcarLembretePagamento, marcarLembretePro, marcarPrazoAvisado } from "@/lib/db";
+import { enviarAvisoPrazo, enviarAvisoRenovacao, enviarLembrete, enviarPagamentoNaoConcluido, enviarProVenceu } from "@/lib/lembrete-email";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -59,6 +59,34 @@ export async function GET(req: Request) {
     }
   }
 
-  console.log(`[LEMBRETES] renovacoes=${renovacoes} vencidos=${vencidos.length} enviados=${enviados} prazos=${prazos.length} avisados=${avisados} falhas=${falhas}`);
-  return NextResponse.json({ vencidos: vencidos.length, enviados, prazos: prazos.length, avisados, renovacoes, falhas });
+  // Pagamento aberto e não concluído (entre 2h e 48h)
+  const abandonados = await getPagamentosAbandonados();
+  let recuperacoes = 0;
+  for (const a of abandonados) {
+    try {
+      await enviarPagamentoNaoConcluido({ email: a.email, nome: a.nome, plano: a.plano });
+      await marcarLembretePagamento(a.pagamento_id);
+      recuperacoes++;
+    } catch (err) {
+      falhas++;
+      console.error("[RECUPERACAO] falha:", err instanceof Error ? err.message : err);
+    }
+  }
+
+  // Pro que venceu nas últimas 48h
+  const expirados = await getProExpirados();
+  let expirou = 0;
+  for (const x of expirados) {
+    try {
+      await enviarProVenceu({ email: x.email, nome: x.nome, proAte: x.pro_ate });
+      await marcarAvisoExpirou(x.user_id, x.pro_ate);
+      expirou++;
+    } catch (err) {
+      falhas++;
+      console.error("[EXPIROU] falha:", err instanceof Error ? err.message : err);
+    }
+  }
+
+  console.log(`[LEMBRETES] recuperacoes=${recuperacoes} expirou=${expirou} renovacoes=${renovacoes} vencidos=${vencidos.length} enviados=${enviados} prazos=${prazos.length} avisados=${avisados} falhas=${falhas}`);
+  return NextResponse.json({ vencidos: vencidos.length, enviados, prazos: prazos.length, avisados, renovacoes, recuperacoes, expirou, falhas });
 }

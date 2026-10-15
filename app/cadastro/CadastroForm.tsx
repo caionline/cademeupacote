@@ -43,6 +43,10 @@ export default function CadastroForm({ email, perfil, next }: { email: string; p
       setErro("Não conseguimos salvar. Tente de novo.");
       return;
     }
+    // Primeiro cadastro: e-mail de boas-vindas (o servidor garante que sai uma vez só).
+    if (!perfil?.termos_aceitos_em) {
+      fetch("/api/conta/boas-vindas", { method: "POST", keepalive: true }).catch(() => {});
+    }
     router.push(next);
     router.refresh();
   }

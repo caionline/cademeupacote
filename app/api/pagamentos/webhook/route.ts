@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { aprovarPagamento, getPagamento, marcarPagamento } from "@/lib/db";
+import { aprovarPagamento, dadosConfirmacao, getPagamento, marcarPagamento } from "@/lib/db";
+import { enviarConfirmacaoCompra } from "@/lib/lembrete-email";
 import { assinaturaValida, buscarPagamento } from "@/lib/mercadopago";
 
 export const runtime = "nodejs";
@@ -35,6 +36,15 @@ export async function POST(req: Request) {
       }
       const liberou = await aprovarPagamento(nosso.id, String(mp.id), mp.payment_type_id);
       console.log(`[WEBHOOK] pagamento ${dataId} aprovado (${mp.payment_type_id}) — Pro ${liberou ? "liberado" : "já estava liberado"}`);
+      if (liberou) {
+        // Confirmação da compra (Decreto 7.962/2013). Falha no e-mail nunca derruba a liberação.
+        try {
+          const c = await dadosConfirmacao(nosso.id);
+          if (c) await enviarConfirmacaoCompra(c);
+        } catch (e) {
+          console.error("[WEBHOOK] falha ao enviar confirmação:", e instanceof Error ? e.message : e);
+        }
+      }
     } else if (mp.status === "rejected" || mp.status === "cancelled") {
       await marcarPagamento(nosso.id, "recusado", String(mp.id));
     } else if (mp.status === "refunded" || mp.status === "charged_back") {
