@@ -123,3 +123,37 @@ export async function enviarAvisoPrazo(c: {
 
   await enviarEmail(c.email, { subject, html, text });
 }
+
+// ---------------------------------------------------------------------------
+// Pro: aviso de renovação (3 dias antes de vencer)
+// ---------------------------------------------------------------------------
+
+export async function enviarAvisoRenovacao(c: { email: string; nome: string | null; proAte: string }): Promise<void> {
+  const nome = c.nome ? escapar(c.nome.split(" ")[0]) : "";
+  const data = new Date(c.proAte).toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" });
+  const subject = `Seu Pro vence em ${data}`;
+
+  const text = [
+    `Oi${nome ? `, ${nome}` : ""}! Seu Cadê Meu Pacote Pro vence em ${data}.`,
+    "",
+    "Renovando, você continua com a linha do tempo dos casos, os avisos de prazo e o próximo texto pronto. Os dias se somam ao que ainda falta.",
+    "",
+    `Renovar: ${SITE}/pro`,
+    "",
+    "Não quer renovar? Não precisa fazer nada: nada é cobrado automaticamente.",
+  ].join("\n");
+
+  const html = `<!doctype html>
+<html lang="pt-BR"><body style="margin:0;background:#FAF7F2;font-family:Arial,Helvetica,sans-serif;color:#1C1917">
+<div style="max-width:520px;margin:0 auto;padding:32px 24px">
+  <p style="font-size:14px;color:#F97316;font-weight:bold;margin:0 0 24px">📦 Cadê Meu Pacote · Pro</p>
+  <h1 style="font-size:22px;line-height:1.3;margin:0 0 16px">Seu Pro vence em ${data}</h1>
+  <p style="font-size:16px;line-height:1.6;margin:0 0 24px">
+    Oi${nome ? `, ${nome}` : ""}! Renovando, você continua com a linha do tempo dos casos, os avisos de prazo e o próximo texto pronto. Os dias se somam ao que ainda falta.
+  </p>
+  <a href="${SITE}/pro" style="display:inline-block;background:#F97316;color:#fff;text-decoration:none;font-weight:bold;padding:14px 24px;border-radius:10px">Renovar meu Pro</a>
+  <p style="font-size:12px;line-height:1.5;color:#78716C;margin:32px 0 0">Não quer renovar? Não precisa fazer nada: nada é cobrado automaticamente.</p>
+</div></body></html>`;
+
+  await enviarEmail(c.email, { subject, html, text });
+}

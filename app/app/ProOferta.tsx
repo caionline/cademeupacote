@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { lerOrigem } from "@/lib/origem";
 import { novoEventId, pixel } from "@/lib/meta";
+import { VENDAS_ABERTAS } from "@/lib/planos";
 
 type Plano = "mensal" | "trimestral";
 type InfoPlano = { nome: string; preco: string; precoDe?: string; detalhe: string; selo?: string };
@@ -71,6 +72,11 @@ export default function ProOferta({ problemId, storeId, logado }: { problemId: s
 
   function quero() {
     evento("oferta_clicada", problemId, storeId);
+    // Vendas abertas: vai direto pra página de assinatura.
+    if (VENDAS_ABERTAS) {
+      window.location.href = `/pro?plano=${fundador ? "fundador" : plano}`;
+      return;
+    }
     if (logado) enviar();
     else setEtapa("email");
   }
@@ -87,7 +93,7 @@ export default function ProOferta({ problemId, storeId, logado }: { problemId: s
 
   return (
     <div className="pro-oferta">
-      <span className="pro-selo">{fundador ? "Comunidade Copping · R$ 9,90/mês pra sempre" : "Lançamento em breve · preço de fundador"}</span>
+      <span className="pro-selo">{fundador ? "Comunidade Copping · R$ 9,90/mês pra sempre" : VENDAS_ABERTAS ? "Cadê Meu Pacote Pro" : "Lançamento em breve · preço de fundador"}</span>
       <h4>A loja não resolveu de primeira? A gente vai até o fim com você.</h4>
       <ul className="pro-lista">
         <li><span>⏰</span> Avisamos cada prazo legal, pra você não perder nenhum</li>
@@ -128,7 +134,7 @@ export default function ProOferta({ problemId, storeId, logado }: { problemId: s
         </button>
       )}
       {erro && <p className="pro-erro">{erro}</p>}
-      <p className="pro-nota">Sem compromisso agora. Você só paga quando o Pro lançar, se quiser.</p>
+      <p className="pro-nota">{VENDAS_ABERTAS ? "Pix ou cartão · desistiu em até 7 dias, devolvemos 100%." : "Sem compromisso agora. Você só paga quando o Pro lançar, se quiser."}</p>
     </div>
   );
 }

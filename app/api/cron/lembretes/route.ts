@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getCasosPrazoVencido, getLembretesVencidos, marcarLembreteEnviado, marcarPrazoAvisado } from "@/lib/db";
-import { enviarAvisoPrazo, enviarLembrete } from "@/lib/lembrete-email";
+import { getCasosPrazoVencido, getLembretesVencidos, getProVencendo, marcarLembreteEnviado, marcarLembretePro, marcarPrazoAvisado } from "@/lib/db";
+import { enviarAvisoPrazo, enviarAvisoRenovacao, enviarLembrete } from "@/lib/lembrete-email";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -45,6 +45,20 @@ export async function GET(req: Request) {
     }
   }
 
-  console.log(`[LEMBRETES] vencidos=${vencidos.length} enviados=${enviados} prazos=${prazos.length} avisados=${avisados} falhas=${falhas}`);
-  return NextResponse.json({ vencidos: vencidos.length, enviados, prazos: prazos.length, avisados, falhas });
+  // Pro vencendo em até 3 dias: aviso de renovação
+  const vencendo = await getProVencendo();
+  let renovacoes = 0;
+  for (const v of vencendo) {
+    try {
+      await enviarAvisoRenovacao({ email: v.email, nome: v.nome, proAte: v.pro_ate });
+      await marcarLembretePro(v.user_id, v.pro_ate);
+      renovacoes++;
+    } catch (err) {
+      falhas++;
+      console.error("[RENOVACAO] falha ao avisar:", err instanceof Error ? err.message : err);
+    }
+  }
+
+  console.log(`[LEMBRETES] renovacoes=${renovacoes} vencidos=${vencidos.length} enviados=${enviados} prazos=${prazos.length} avisados=${avisados} falhas=${falhas}`);
+  return NextResponse.json({ vencidos: vencidos.length, enviados, prazos: prazos.length, avisados, renovacoes, falhas });
 }

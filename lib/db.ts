@@ -226,3 +226,57 @@ export async function marcarPrazoAvisado(c: CasoPrazoVencido): Promise<void> {
   if (error) throw error;
   await db().from("caso_eventos").insert({ caso_id: c.caso_id, user_id: c.user_id, tipo: "prazo_vencido", etapa: c.etapa });
 }
+
+// ---------------------------------------------------------------------------
+// Pagamentos do Pro
+// ---------------------------------------------------------------------------
+
+export async function criarPagamento(p: { userId: string; plano: string; valor: number; dias: number }): Promise<string> {
+  const { data, error } = await db()
+    .from("pagamentos")
+    .insert({ user_id: p.userId, plano: p.plano, valor: p.valor, dias: p.dias })
+    .select("id")
+    .single();
+  if (error) throw error;
+  return data.id as string;
+}
+
+/** Garante a vaga de fundador (até o limite). true = é fundador. */
+export async function reservarFundador(userId: string, limite: number): Promise<boolean> {
+  const { data, error } = await db().rpc("reservar_fundador", { p_user: userId, p_limite: limite });
+  if (error) throw error;
+  return data === true;
+}
+
+export async function salvarPreferencia(id: string, preferenceId: string): Promise<void> {
+  const { error } = await db().from("pagamentos").update({ mp_preference_id: preferenceId }).eq("id", id);
+  if (error) throw error;
+}
+
+export async function getPagamento(id: string): Promise<{ id: string; user_id: string; valor: number; status: string } | null> {
+  const { data } = await db().from("pagamentos").select("id, user_id, valor, status").eq("id", id).maybeSingle();
+  return data ? { ...data, valor: Number(data.valor) } : null;
+}
+
+/** Aprova e estende o Pro. Retorna false se já estava aprovado (webhook repetido). */
+export async function aprovarPagamento(id: string, mpPaymentId: string, metodo: string): Promise<boolean> {
+  const { data, error } = await db().rpc("aprovar_pagamento", { p_id: id, p_mp_payment_id: mpPaymentId, p_metodo: metodo });
+  if (error) throw error;
+  return data === true;
+}
+
+export async function marcarPagamento(id: string, status: "recusado" | "reembolsado", mpPaymentId: string): Promise<void> {
+  const { error } = await db().from("pagamentos").update({ status, mp_payment_id: mpPaymentId }).eq("id", id).neq("status", "aprovado");
+  if (error) throw error;
+}
+
+export async function getProVencendo(limite = 100): Promise<{ user_id: string; email: string; nome: string | null; pro_ate: string }[]> {
+  const { data, error } = await db().rpc("pro_vencendo", { limite });
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function marcarLembretePro(userId: string, proAte: string): Promise<void> {
+  const { error } = await db().from("perfis").update({ pro_lembrete_para: proAte }).eq("id", userId);
+  if (error) throw error;
+}
