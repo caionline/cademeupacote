@@ -142,3 +142,18 @@ export async function entrarWaitlistPro(email: string): Promise<void> {
     .upsert({ email: email.toLowerCase() }, { onConflict: "email", ignoreDuplicates: true });
   if (error) throw error;
 }
+
+// ---------------------------------------------------------------------------
+// Limite diário de uso da IA
+// ---------------------------------------------------------------------------
+
+/** Conta 1 uso e diz se passou do limite da pessoa ("pessoa"), do site ("global") ou se pode ("ok"). */
+export async function consumirUsoIa(chave: string, limite: number, limiteGlobal: number): Promise<"ok" | "pessoa" | "global"> {
+  const { data, error } = await db().rpc("consumir_uso_ia", {
+    p_chave: chave,
+    p_limite: limite,
+    p_limite_global: limiteGlobal,
+  });
+  if (error) throw error;
+  return data as "ok" | "pessoa" | "global";
+}
