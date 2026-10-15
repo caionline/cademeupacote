@@ -1,9 +1,7 @@
 import SiteShell from "@/app/components/SiteShell";
 import { getUsuario } from "@/lib/supabase/server";
 import { ehPro } from "@/lib/pro";
-import { cookies } from "next/headers";
-import { CANAL_FUNDADOR, PLANOS_PUBLICOS, planoValido, type Plano } from "@/lib/planos";
-import { ORIGEM_COOKIE, limparOrigem } from "@/lib/origem";
+import { PLANOS_PUBLICOS, planoValido, type Plano } from "@/lib/planos";
 import Assinar from "./Assinar";
 
 export const metadata = {
@@ -15,9 +13,7 @@ export default async function ProPage({ searchParams }: { searchParams: Promise<
   const { plano, erro } = await searchParams;
   const u = await getUsuario();
   const proAte = ehPro(u?.perfil?.pro_ate) ? u!.perfil!.pro_ate! : null;
-  const canal = limparOrigem((await cookies()).get(ORIGEM_COOKIE)?.value);
-  const fundador = !!u?.perfil?.fundador || canal === CANAL_FUNDADOR;
-  const planos: Plano[] = fundador ? ["fundador", ...PLANOS_PUBLICOS] : PLANOS_PUBLICOS;
+  const planos: Plano[] = PLANOS_PUBLICOS;
   const inicial: Plano = planoValido(plano) && planos.includes(plano) ? plano : planos[0];
 
   return (

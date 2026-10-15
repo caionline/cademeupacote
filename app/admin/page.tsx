@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteShell from "@/app/components/SiteShell";
 import { carregarPainel, getAdmin } from "@/lib/admin";
-import { LIMITE_FUNDADORES, PLANOS, type Plano } from "@/lib/planos";
+import { PLANOS, type Plano } from "@/lib/planos";
 import { PROBLEMS, STORES } from "@/lib/constants";
 import ConcederPro from "./ConcederPro";
 
@@ -47,7 +47,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           <div><strong>{p.proAtivos}</strong><span>assinantes Pro ativos</span></div>
           <div><strong>{brl(p.receita)}</strong><span>receita ({p.vendas} venda{p.vendas === 1 ? "" : "s"})</span></div>
           <div><strong>{brl(p.iaTotal)}</strong><span>custo de IA</span></div>
-          <div><strong>{p.fundadores}/{LIMITE_FUNDADORES}</strong><span>vagas de fundador usadas</span></div>
+          <div><strong>{p.vencendo.length}</strong><span>Pro vencendo em 7 dias</span></div>
         </div>
 
         {/* Reclamações por dia */}
@@ -70,23 +70,22 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <div><strong>{p.reclamacoes}</strong><span>reclamações</span></div>
             <div><strong>{p.funil.resultado_visto}</strong><span>viram a oferta</span></div>
             <div><strong>{p.funil.oferta_clicada}</strong><span>clicaram ({pct(p.funil.oferta_clicada, p.funil.resultado_visto)})</span></div>
-            <div><strong>{p.funil.oferta_lead}</strong><span>deixaram contato ({pct(p.funil.oferta_lead, p.funil.oferta_clicada)})</span></div>
-            <div><strong>{p.vendas}</strong><span>compraram</span></div>
+            <div><strong>{p.checkouts}</strong><span>abriram o pagamento ({pct(p.checkouts, p.funil.oferta_clicada)})</span></div>
+            <div><strong>{p.vendas}</strong><span>compraram ({pct(p.vendas, p.checkouts)})</span></div>
           </div>
 
           <h3>Por canal de origem</h3>
           {canais.length === 0 ? <p className="adm-vazio">Sem dados no período.</p> : (
             <div className="adm-tabela-wrap">
               <table className="adm-tabela">
-                <thead><tr><th>Canal</th><th>Viram oferta</th><th>Clicaram</th><th>Contato</th><th>Conversão</th></tr></thead>
+                <thead><tr><th>Canal</th><th>Viram oferta</th><th>Clicaram</th><th>Clique/visto</th></tr></thead>
                 <tbody>
                   {canais.map(([canal, c]) => (
                     <tr key={canal}>
                       <td>{canal}</td>
                       <td>{c.resultado_visto ?? 0}</td>
                       <td>{c.oferta_clicada ?? 0}</td>
-                      <td>{c.oferta_lead ?? 0}</td>
-                      <td>{pct(c.oferta_lead ?? 0, c.resultado_visto ?? 0)}</td>
+                      <td>{pct(c.oferta_clicada ?? 0, c.resultado_visto ?? 0)}</td>
                     </tr>
                   ))}
                 </tbody>

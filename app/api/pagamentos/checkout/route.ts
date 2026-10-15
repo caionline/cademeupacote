@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { criarPagamento, reservarFundador, salvarPreferencia } from "@/lib/db";
-import { origemDaRequisicao } from "@/lib/origem";
+import { criarPagamento, salvarPreferencia } from "@/lib/db";
 import { criarCheckout } from "@/lib/mercadopago";
-import { CANAL_FUNDADOR, LIMITE_FUNDADORES, PLANOS, planoValido } from "@/lib/planos";
+import { PLANOS, planoValido } from "@/lib/planos";
 import { supabaseServer } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -18,17 +17,6 @@ export async function POST(req: Request) {
 
   const p = PLANOS[plano];
   try {
-    if (plano === "fundador") {
-      const { data: perfil } = await supabase.from("perfis").select("fundador").eq("id", user.id).single();
-      const veioDaCopping = origemDaRequisicao(req) === CANAL_FUNDADOR;
-      if (!perfil?.fundador && !veioDaCopping) {
-        return NextResponse.json({ error: "O preço de fundador é exclusivo da comunidade Copping." }, { status: 403 });
-      }
-      if (!(await reservarFundador(user.id, LIMITE_FUNDADORES))) {
-        return NextResponse.json({ error: "As 100 vagas de fundador acabaram. Escolha outro plano." }, { status: 409 });
-      }
-    }
-
     const pagamentoId = await criarPagamento({ userId: user.id, plano, valor: p.valor, dias: p.dias });
     const { preferenceId, url } = await criarCheckout({
       pagamentoId,

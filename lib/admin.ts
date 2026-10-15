@@ -30,7 +30,7 @@ export async function carregarPainel(dias: number) {
 
   const [
     casos, funil, perfisNovos, cadastros, interessados, pagamentos,
-    proAtivos, fundadores, vencendo, iaLog, ranking, lembretes, serie,
+    proAtivos, vencendo, iaLog, ranking, lembretes, serie,
   ] = await Promise.all([
     d.from("casos").select("*", { count: "exact", head: true }).gte("created_at", inicio),
     d.from("funil_eventos").select("tipo, canal").gte("created_at", inicio).limit(50000),
@@ -39,7 +39,6 @@ export async function carregarPainel(dias: number) {
     d.from("waitlist_pro").select("email, plano, origem, canal, created_at").gte("created_at", inicio).order("created_at", { ascending: false }).limit(200),
     d.from("pagamentos").select("id, user_id, plano, valor, status, metodo, created_at, aprovado_em").gte("created_at", inicio).order("created_at", { ascending: false }).limit(200),
     d.from("perfis").select("*", { count: "exact", head: true }).gt("pro_ate", agora),
-    d.from("perfis").select("*", { count: "exact", head: true }).eq("fundador", true),
     d.from("perfis").select("id, nome, pro_ate").gt("pro_ate", agora).lte("pro_ate", em7).order("pro_ate").limit(50),
     d.from("ia_uso_log").select("tipo, input_tokens, output_tokens").gte("created_at", inicio).limit(100000),
     d.rpc("ranking_lojas", { dias }),
@@ -111,7 +110,7 @@ export async function carregarPainel(dias: number) {
     vendas: aprovados.length,
     ultimosPag,
     proAtivos: proAtivos.count ?? 0,
-    fundadores: fundadores.count ?? 0,
+    checkouts: (pagamentos.data ?? []).length,
     vencendo: vencendo.data ?? [],
     ia,
     iaTotal,

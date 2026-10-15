@@ -46,7 +46,7 @@ export default function Assinar({ logado, planos, planoInicial }: { logado: bool
             {PLANOS[p].selo && <span className="pro-plano-selo">{PLANOS[p].selo}</span>}
             <span className="pro-plano-nome">{PLANOS[p].nome}</span>
             <span className="pro-plano-preco">
-              {PLANOS[p].precoDe && <s className="pro-plano-de">{PLANOS[p].precoDe}</s>} {PLANOS[p].preco}
+              {PLANOS[p].preco}
             </span>
             <span className="pro-plano-detalhe">{PLANOS[p].detalhe}</span>
           </button>

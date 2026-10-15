@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getTotalCasos } from "@/lib/db";
 import { PROBLEMS, STORES } from "@/lib/constants";
-import ProWaitlistBanner from "@/app/components/ProWaitlistBanner";
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
 
@@ -225,7 +224,7 @@ export default async function HomePage() {
               <Link href="/app" className="btn btn-ghost btn-block">Gerar minha reclamação →</Link>
             </div>
             <div className="plano plano-pro">
-              <div className="plano-selo">Lançamento em breve · preço de fundador</div>
+              <div className="plano-selo">A partir de R$ 11,63/mês</div>
               <div className="plano-nome">Pro · acompanhamento do caso</div>
               <p className="plano-desc">Pra quando a loja não resolve de primeira.</p>
               <ul className="plano-lista">
@@ -234,7 +233,8 @@ export default async function HomePage() {
                 <li>Linha do tempo do caso: SAC, Reclame Aqui, Consumidor.gov ou Procon, Juizado</li>
                 <li>Em breve: modelo de petição pro Juizado preenchido com seus dados</li>
               </ul>
-              <ProWaitlistBanner />
+              <Link href="/pro" className="btn btn-primary btn-block">Assinar o Pro →</Link>
+              <p className="cta-micro" style={{ marginTop: 8 }}>Pix ou cartão · sem renovação automática · 7 dias pra desistir</p>
             </div>
           </div>
         </div>
@@ -260,7 +260,7 @@ export default async function HomePage() {
           <h2 className="section-title">Antes de começar, <em>tire suas dúvidas.</em></h2>
           <details open>
             <summary>É grátis mesmo?</summary>
-            <p>É. Gerar a reclamação e os textos para SAC, Reclame Aqui e Consumidor.gov (ou Procon) é grátis e sem cadastro: até 5 reclamações por dia sem conta, 15 com conta. O Pro é opcional: serve pra quem quer que a gente acompanhe o caso, avise os prazos e escreva os próximos passos.</p>
+            <p>É. Gerar a reclamação e os textos para SAC, Reclame Aqui e Consumidor.gov (ou Procon) é grátis e sem cadastro: até 5 reclamações por dia sem conta, 15 com conta. O Pro (a partir de R$ 11,63/mês) é opcional: serve pra quem quer que a gente acompanhe o caso, avise os prazos e escreva os próximos passos.</p>
           </details>
           <details>
             <summary>Quem escreve a reclamação? É uma IA?</summary>

@@ -27,7 +27,6 @@ export default function ListaCasos({ inicial, eventos: eventosIniciais, pro }: {
   const router = useRouter();
   const [casos, setCasos] = useState(inicial);
   const [eventos, setEventos] = useState(eventosIniciais);
-  const [interesse, setInteresse] = useState(false);
   const [aberto, setAberto] = useState<string | null>(inicial[0]?.id ?? null);
   const [canal, setCanal] = useState<Channel>("whatsapp");
   const [toast, setToast] = useState<string | null>(null);
@@ -57,15 +56,6 @@ export default function ListaCasos({ inicial, eventos: eventosIniciais, pro }: {
     router.refresh();
   }
 
-  async function quererPro(c: Reclamacao) {
-    const r = await fetch("/api/pro/interesse", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ plano: "trimestral", problemId: c.problem_id, storeId: c.store_id, origem: "meus_casos" }),
-    });
-    if (r.ok) { setInteresse(true); mostrar("Você está na lista! Te avisamos no lançamento."); }
-    else mostrar("Não conseguimos registrar agora. Tente de novo.");
-  }
 
   // Caso gerado antes do login: salva agora.
   useEffect(() => {
@@ -204,9 +194,7 @@ export default function ListaCasos({ inicial, eventos: eventosIniciais, pro }: {
                         <strong>🛡️ Quer que a gente acompanhe este caso até o fim?</strong>
                         <p>Com o Pro: aviso de cada prazo, próximo texto gerado com o histórico do caso (Reclame Aqui, Consumidor.gov, Procon) e, em breve, modelo de petição pro Juizado.</p>
                       </div>
-                      {interesse
-                        ? <span className="pro-teaser-ok">✓ Você está na lista</span>
-                        : <button className="btn btn-primary btn-sm" onClick={() => quererPro(c)}>Quero o Pro</button>}
+                      <Link href="/pro" className="btn btn-primary btn-sm">Assinar o Pro</Link>
                     </div>
                   )}
                 </div>
