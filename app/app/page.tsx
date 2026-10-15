@@ -15,6 +15,7 @@ import { formatCPF, validateCPF } from "@/lib/cpf";
 import { formatBRL, parseBRL } from "@/lib/currency";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { salvarCaso, guardarPendente } from "@/lib/casos";
+import ProOferta from "./ProOferta";
 
 const LOADING_MSGS = [
   "Analisando seu caso...",
@@ -291,6 +292,12 @@ export default function AppPage() {
                 </button>
               ))}
             </div>
+            {form.problem === "cancelled" && (
+              <p className="app-aviso">
+                💡 Pelo CDC, a oferta anunciada obriga a loja a cumprir. Só um aviso honesto: quando o erro de preço é
+                gritante (ex.: uma TV de R$ 5.000 por R$ 50), a Justiça costuma aceitar o cancelamento. Nos demais casos, vale reclamar.
+              </p>
+            )}
             <div className="app-footer-cta">
               <button className="btn btn-primary btn-block" disabled={!canNext1} onClick={next}>
                 Continuar →
@@ -565,7 +572,9 @@ export default function AppPage() {
               </p>
             )}
 
-            <div className="next-step-card next-step-destaque">
+            <ProOferta problemId={form.problem} storeId={form.store} logado={logado} />
+
+            <div className="next-step-card">
               {logado ? (
                 salvo === "sim" ? (
                   <>

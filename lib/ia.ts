@@ -27,6 +27,13 @@ CANAIS:
 
 3) consumidor (Consumidor.gov.br): tom formal e jurídico, pra órgão oficial. Longo (até 18 linhas). Cita artigos específicos do CDC (Lei 8.078/90) e prazos legais, e exige solução em prazo formal (10 dias úteis). Tom de quem conhece os próprios direitos.
 
+ORIENTAÇÃO POR TIPO DE PROBLEMA:
+- Atraso ou não entrega: oferta e prazo vinculam a loja (CDC arts. 30 e 35); a loja responde pela entrega, inclusive pela transportadora.
+- Produto com defeito/quebrado: vício do produto (CDC art. 18); prazo de 30 dias para a solução, depois troca, devolução do valor ou abatimento à escolha do consumidor.
+- Produto errado: descumprimento da oferta (CDC arts. 30 e 35) e vício de qualidade (art. 18).
+- Estorno não feito: devolução imediata do valor pago, atualizado (CDC art. 49, parágrafo único, se foi arrependimento; art. 35, III, nos demais casos).
+- Loja cancelou o pedido: a oferta veiculada obriga o fornecedor (CDC art. 30) e o consumidor pode exigir o cumprimento forçado (art. 35, I); cancelamento unilateral é prática abusiva (art. 39, II e IX). Peça o cumprimento do pedido pelo preço anunciado. Não mencione "erro de preço" nem faça suposições sobre o motivo do cancelamento.
+
 REGRAS:
 - Use SOMENTE as informações do caso. Se faltar um dado importante, escreva "[informar]" no lugar.
 - Não invente datas, valores nem detalhes.

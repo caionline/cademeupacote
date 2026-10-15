@@ -12,6 +12,7 @@ export const PROBLEMS: Problem[] = [
   { id: "broken", emoji: "💥", title: "Chegou quebrado ou com defeito", sub: "Não dá pra usar" },
   { id: "wrong",  emoji: "🔀", title: "Veio o produto errado",         sub: "Outro modelo, cor ou tamanho" },
   { id: "refund", emoji: "💸", title: "Não devolveram meu dinheiro",   sub: "Cancelei e o estorno não veio" },
+  { id: "cancelled", emoji: "🚫", title: "A loja cancelou meu pedido",  sub: "Promoção cancelada ou pedido cancelado sem motivo" },
   { id: "other",  emoji: "❓", title: "Outro problema",                 sub: "Conto nos detalhes" },
 ];
 

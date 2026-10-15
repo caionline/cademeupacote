@@ -157,3 +157,45 @@ export async function consumirUsoIa(chave: string, limite: number, limiteGlobal:
   if (error) throw error;
   return data as "ok" | "pessoa" | "global";
 }
+
+// ---------------------------------------------------------------------------
+// Oferta do Pro: interessados e funil
+// ---------------------------------------------------------------------------
+
+export type EventoFunil = "resultado_visto" | "oferta_clicada" | "oferta_lead";
+
+export async function registrarEventoFunil(e: {
+  tipo: EventoFunil;
+  problemId: string | null;
+  storeId: string | null;
+  logado: boolean;
+}): Promise<void> {
+  const { error } = await db().from("funil_eventos").insert({
+    tipo:       e.tipo,
+    problem_id: e.problemId,
+    store_id:   e.storeId,
+    logado:     e.logado,
+  });
+  if (error) throw error;
+}
+
+export async function registrarInteressePro(i: {
+  email: string;
+  plano: "mensal" | "trimestral";
+  userId: string | null;
+  problemId: string | null;
+  storeId: string | null;
+}): Promise<void> {
+  const { error } = await db().from("waitlist_pro").upsert(
+    {
+      email:      i.email.toLowerCase(),
+      plano:      i.plano,
+      user_id:    i.userId,
+      problem_id: i.problemId,
+      store_id:   i.storeId,
+      origem:     "resultado",
+    },
+    { onConflict: "email" },
+  );
+  if (error) throw error;
+}
