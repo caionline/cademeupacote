@@ -169,12 +169,14 @@ export async function registrarEventoFunil(e: {
   problemId: string | null;
   storeId: string | null;
   logado: boolean;
+  canal: string | null;
 }): Promise<void> {
   const { error } = await db().from("funil_eventos").insert({
     tipo:       e.tipo,
     problem_id: e.problemId,
     store_id:   e.storeId,
     logado:     e.logado,
+    canal:      e.canal,
   });
   if (error) throw error;
 }
@@ -186,6 +188,7 @@ export async function registrarInteressePro(i: {
   problemId: string | null;
   storeId: string | null;
   origem: "resultado" | "meus_casos";
+  canal: string | null;
 }): Promise<void> {
   const { error } = await db().from("waitlist_pro").upsert(
     {
@@ -195,6 +198,8 @@ export async function registrarInteressePro(i: {
       problem_id: i.problemId,
       store_id:   i.storeId,
       origem:     i.origem,
+      // Sem canal agora, mantém o que já estava gravado.
+      ...(i.canal ? { canal: i.canal } : {}),
     },
     { onConflict: "email" },
   );

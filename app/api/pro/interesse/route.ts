@@ -1,7 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { PROBLEMS, STORES } from "@/lib/constants";
 import { registrarEventoFunil, registrarInteressePro } from "@/lib/db";
 import { supabaseServer } from "@/lib/supabase/server";
+import { origemDaRequisicao } from "@/lib/origem";
+import { enviarEventoMeta } from "@/lib/meta-capi";
 
 export const runtime = "nodejs";
 
@@ -24,10 +26,20 @@ export async function POST(req: Request) {
     }
 
     const origem = body.origem === "meus_casos" ? "meus_casos" : "resultado";
-    await registrarInteressePro({ email, plano, userId: user?.id ?? null, problemId, storeId, origem });
+    const canal = origemDaRequisicao(req);
+    await registrarInteressePro({ email, plano, userId: user?.id ?? null, problemId, storeId, origem, canal });
     try {
-      await registrarEventoFunil({ tipo: "oferta_lead", problemId, storeId, logado: !!user });
+      await registrarEventoFunil({ tipo: "oferta_lead", problemId, storeId, logado: !!user, canal });
     } catch {}
+
+    // Conversions API: mesmo eventId do Pixel no navegador (a Meta junta os dois).
+    const eventId = typeof body.eventId === "string" && /^[\w-]{8,64}$/.test(body.eventId) ? body.eventId : crypto.randomUUID();
+    after(() => enviarEventoMeta(req, {
+      evento: "InteressePro",
+      eventId,
+      email,
+      dados: { content_name: plano, content_category: origem },
+    }));
 
     return NextResponse.json({ ok: true });
   } catch (err) {

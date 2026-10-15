@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { PROBLEMS, STORES } from "@/lib/constants";
 import { registrarEventoFunil, type EventoFunil } from "@/lib/db";
 import { supabaseServer } from "@/lib/supabase/server";
+import { origemDaRequisicao } from "@/lib/origem";
 
 export const runtime = "nodejs";
 
@@ -21,6 +22,7 @@ export async function POST(req: Request) {
       problemId: PROBLEMS.some(p => p.id === problemId) ? problemId : null,
       storeId:   STORES.some(s => s.id === storeId) ? storeId : null,
       logado:    !!user,
+      canal:     origemDaRequisicao(req),
     });
     return NextResponse.json({ ok: true });
   } catch (err) {

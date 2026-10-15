@@ -839,6 +839,8 @@ footer.site-footer { padding: 56px var(--gutter) 32px; background: var(--bg); bo
 }
 .pro-plano-nome { font-size: 13px; font-weight: 600; color: var(--text-muted); }
 .pro-plano-preco { font-size: 20px; font-weight: 700; }
+.pro-plano-de { font-size: 14px; font-weight: 500; color: var(--text-muted); margin-right: 6px; }
+.pro-planos-unico { grid-template-columns: 1fr; }
 .pro-plano-detalhe { font-size: 12px; color: var(--text-subtle); line-height: 1.35; }
 .pro-email { display: flex; gap: 8px; flex-wrap: wrap; }
 .pro-email input {

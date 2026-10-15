@@ -103,9 +103,15 @@ export default function PrivacidadePage() {
         </section>
 
         <section style={{ marginBottom: 48 }}>
-          <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.2px" }}>5. COOKIES</h2>
+          <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.2px" }}>5. COOKIES E PIXEL DA META</h2>
           <p style={{ lineHeight: 1.7, color: "var(--text-muted)" }}>
-            Não usamos cookies de rastreamento. Usamos o armazenamento local do navegador para guardar seu rascunho e, se você entrar na sua conta, um cookie de sessão para manter o login.
+            Usamos o armazenamento local do navegador para guardar seu rascunho e, se você entrar na sua conta, um cookie de sessão para manter o login.
+          </p>
+          <p style={{ marginTop: 12, lineHeight: 1.7, color: "var(--text-muted)" }}>
+            Também usamos o <strong>Pixel da Meta</strong> (Facebook e Instagram) e a API de Conversões da Meta para medir se nossos anúncios funcionam. Eles registram quais páginas você visitou, quando uma reclamação foi gerada e quando você entrou na lista do Pro, junto com dados técnicos do navegador (endereço IP, tipo de aparelho e cookies da Meta). Se você deixar o e-mail na lista do Pro, enviamos à Meta apenas uma versão embaralhada (hash) dele, nunca o e-mail em texto. No evento de reclamação gerada vão só a loja e o tipo de problema. <strong>Nunca enviamos o texto da reclamação, seu nome, CPF, valor ou número do pedido.</strong> A Meta trata esses dados conforme a <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener noreferrer" style={{ color: "var(--primary)" }}>política de privacidade dela</a>, e você pode limitar anúncios personalizados nas configurações de anúncios da sua conta Meta ou bloqueando cookies de terceiros no navegador.
+          </p>
+          <p style={{ marginTop: 12, lineHeight: 1.7, color: "var(--text-muted)" }}>
+            Quando você chega por um link de divulgação (por exemplo, com <code>?ref=</code> ou <code>utm_source</code> no endereço), guardamos o nome desse canal num cookie nosso por até 90 dias, para saber de onde vêm as visitas, as reclamações e os interessados no Pro.
           </p>
         </section>
       </main>

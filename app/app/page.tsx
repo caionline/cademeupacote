@@ -16,6 +16,7 @@ import { formatBRL, parseBRL } from "@/lib/currency";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { salvarCaso, guardarPendente } from "@/lib/casos";
 import ProOferta from "./ProOferta";
+import { rastrear } from "@/lib/meta";
 
 const LOADING_MSGS = [
   "Analisando seu caso...",
@@ -147,6 +148,7 @@ export default function AppPage() {
       if (!r.ok) throw new Error(data?.error || "Erro ao gerar.");
       setResults(data);
       setStep(5);
+      rastrear("ReclamacaoGerada", { content_category: form.problem ?? undefined, store_id: form.store ?? undefined });
       setSalvo("nao");
       if (logado) {
         setSalvo("salvando");
