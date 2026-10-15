@@ -25,10 +25,11 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 
 ## Fase 3 — Custo de IA no mínimo
 - [ ] Ideias de cache do Caio (a detalhar)
-- [ ] Prompt caching da Anthropic: a parte fixa do prompt (regras do CDC, instruções) fica em cache e sai bem mais barata
-- [ ] Limite por pessoa/dia no grátis (protege a conta da Anthropic contra abuso)
-- [ ] Atualizar o modelo (`claude-sonnet-4-5` está defasado) e avaliar modelo menor onde a qualidade aguentar
-- [ ] Medir custo real por reclamação antes e depois
+- [ ] Prompt caching da Anthropic — hoje as instruções são curtas demais pro cache valer; retomar quando o prompt crescer (Pro)
+- [x] Limite por dia: 5 sem conta, 15 com conta, 500 no site inteiro
+- [x] Modelo: Claude Haiku 5.5 (esforço médio), escolhido em teste lado a lado com Sonnet 5.5
+- [x] Custo medido: ~R$ 0,01 por reclamação (antes ~R$ 0,11 com Sonnet 4.5)
+- [ ] Conferir qualidade com mais casos reais (defeito, produto errado, reembolso)
 
 ## Fase 4 — Plano Pro: acompanhamento do caso
 - [ ] Linha do tempo do caso com os prazos legais (ex.: 30 dias pra loja consertar defeito, 7 dias de arrependimento, prazo de resposta no Consumidor.gov)
