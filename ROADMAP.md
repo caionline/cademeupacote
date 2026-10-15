@@ -15,7 +15,7 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 
 ## Fase 2 — Login + "Meus casos"
 - [x] Login sem senha (link mágico por e-mail) via Supabase Auth
-- [ ] Login com Google (código pronto; falta configurar o app no Google Cloud)
+- [x] Login com Google (projeto próprio no Google Cloud, publicado)
 - [x] Cadastro: nome, WhatsApp, CPF opcional, aceite dos termos com data
 - [x] Cada reclamação gerada vira um **caso** salvo na conta: loja, problema, datas, textos gerados
 - [x] Tela "Meus casos" com status (aberto / resolvido)
