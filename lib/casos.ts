@@ -15,6 +15,19 @@ export type Reclamacao = {
   textos: Textos;
   status: "aberto" | "resolvido";
   resolvido_em: string | null;
+  etapa: "sac" | "reclameaqui" | "consumidorgov" | "jec";
+  enviado_em: string | null;
+  prazo_em: string | null;
+  dados: { purchaseDate?: string } | null;
+};
+
+export type CasoEvento = {
+  id: number;
+  caso_id: string;
+  created_at: string;
+  tipo: "enviado" | "resolvido" | "nao_resolveu" | "reaberto" | "texto_gerado" | "prazo_vencido";
+  etapa: string;
+  nota: string | null;
 };
 
 // Caso gerado sem login, guardado até a pessoa entrar na conta.

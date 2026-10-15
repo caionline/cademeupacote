@@ -185,6 +185,7 @@ export async function registrarInteressePro(i: {
   userId: string | null;
   problemId: string | null;
   storeId: string | null;
+  origem: "resultado" | "meus_casos";
 }): Promise<void> {
   const { error } = await db().from("waitlist_pro").upsert(
     {
@@ -193,9 +194,30 @@ export async function registrarInteressePro(i: {
       user_id:    i.userId,
       problem_id: i.problemId,
       store_id:   i.storeId,
-      origem:     "resultado",
+      origem:     i.origem,
     },
     { onConflict: "email" },
   );
   if (error) throw error;
+}
+
+// ---------------------------------------------------------------------------
+// Pro: prazos vencidos (lembrete diário)
+// ---------------------------------------------------------------------------
+
+export type CasoPrazoVencido = {
+  caso_id: string; user_id: string; email: string; nome: string | null;
+  store_id: string; store_nome: string | null; problem_id: string; etapa: string;
+};
+
+export async function getCasosPrazoVencido(limite = 100): Promise<CasoPrazoVencido[]> {
+  const { data, error } = await db().rpc("casos_com_prazo_vencido", { limite });
+  if (error) throw error;
+  return (data ?? []) as CasoPrazoVencido[];
+}
+
+export async function marcarPrazoAvisado(c: CasoPrazoVencido): Promise<void> {
+  const { error } = await db().from("reclamacoes").update({ prazo_avisado: true }).eq("id", c.caso_id);
+  if (error) throw error;
+  await db().from("caso_eventos").insert({ caso_id: c.caso_id, user_id: c.user_id, tipo: "prazo_vencido", etapa: c.etapa });
 }

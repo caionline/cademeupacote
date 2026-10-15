@@ -26,6 +26,7 @@ export type Perfil = {
   cpf: string | null;
   termos_aceitos_em: string | null;
   marketing_ok: boolean;
+  pro_ate: string | null;
 };
 
 /** Usuário logado + perfil, ou null. */

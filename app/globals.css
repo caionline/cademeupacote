@@ -714,3 +714,60 @@ footer.site-footer { padding: 48px 24px; background: var(--bg); border-top: 1px 
 .pro-ok { text-align: center; }
 .pro-ok p { color: var(--text-muted); font-size: 14.5px; line-height: 1.55; }
 @media (max-width: 420px) { .pro-planos { grid-template-columns: 1fr; } .pro-email .btn { width: 100%; } }
+
+/* ===== PRO: LINHA DO TEMPO ===== */
+.selo-pro {
+  display: inline-block; vertical-align: middle; margin-left: 10px;
+  font-family: var(--font); font-size: 12px; font-weight: 800; letter-spacing: 0.5px;
+  background: var(--primary); color: #fff; padding: 3px 9px; border-radius: 999px;
+}
+.pro-painel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.pro-painel > div {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.pro-painel strong { font-size: 20px; font-weight: 700; }
+.pro-painel span { font-size: 12.5px; color: var(--text-muted); }
+.pro-painel .pro-painel-alerta { border-color: var(--hot-border); background: var(--hot); }
+.pro-painel .pro-painel-alerta strong { color: var(--danger); }
+@media (max-width: 520px) { .pro-painel strong { font-size: 16px; } .pro-painel > div { padding: 10px; } }
+
+.pro-trilha { list-style: none; padding: 0; margin: 0 0 16px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.pro-passo { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; position: relative; }
+.pro-passo::before {
+  content: ""; position: absolute; top: 17px; left: -50%; width: 100%; height: 2px; background: var(--border); z-index: 0;
+}
+.pro-passo:first-child::before { display: none; }
+.pro-passo-icone {
+  position: relative; z-index: 1; width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+  background: var(--surface-alt); border: 2px solid var(--border);
+}
+.pro-passo-nome { font-size: 12px; color: var(--text-subtle); line-height: 1.25; }
+.pro-passo-feito .pro-passo-icone { background: var(--success); border-color: var(--success); color: #fff; font-weight: 700; }
+.pro-passo-feito::before, .pro-passo-atual::before { background: var(--success); }
+.pro-passo-atual .pro-passo-icone { background: var(--primary-soft); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(249,115,22,0.15); }
+.pro-passo-atual .pro-passo-nome { color: var(--text); font-weight: 700; }
+.pro-passo-pulado { opacity: 0.4; }
+
+.pro-agora { background: var(--surface-alt); border-radius: 14px; padding: 16px; }
+.pro-agora-ok { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; background: #F0FDF4; }
+.pro-agora-titulo { font-weight: 700; font-size: 15px; margin-bottom: 8px; }
+.pro-agora-texto { font-size: 14px; line-height: 1.55; color: var(--text-muted); margin-bottom: 10px; }
+.pro-agora-texto a { color: var(--primary); font-weight: 600; }
+.pro-agora .caso-texto { background: var(--surface); }
+.pro-vencido { color: var(--danger); }
+.pro-em-breve { font-size: 14px; padding: 12px; border-radius: 10px; background: var(--primary-soft); border: 1px dashed var(--primary-border); }
+.pro-alerta { margin-top: 12px; font-size: 13px; line-height: 1.5; padding: 12px 14px; border-radius: 12px; background: #FFFBEB; border: 1px solid #FDE68A; color: var(--text-muted); }
+.pro-historico { margin-top: 12px; font-size: 13px; color: var(--text-muted); }
+.pro-historico summary { cursor: pointer; font-weight: 600; }
+.pro-historico ul { list-style: none; padding: 8px 0 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.pro-historico li span { font-family: var(--mono); font-size: 12px; color: var(--text-subtle); margin-right: 6px; }
+
+.pro-teaser {
+  margin-top: 16px; padding: 14px 16px; border-radius: 14px;
+  background: var(--primary-soft); border: 1px solid var(--primary-border);
+  display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap;
+}
+.pro-teaser p { font-size: 13px; color: var(--text-muted); line-height: 1.45; margin-top: 4px; }
+.pro-teaser-ok { color: var(--success); font-weight: 600; font-size: 14px; }

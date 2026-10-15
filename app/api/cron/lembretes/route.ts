@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getLembretesVencidos, marcarLembreteEnviado } from "@/lib/db";
-import { enviarLembrete } from "@/lib/lembrete-email";
+import { getCasosPrazoVencido, getLembretesVencidos, marcarLembreteEnviado, marcarPrazoAvisado } from "@/lib/db";
+import { enviarAvisoPrazo, enviarLembrete } from "@/lib/lembrete-email";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -31,6 +31,20 @@ export async function GET(req: Request) {
     }
   }
 
-  console.log(`[LEMBRETES] vencidos=${vencidos.length} enviados=${enviados} falhas=${falhas}`);
-  return NextResponse.json({ vencidos: vencidos.length, enviados, falhas });
+  // Pro: prazos de resposta que venceram
+  const prazos = await getCasosPrazoVencido();
+  let avisados = 0;
+  for (const c of prazos) {
+    try {
+      await enviarAvisoPrazo({ email: c.email, nome: c.nome, storeId: c.store_id, storeNome: c.store_nome, etapa: c.etapa });
+      await marcarPrazoAvisado(c);
+      avisados++;
+    } catch (err) {
+      falhas++;
+      console.error("[PRAZOS] falha ao avisar:", err instanceof Error ? err.message : err);
+    }
+  }
+
+  console.log(`[LEMBRETES] vencidos=${vencidos.length} enviados=${enviados} prazos=${prazos.length} avisados=${avisados} falhas=${falhas}`);
+  return NextResponse.json({ vencidos: vencidos.length, enviados, prazos: prazos.length, avisados, falhas });
 }

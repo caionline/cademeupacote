@@ -23,7 +23,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Informe um e-mail válido." }, { status: 400 });
     }
 
-    await registrarInteressePro({ email, plano, userId: user?.id ?? null, problemId, storeId });
+    const origem = body.origem === "meus_casos" ? "meus_casos" : "resultado";
+    await registrarInteressePro({ email, plano, userId: user?.id ?? null, problemId, storeId, origem });
     try {
       await registrarEventoFunil({ tipo: "oferta_lead", problemId, storeId, logado: !!user });
     } catch {}
