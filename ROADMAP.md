@@ -20,7 +20,8 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 - [x] Cada reclamação gerada vira um **caso** salvo na conta: loja, problema, datas, textos gerados
 - [x] Tela "Meus casos" com status (aberto / resolvido)
 - [x] Usuário sem login continua usando o grátis normalmente
-- [ ] Configurar no Supabase: endereço do site + envio de e-mail pelo Resend (sem isso o link de login só chega pra e-mails da equipe)
+- [x] Configurar no Supabase: endereço do site + envio de e-mail pelo Resend (conta Resend própria, domínio verificado, modelo em português)
+- [ ] Trocar as chaves do Supabase e do Resend (apareceram no chat)
 
 ## Fase 3 — Custo de IA no mínimo
 - [ ] Ideias de cache do Caio (a detalhar)
@@ -53,4 +54,4 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 ---
 
 ## Já feito
-- Lembrete de 7 dias por e-mail (código no ar; falta configurar o Resend — vai migrar pro Supabase na Fase 1)
+- Lembrete de 7 dias por e-mail (no ar, via Resend + Supabase)
