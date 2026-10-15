@@ -32,11 +32,16 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 - [ ] Conferir qualidade com mais casos reais (defeito, produto errado, reembolso)
 
 ## Fase 4 — Plano Pro: acompanhamento do caso
-- [ ] Linha do tempo do caso com os prazos legais (ex.: 30 dias pra loja consertar defeito, 7 dias de arrependimento, prazo de resposta no Consumidor.gov)
-- [ ] Lembretes automáticos em cada prazo ("a loja não respondeu — hora de subir o tom")
-- [ ] Gerar o texto do próximo canal já com o histórico do caso
-- [ ] Petição pronta para o Juizado Especial Cível
-- [ ] Definir preço (por caso avulso e/ou mensal)
+- [x] Oferta do Pro na tela de resultado (captura interessados + funil: visto → clique → contato)
+- [x] Problema novo "A loja cancelou meu pedido" (público Copping)
+- [x] Linha do tempo: SAC → Reclame Aqui → Consumidor.gov → Juizado, com prazo por etapa
+- [x] Próximo texto gerado com o histórico do caso
+- [x] E-mail quando o prazo vence
+- [x] Painel: casos em aberto, valor em disputa, prazos vencidos
+- [ ] Modelo de petição pro Juizado (antes: revisão de um advogado)
+- [ ] Anexar provas ao caso (prints, nota fiscal, protocolos)
+- [ ] Aviso de prazo por WhatsApp
+- Preços definidos: Trimestral R$ 34,90 · Mensal R$ 14,90 · Fundador Copping R$ 9,90/mês (100 primeiros)
 
 ## Fase 5 — Pagamento
 - [ ] Comparar taxas atuais de Pix e cartão (Mercado Pago, Asaas, Stripe, Pagar.me, AbacatePay…) e escolher a menor
