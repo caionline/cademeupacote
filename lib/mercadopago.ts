@@ -62,9 +62,14 @@ export type PagamentoMP = {
   currency_id: string;
 };
 
-/** Consulta o pagamento direto no Mercado Pago (fonte da verdade, nunca confia no corpo do webhook). */
-export function buscarPagamento(id: string): Promise<PagamentoMP> {
-  return mp<PagamentoMP>(`/v1/payments/${encodeURIComponent(id)}`);
+/** Consulta o pagamento direto no Mercado Pago (fonte da verdade, nunca confia no corpo do webhook). null = não existe. */
+export async function buscarPagamento(id: string): Promise<PagamentoMP | null> {
+  try {
+    return await mp<PagamentoMP>(`/v1/payments/${encodeURIComponent(id)}`);
+  } catch (e) {
+    if (e instanceof Error && e.message.startsWith("Mercado Pago 404")) return null;
+    throw e;
+  }
 }
 
 /**

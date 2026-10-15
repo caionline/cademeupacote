@@ -20,6 +20,7 @@ export async function POST(req: Request) {
 
   try {
     const mp = await buscarPagamento(dataId);
+    if (!mp) return NextResponse.json({ ok: true, aviso: "pagamento inexistente" });
     const ref = mp.external_reference;
     const nosso = ref ? await getPagamento(ref) : null;
     if (!nosso) {
