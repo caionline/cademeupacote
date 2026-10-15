@@ -1042,3 +1042,7 @@ footer.site-footer { padding: 56px var(--gutter) 32px; background: var(--bg); bo
 .pro-comparar th:first-child, .pro-comparar td:first-child { text-align: left; color: var(--text-muted); }
 .pro-comparar th { font-size: 13px; }
 .pro-comparar td:last-child { color: var(--primary-dark); font-weight: 700; }
+
+/* Turnstile: invisível; só ocupa espaço se a Cloudflare pedir um desafio */
+.turnstile-caixa { display: flex; justify-content: center; margin-top: 8px; }
+.turnstile-caixa:empty { display: none; }

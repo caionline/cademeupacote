@@ -16,6 +16,7 @@ import { formatBRL, parseBRL } from "@/lib/currency";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { salvarCaso, guardarPendente } from "@/lib/casos";
 import ProOferta from "./ProOferta";
+import { useTurnstile } from "@/app/components/useTurnstile";
 import PrintsUpload, { type DadosExtraidos } from "./PrintsUpload";
 import { rastrear } from "@/lib/meta";
 
@@ -57,6 +58,7 @@ export default function AppPage() {
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const humano = useTurnstile();
   const [emailCaptured, setEmailCaptured] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
@@ -184,7 +186,7 @@ export default function AppPage() {
       const r = await fetch("/api/gerar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, turnstile: await humano.obterToken() }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data?.error || "Erro ao gerar.");
@@ -680,6 +682,7 @@ export default function AppPage() {
             </div>
           </>
         )}
+        <div ref={humano.caixa} className="turnstile-caixa" />
       </main>
 
       {shareOpen && (

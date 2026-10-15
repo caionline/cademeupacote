@@ -4,6 +4,7 @@ import { consumirUsoIa, registrarUsoIa } from "@/lib/db";
 import { extrairDePrints, IaRecusou, type ImagemPrint } from "@/lib/ia";
 import { MODELO } from "@/lib/ia";
 import { identificar } from "@/lib/quem";
+import { verificarTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -25,7 +26,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Leitura de prints indisponível agora." }, { status: 500 });
     }
 
-    const body = await req.json().catch(() => null) as { imagens?: ImagemPrint[] } | null;
+    const body = await req.json().catch(() => null) as { imagens?: ImagemPrint[]; turnstile?: string } | null;
+
+    if (!(await verificarTurnstile(body?.turnstile))) {
+      return NextResponse.json({ error: "Não conseguimos confirmar que você não é um robô. Recarregue a página e tente de novo." }, { status: 403 });
+    }
     const imagens = Array.isArray(body?.imagens) ? body!.imagens : [];
     if (imagens.length === 0 || imagens.length > MAX_IMAGENS) {
       return NextResponse.json({ error: `Envie de 1 a ${MAX_IMAGENS} prints.` }, { status: 400 });

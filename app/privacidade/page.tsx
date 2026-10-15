@@ -87,6 +87,7 @@ export default function PrivacidadePage() {
             <li>E-mails de lembrete ficam no mesmo banco e são enviados pelo Resend.</li>
             <li>Pagamentos do Pro são processados pelo Mercado Pago. Nós guardamos só o plano, o valor, a data e a situação do pagamento. Os dados do cartão ficam com o Mercado Pago e nunca passam pelos nossos servidores.</li>
             <li>Para aplicar o limite diário de uso sem conta, guardamos uma versão embaralhada (hash) do endereço IP, nunca o IP em si.</li>
+            <li>Para barrar robôs, usamos o Cloudflare Turnstile, que verifica sinais do navegador (sem cookies de rastreamento) antes de gerar textos ou ler prints.</li>
             <li>Você pode apagar qualquer caso a qualquer momento em &quot;Meus casos&quot;. Para apagar a conta inteira, escreva para o e-mail abaixo.</li>
           </ul>
         </section>

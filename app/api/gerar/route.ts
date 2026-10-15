@@ -5,6 +5,7 @@ import { consumirUsoIa, registrarCaso, registrarUsoIa } from "@/lib/db";
 import { gerarTextos, IaRecusou } from "@/lib/ia";
 import { MODELO } from "@/lib/ia";
 import { identificar } from "@/lib/quem";
+import { verificarTurnstile } from "@/lib/turnstile";
 import { getValueRange } from "@/lib/value-ranges";
 
 export const runtime = "nodejs";
@@ -21,7 +22,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "API key não configurada no servidor." }, { status: 500 });
     }
 
-    const body = (await req.json()) as FormState;
+    const body = (await req.json()) as FormState & { turnstile?: string };
+
+    if (!(await verificarTurnstile(body.turnstile))) {
+      return NextResponse.json({ error: "Não conseguimos confirmar que você não é um robô. Recarregue a página e tente de novo." }, { status: 403 });
+    }
 
     if (!PROBLEMS.some(p => p.id === body.problem) || !STORES.some(s => s.id === body.store)) {
       return NextResponse.json({ error: "Problema e loja são obrigatórios." }, { status: 400 });

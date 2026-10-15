@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { reduzirImagem } from "@/lib/imagem";
+import { useTurnstile } from "@/app/components/useTurnstile";
 
 export type DadosExtraidos = {
   loja_id: string | null;
@@ -22,6 +23,7 @@ export default function PrintsUpload({ onPreencher }: { onPreencher: (d: DadosEx
   const [arquivos, setArquivos] = useState<File[]>([]);
   const [lendo, setLendo] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
+  const humano = useTurnstile();
 
   function escolher(lista: FileList | null) {
     setErro(null);
@@ -40,7 +42,7 @@ export default function PrintsUpload({ onPreencher }: { onPreencher: (d: DadosEx
       const r = await fetch("/api/extrair", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imagens }),
+        body: JSON.stringify({ imagens, turnstile: await humano.obterToken() }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data?.error || "Não conseguimos ler os prints.");
@@ -89,6 +91,7 @@ export default function PrintsUpload({ onPreencher }: { onPreencher: (d: DadosEx
         )}
       </div>
       {erro && <p className="prints-erro">{erro}</p>}
+      <div ref={humano.caixa} className="turnstile-caixa" />
       <p className="prints-nota">Os prints não ficam guardados: a IA lê, preenche e descarta. Até {MAX} por vez.</p>
     </div>
   );
