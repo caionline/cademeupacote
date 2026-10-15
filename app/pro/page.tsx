@@ -74,8 +74,8 @@ export default async function ProPage({ searchParams }: { searchParams: Promise<
               <thead><tr><th></th><th>Grátis</th><th>Pro</th></tr></thead>
               <tbody>
                 <tr><td>Reclamação com base no CDC (SAC, Reclame Aqui, Consumidor.gov/Procon)</td><td>1 a cada 15 dias</td><td>Sem espera</td></tr>
-                <tr><td>Preencher pelos prints da compra</td><td>✓</td><td>✓</td></tr>
-                <tr><td>Análise da resposta da loja</td><td>5 por dia</td><td>30 por dia</td></tr>
+                <tr><td>Preencher pelos prints da compra</td><td>3 a 5 por dia</td><td>30 por dia</td></tr>
+                <tr><td>Análise da resposta da loja</td><td>2 por dia</td><td>30 por dia</td></tr>
                 <tr><td>Linha do tempo e aviso de prazos</td><td>—</td><td>✓</td></tr>
                 <tr><td>Próximo texto com o histórico do caso</td><td>—</td><td>✓</td></tr>
                 <tr><td>Painel de casos e valor em disputa</td><td>—</td><td>✓</td></tr>

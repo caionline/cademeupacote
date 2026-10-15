@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
-import { consumirUsoIa, registrarUsoIa } from "@/lib/db";
+import { consumirUsoIa, registrarUsoIa, usuarioEhPro } from "@/lib/db";
 import { extrairDePrints, IaRecusou, type ImagemPrint } from "@/lib/ia";
 import { MODELO } from "@/lib/ia";
 import { identificar } from "@/lib/quem";
@@ -10,8 +10,9 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 // Leituras de prints por dia (são baratas, mas têm limite). O global protege a fatura.
-const LIMITE_SEM_CONTA = 10;
-const LIMITE_COM_CONTA = 30;
+const LIMITE_SEM_CONTA = 3;
+const LIMITE_COM_CONTA = 5;
+const LIMITE_PRO = 30;
 const LIMITE_GLOBAL = 1000;
 
 const MAX_IMAGENS = 4;
@@ -41,9 +42,10 @@ export async function POST(req: Request) {
       }
     }
 
-    const { chave, logado } = await identificar(req);
+    const { chave, logado, userId } = await identificar(req);
     try {
-      const r = await consumirUsoIa(`x:${chave}`, logado ? LIMITE_COM_CONTA : LIMITE_SEM_CONTA, LIMITE_GLOBAL);
+      const pro = userId ? await usuarioEhPro(userId) : false;
+      const r = await consumirUsoIa(`x:${chave}`, pro ? LIMITE_PRO : logado ? LIMITE_COM_CONTA : LIMITE_SEM_CONTA, LIMITE_GLOBAL);
       if (r === "pessoa") {
         return NextResponse.json({ error: "Você chegou ao limite de leituras de prints por hoje. Preencha os dados à mão, que funciona igual." }, { status: 429 });
       }

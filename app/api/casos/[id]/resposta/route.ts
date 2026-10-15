@@ -12,7 +12,7 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 // Análises por dia: grátis pra quem tem conta, mais folga no Pro.
-const LIMITE_GRATIS = 5;
+const LIMITE_GRATIS = 2;
 const LIMITE_PRO = 30;
 const LIMITE_GLOBAL = 1000;
 
