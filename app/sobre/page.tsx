@@ -50,13 +50,13 @@ export default function SobrePage() {
         {/* Seção 2 */}
         <h2 style={h2Style}>O que aprendi com isso</h2>
         <p style={bodyStyle}>
-          Que o consumidor brasileiro tem direito. Que existe um Código (CDC) bem feito do nosso lado. Que existe um sistema gratuito (Consumidor.gov, JEC) que funciona. E que 90% das pessoas não sabem disso, ou desistem no meio do caminho, porque ninguém te ensina como escrever uma reclamação que tem peso, e o tempo joga contra. A loja conta com seu cansaço.
+          Que o consumidor brasileiro tem direito. Que existe um Código (CDC) bem feito do nosso lado. Que existe um caminho gratuito (Consumidor.gov, Procon, Juizado Especial) que funciona. E que a maioria das pessoas não sabe disso, ou desistem no meio do caminho, porque ninguém te ensina como escrever uma reclamação que tem peso, e o tempo joga contra. A loja conta com seu cansaço.
         </p>
 
         {/* Seção 3 */}
         <h2 style={h2Style}>Por que esse site existe</h2>
         <p style={bodyStyle}>
-          Porque ninguém deveria precisar de meses e de processo pra ter o que pagou. Porque escrever uma boa reclamação é metade da batalha — e a maioria das pessoas nem sabe por onde começar. O Cadê Meu Pacote pega seus dados básicos e a IA monta o texto em segundos: com base legal real, no tom certo pra cada canal, prontíssimo pra colar. SAC, Reclame Aqui e Consumidor.gov. E, se a loja enrolar, o acompanhamento do caso avisa cada prazo e escreve o próximo passo, até o Juizado se precisar.
+          Porque ninguém deveria precisar de meses e de processo pra ter o que pagou. Porque escrever uma boa reclamação é metade da batalha — e a maioria das pessoas nem sabe por onde começar. O Cadê Meu Pacote pega seus dados básicos e a IA monta o texto em segundos: com base legal real, no tom certo pra cada canal, prontíssimo pra colar. SAC, Reclame Aqui, Consumidor.gov e Procon. E, se a loja enrolar, o acompanhamento do caso avisa cada prazo e escreve o próximo passo, até o Juizado se precisar.
         </p>
 
         {/* Seção 4 — Cards */}
@@ -65,8 +65,8 @@ export default function SobrePage() {
           {[
             {
               emoji: "🆓",
-              title: "Grátis enquanto der",
-              text: "Gerar a reclamação e os textos pra cada canal vai ser sempre grátis. O Pro é opcional, pra quem quer acompanhamento do caso até o fim. Reclamar nunca pode custar.",
+              title: "Reclamar é grátis",
+              text: "Gerar a reclamação e os textos pra cada canal é grátis, e vai continuar assim. O Pro é opcional, pra quem quer acompanhamento do caso até o fim.",
             },
             {
               emoji: "🔒",
@@ -76,7 +76,7 @@ export default function SobrePage() {
             {
               emoji: "⚖️",
               title: "CDC na veia",
-              text: "Cada texto gerado tem base legal real. Não é firula de ChatGPT — é Lei 8.078/90 aplicada ao seu caso concreto.",
+              text: "Cada texto cita os artigos do Código de Defesa do Consumidor (Lei 8.078/90) que se aplicam ao seu caso. Você revisa antes de enviar.",
             },
             {
               emoji: "📊",

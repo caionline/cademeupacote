@@ -7,7 +7,7 @@ import SiteFooter from "@/app/components/SiteFooter";
 
 export const revalidate = 300;
 
-const LOJAS = STORES.filter(s => s.id !== "other");
+const LOJAS = STORES.filter(s => s.id !== "other" && !s.encerrada);
 const PROBLEMAS = PROBLEMS.filter(p => p.id !== "other");
 
 export default async function HomePage() {
@@ -50,7 +50,7 @@ export default async function HomePage() {
             <Link href="/app" className="btn btn-primary btn-lg">Gerar minha reclamação grátis →</Link>
             <a href="#como-funciona" className="btn btn-ghost btn-lg">Ver como funciona</a>
           </div>
-          <p className="cta-micro">Leva 3 minutos · Shein, Shopee, Amazon, Mercado Livre e mais 18 lojas</p>
+          <p className="cta-micro">Leva 3 minutos · Shein, Shopee, Amazon, Mercado Livre e mais {LOJAS.length - 4} lojas, ou qualquer outra</p>
           <Link href="/sobre" className="founder">
             <span className="founder-avatar">⚖️</span>
             <span>
@@ -74,12 +74,12 @@ export default async function HomePage() {
               <li className="feito"><span>✓</span><div><strong>Reclamação enviada ao SAC</strong><small>com o Art. 35 do CDC</small></div></li>
               <li className="atual"><span>2</span><div><strong>Prazo do SAC vence em 2 dias</strong><small>A gente te avisa por e-mail</small></div></li>
               <li><span>3</span><div><strong>Reclame Aqui</strong><small>Texto pronto com o histórico</small></div></li>
-              <li><span>4</span><div><strong>Consumidor.gov e Juizado</strong><small>Se ainda não resolver</small></div></li>
+              <li><span>4</span><div><strong>Consumidor.gov, Procon e Juizado</strong><small>Se ainda não resolver</small></div></li>
             </ol>
             <div className="mock-texto">
               <div className="mock-texto-label">Trecho gerado</div>
               “…nos termos do art. 35 do Código de Defesa do Consumidor, exijo o cumprimento da oferta
-              no prazo de 5 dias úteis…”
+              no prazo de 10 dias…”
             </div>
           </div>
           <div className="float-chip float-chip-1">⚡ Texto pronto em segundos</div>
@@ -149,7 +149,7 @@ export default async function HomePage() {
               <div className="step-num">03</div>
               <h3>Envie e acompanhe</h3>
               <ul>
-                <li>SAC, Reclame Aqui e Consumidor.gov</li>
+                <li>SAC, Reclame Aqui, Consumidor.gov ou Procon</li>
                 <li>Salve o caso em “Meus casos”</li>
                 <li>No Pro, a gente avisa cada prazo</li>
               </ul>
@@ -180,25 +180,25 @@ export default async function HomePage() {
             <div className="rung">
               <div className="rung-dot">2</div>
               <div>
-                <div className="rung-day">Sem resposta em 48h</div>
+                <div className="rung-day">Sem solução em 2 a 3 dias</div>
                 <div className="rung-title">⚠️ Reclame Aqui</div>
-                <div className="rung-meta">Lojas grandes respondem por causa da nota pública.</div>
+                <div className="rung-meta">Reclamação pública. Lojas grandes cuidam da nota e costumam responder.</div>
               </div>
             </div>
             <div className="rung">
               <div className="rung-dot">3</div>
               <div>
-                <div className="rung-day">Depois de 5 dias</div>
-                <div className="rung-title">🏛️ Consumidor.gov.br</div>
-                <div className="rung-meta">Plataforma oficial. A empresa cadastrada tem 10 dias pra responder.</div>
+                <div className="rung-day">Sem solução no Reclame Aqui (cerca de 10 dias)</div>
+                <div className="rung-title">🏛️ Consumidor.gov.br ou Procon</div>
+                <div className="rung-meta">Canais oficiais e grátis. No Consumidor.gov a empresa tem 10 dias pra responder. O Procon pode notificar a loja, chamar pra conciliação e aplicar multa.</div>
               </div>
             </div>
             <div className="rung">
               <div className="rung-dot">4</div>
               <div>
                 <div className="rung-day">Último recurso</div>
-                <div className="rung-title">⚖️ Juizado Especial (JEC)</div>
-                <div className="rung-meta">Sem custas até 20 salários mínimos. Sem advogado.</div>
+                <div className="rung-title">⚖️ Juizado Especial Cível (JEC)</div>
+                <div className="rung-meta">Sem custas na 1ª instância. Causas de até 20 salários mínimos dispensam advogado.</div>
               </div>
             </div>
           </div>
@@ -217,7 +217,7 @@ export default async function HomePage() {
               <p className="plano-desc">Pra resolver na primeira tentativa.</p>
               <ul className="plano-lista">
                 <li>Reclamação com base no CDC em 3 minutos</li>
-                <li>Textos para SAC, Reclame Aqui e Consumidor.gov</li>
+                <li>Textos para SAC, Reclame Aqui e Consumidor.gov ou Procon</li>
                 <li>Casos salvos em “Meus casos” (com conta)</li>
                 <li>Guia da escalada passo a passo</li>
               </ul>
@@ -228,10 +228,10 @@ export default async function HomePage() {
               <div className="plano-nome">Pro · acompanhamento do caso</div>
               <p className="plano-desc">Pra quando a loja não resolve de primeira.</p>
               <ul className="plano-lista">
-                <li>A gente conta cada prazo legal e te avisa na hora certa</li>
+                <li>A gente conta os prazos de cada etapa e te avisa quando vencem</li>
                 <li>Próximo texto pronto, já com o histórico do caso</li>
-                <li>Linha do tempo do caso, do SAC ao Juizado</li>
-                <li>Modelo de petição pro Juizado preenchido com seus dados</li>
+                <li>Linha do tempo do caso: SAC, Reclame Aqui, Consumidor.gov ou Procon, Juizado</li>
+                <li>Em breve: modelo de petição pro Juizado preenchido com seus dados</li>
               </ul>
               <ProWaitlistBanner />
             </div>
@@ -259,7 +259,7 @@ export default async function HomePage() {
           <h2 className="section-title">Antes de começar, <em>tire suas dúvidas.</em></h2>
           <details open>
             <summary>É grátis mesmo?</summary>
-            <p>É. Gerar a reclamação e os textos para SAC, Reclame Aqui e Consumidor.gov é grátis e sem cadastro. O Pro, que vai lançar em breve, é opcional: serve pra quem quer que a gente acompanhe o caso, avise os prazos e escreva os próximos passos.</p>
+            <p>É. Gerar a reclamação e os textos para SAC, Reclame Aqui e Consumidor.gov (ou Procon) é grátis e sem cadastro: até 5 reclamações por dia sem conta, 15 com conta. O Pro é opcional: serve pra quem quer que a gente acompanhe o caso, avise os prazos e escreva os próximos passos.</p>
           </details>
           <details>
             <summary>Quem escreve a reclamação? É uma IA?</summary>
@@ -271,15 +271,19 @@ export default async function HomePage() {
           </details>
           <details>
             <summary>Preciso de CPF ou de conta?</summary>
-            <p>Não. O CPF é opcional, mas deixa o texto mais forte em canais formais como Consumidor.gov e Procon. A conta também é opcional: ela serve pra guardar seus casos em “Meus casos” e acompanhar cada um.</p>
+            <p>Não. O CPF é opcional no texto, mas é pedido em canais formais como Consumidor.gov, Procon e Juizado. A conta também é opcional: ela serve pra guardar seus casos em “Meus casos” e acompanhar cada um.</p>
           </details>
           <details>
             <summary>Vocês guardam meus dados?</summary>
-            <p>Sem conta, os dados que você preenche ficam no seu navegador. Com conta, guardamos seus casos pra você acompanhar. Não vendemos nem compartilhamos seus dados, e seguimos a LGPD. Os detalhes estão na <Link href="/privacidade">política de privacidade</Link>.</p>
+            <p>Sem conta, o rascunho fica no seu navegador e os dados do caso só passam pela IA pra gerar o texto. Com conta, guardamos seus casos pra você acompanhar. Não vendemos seus dados. Usamos alguns serviços pra funcionar (IA, envio de e-mail, medição de anúncios) e seguimos a LGPD. Os detalhes estão na <Link href="/privacidade">política de privacidade</Link>.</p>
           </details>
           <details>
             <summary>E se a loja não responder?</summary>
-            <p>Você sobe um degrau: SAC, depois Reclame Aqui, depois Consumidor.gov e, por último, o Juizado Especial, que não tem custas até 20 salários mínimos. Cada etapa aperta mais. No Pro, a gente conta os prazos e escreve o próximo texto pra você.</p>
+            <p>Você sobe um degrau: SAC, depois Reclame Aqui, depois os canais oficiais (Consumidor.gov.br ou o Procon do seu estado) e, por último, o Juizado Especial Cível. No Juizado não há custas na 1ª instância, e causas de até 20 salários mínimos dispensam advogado. Cada etapa aperta mais. No Pro, a gente conta os prazos e escreve o próximo texto pra você.</p>
+          </details>
+          <details>
+            <summary>Qual a diferença entre Procon e Consumidor.gov?</summary>
+            <p>Os dois são gratuitos e oficiais. O Consumidor.gov.br é uma plataforma online do governo federal: você fala direto com a empresa, que tem 10 dias pra responder, mas só vale pra empresas cadastradas. O Procon é o órgão de defesa do consumidor do seu estado ou cidade: atende reclamações contra qualquer empresa, pode notificá-la, chamar pra uma audiência de conciliação e aplicar multas. Muitos Procons recebem reclamações pela internet. Se a loja não estiver no Consumidor.gov, vá direto ao Procon.</p>
           </details>
           <details>
             <summary>Vocês são advogados?</summary>
@@ -287,7 +291,7 @@ export default async function HomePage() {
           </details>
           <details>
             <summary>Funciona pra lojas internacionais (Shein, AliExpress)?</summary>
-            <p>Funciona, com nuances. Lojas com CNPJ brasileiro (como Shein e Shopee) seguem o CDC normalmente. Para vendedores de fora em marketplaces, a reclamação ainda tem peso, mas a aplicação pode variar.</p>
+            <p>Funciona, com nuances. Quem vende para consumidores no Brasil, especialmente com operação aqui (como Shein e Shopee), segue o CDC. Com vendedores de fora em marketplaces, a reclamação ainda tem peso (a plataforma costuma intermediar), mas cobrar na Justiça pode ser mais difícil.</p>
           </details>
         </div>
       </section>

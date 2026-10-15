@@ -96,9 +96,9 @@ export default function ProOferta({ problemId, storeId, logado }: { problemId: s
       <span className="pro-selo">{fundador ? "Comunidade Copping · R$ 9,90/mês pra sempre" : VENDAS_ABERTAS ? "Cadê Meu Pacote Pro" : "Lançamento em breve · preço de fundador"}</span>
       <h4>A loja não resolveu de primeira? A gente vai até o fim com você.</h4>
       <ul className="pro-lista">
-        <li><span>⏰</span> Avisamos cada prazo legal, pra você não perder nenhum</li>
-        <li><span>✍️</span> Geramos o próximo texto com o histórico do caso: Reclame Aqui, Procon e Consumidor.gov</li>
-        <li><span>⚖️</span> Chegou no limite? Modelo de petição pro Juizado Especial preenchido com seus dados</li>
+        <li><span>⏰</span> Avisamos quando vence o prazo de cada etapa, pra você não perder nenhum</li>
+        <li><span>✍️</span> Geramos o próximo texto com o histórico do caso: Reclame Aqui, Consumidor.gov e Procon</li>
+        <li><span>⚖️</span> Em breve: modelo de petição pro Juizado Especial preenchido com seus dados</li>
       </ul>
 
       <div className={`pro-planos${fundador ? " pro-planos-unico" : ""}`} role="radiogroup" aria-label="Plano">

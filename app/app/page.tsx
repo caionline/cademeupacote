@@ -325,7 +325,7 @@ export default function AppPage() {
             <h1 className="app-h1">Em qual <em>loja?</em></h1>
             <p className="app-sub">Escolha a loja onde você fez a compra.</p>
             <div className="option-list">
-              {STORES.map(s => (
+              {STORES.filter(st => !st.encerrada).map(s => (
                 <button
                   key={s.id}
                   className={`option ${form.store === s.id ? "selected" : ""}`}
@@ -467,7 +467,7 @@ export default function AppPage() {
                   value={form.cpf}
                   onChange={e => update("cpf", formatCPF(e.target.value))}
                 />
-                <span className="field-hint">Opcional. Não armazenamos.</span>
+                <span className="field-hint">Opcional. Sem conta, não fica guardado.</span>
                 {form.cpf && !validateCPF(form.cpf) && (
                   <span style={{ color: "var(--danger)", fontSize: 13, marginTop: 4, display: "block" }}>
                     CPF inválido
@@ -477,7 +477,7 @@ export default function AppPage() {
             </div>
 
             <p style={{ fontSize: 12, color: "var(--text-subtle)", marginTop: 12, lineHeight: 1.6 }}>
-              📊 Dados anônimos (loja + tipo de problema) nos ajudam a mapear lojas problemáticas. Não coletamos seu nome, CPF ou email.
+              📊 Só a loja e o tipo de problema entram, de forma anônima, no ranking de lojas. Sem conta, seu nome e CPF não ficam guardados.
             </p>
 
             {error && (
@@ -629,7 +629,7 @@ export default function AppPage() {
 
             <div className="next-step-card">
               <h4>📬 Quer um lembrete em 7 dias?</h4>
-              <p>A gente te avisa pra acompanhar a resposta da loja. Se ela não responder, mandamos o texto pronto pro próximo canal (Reclame Aqui ou Consumidor.gov).</p>
+              <p>A gente te lembra de conferir se a loja respondeu e mostra o próximo passo (Consumidor.gov, Procon ou Juizado). É um único e-mail.</p>
               {emailCaptured ? (
                 <div style={{ color: "var(--success)", fontWeight: 600, fontSize: 14 }}>✓ Pronto! Vamos te avisar.</div>
               ) : (

@@ -29,18 +29,18 @@ export const ETAPA_INFO: Record<Etapa, {
     link: "https://www.reclameaqui.com.br",
   },
   consumidorgov: {
-    nome: "Consumidor.gov",
+    nome: "Consumidor.gov / Procon",
     icone: "🏛️",
     prazoDias: 10,
-    prazoTexto: "A empresa tem 10 dias para responder no Consumidor.gov.",
-    comoEnviar: "Registre em consumidor.gov.br (entra com a conta gov.br). Se a loja não estiver lá, use o Procon do seu estado.",
+    prazoTexto: "No Consumidor.gov a empresa tem 10 dias para responder. No Procon, o prazo depende do órgão.",
+    comoEnviar: "Registre em consumidor.gov.br (entra com a conta gov.br). Se a loja não estiver lá, registre no Procon do seu estado, que pode notificar a loja e marcar conciliação.",
     link: "https://www.consumidor.gov.br",
   },
   jec: {
     nome: "Juizado Especial",
     icone: "⚖️",
     prazoDias: null,
-    prazoTexto: "Causas de até 20 salários mínimos dispensam advogado.",
+    prazoTexto: "Sem custas na 1ª instância. Causas de até 20 salários mínimos dispensam advogado.",
     comoEnviar: "Leve os documentos ao Juizado Especial Cível da sua cidade ou use o protocolo online do tribunal do seu estado.",
   },
 };

@@ -21,6 +21,9 @@ export type Store = {
   name: string;
   emoji: string;
   sacUrl: string | null;
+  /** Loja que deixou de vender online: some das listas, mas a página dela explica a situação. */
+  encerrada?: boolean;
+  aviso?: string;
 };
 
 export const STORES: Store[] = [
@@ -34,14 +37,14 @@ export const STORES: Store[] = [
   { id: "renner",       name: "Renner",            emoji: "👕", sacUrl: "https://www.lojasrenner.com.br/atendimento" },
   { id: "cea",          name: "C&A",               emoji: "👖", sacUrl: "https://www.cea.com.br/atendimento" },
   { id: "americanas",   name: "Americanas",        emoji: "🏠", sacUrl: "https://americanassac.zendesk.com/hc/pt-br" },
-  { id: "submarino",    name: "Submarino",         emoji: "🌐", sacUrl: "https://americanassac.zendesk.com/hc/pt-br" },
+  { id: "submarino",    name: "Submarino",         emoji: "🌐", sacUrl: "https://americanassac.zendesk.com/hc/pt-br", aviso: "O site do Submarino saiu do ar e a marca faz parte da Americanas. Reclamações de pedidos do Submarino vão para o atendimento da Americanas." },
   { id: "tokstok",      name: "Tok&Stok",          emoji: "🛏️", sacUrl: "https://atendimento.tokstok.com.br/hc/pt-br" },
   { id: "mobly",        name: "Mobly",             emoji: "🛋️", sacUrl: "https://www.mobly.com.br/atendimento/" },
   { id: "sephora",      name: "Sephora",           emoji: "💄", sacUrl: "https://www.sephora.com.br/fale-conosco" },
   { id: "drogariasp",   name: "Drogaria São Paulo", emoji: "💊", sacUrl: "https://www.drogariasaopaulo.com.br/atendimento" },
   { id: "centauro",     name: "Centauro",          emoji: "🥾", sacUrl: "https://www.centauro.com.br/atendimento" },
   { id: "netshoes",     name: "Netshoes",          emoji: "⚽", sacUrl: "https://atendimento.netshoes.com.br/" },
-  { id: "saraiva",      name: "Saraiva",           emoji: "📚", sacUrl: null },
+  { id: "saraiva",      name: "Saraiva",           emoji: "📚", sacUrl: null, encerrada: true, aviso: "A Saraiva pediu falência e encerrou as vendas. Quem tem valor a receber de uma empresa falida precisa se habilitar como credor no processo de falência, com ajuda de um advogado ou da Defensoria Pública." },
   { id: "kabum",        name: "Kabum",             emoji: "🎮", sacUrl: "https://www.kabum.com.br/atendimento-ao-cliente" },
   { id: "dell",         name: "Dell",              emoji: "💻", sacUrl: "https://www.dell.com/support/contents/pt-br/category/contact-information" },
   { id: "samsung",      name: "Samsung",           emoji: "🖥️", sacUrl: "https://www.samsung.com/br/info/contactus/" },
@@ -54,7 +57,7 @@ export type Channel = "whatsapp" | "reclameaqui" | "consumidor";
 export const CHANNELS: Record<Channel, { name: string; description: string; icon: string }> = {
   whatsapp:    { name: "SAC da loja", description: "Tom direto. Curto e firme.", icon: "💬" },
   reclameaqui: { name: "Reclame Aqui",   description: "Tom público. Pressão social.", icon: "⚠️" },
-  consumidor:  { name: "Consumidor.gov", description: "Tom formal. Embasado no CDC.", icon: "🏛️" },
+  consumidor:  { name: "Consumidor.gov / Procon", description: "Tom formal. Serve pro Consumidor.gov e pro Procon.", icon: "🏛️" },
 };
 
 export type FormState = {

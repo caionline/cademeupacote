@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function LojasPage() {
-  const stores = STORES.filter(s => s.id !== "other");
+  const stores = STORES.filter(s => s.id !== "other" && !s.encerrada);
 
   return (
     <>

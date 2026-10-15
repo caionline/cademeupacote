@@ -195,7 +195,7 @@ export default function ListaCasos({ inicial, eventos: eventosIniciais, pro }: {
                     <div className="pro-teaser">
                       <div>
                         <strong>🛡️ Quer que a gente acompanhe este caso até o fim?</strong>
-                        <p>Com o Pro: aviso de cada prazo, próximo texto gerado com o histórico do caso e, no limite, modelo de petição pro Juizado.</p>
+                        <p>Com o Pro: aviso de cada prazo, próximo texto gerado com o histórico do caso (Reclame Aqui, Consumidor.gov, Procon) e, em breve, modelo de petição pro Juizado.</p>
                       </div>
                       {interesse
                         ? <span className="pro-teaser-ok">✓ Você está na lista</span>

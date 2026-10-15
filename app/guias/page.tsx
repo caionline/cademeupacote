@@ -29,7 +29,7 @@ export default function GuiasPage() {
           ))}
         </ul>
         <p className="guia-intro" style={{ marginTop: 40 }}>
-          Quer dicas rápidas? Veja também <Link href="/dicas">7 dicas pra reclamar e dar certo</Link>.
+          Quer dicas rápidas? Veja também <Link href="/dicas">8 dicas pra reclamar e dar certo</Link>.
         </p>
       </main>
       <SiteFooter />

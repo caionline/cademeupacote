@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { GUIAS } from "@/lib/guias";
 
 export const metadata: Metadata = {
-  title: "Como reclamar e dar certo — 7 dicas práticas | Cadê Meu Pacote",
+  title: "Como reclamar e dar certo — 8 dicas práticas | Cadê Meu Pacote",
   description:
     "Dicas práticas pra reclamar de compra online: protocolo, CDC, prazos, escalada. Aumente suas chances de resolver rápido.",
 };
@@ -14,7 +14,7 @@ const dicas = [
   {
     titulo: "Sempre pegue protocolo",
     texto:
-      "Toda vez que falar com SAC, anote o número do protocolo. É a prova de que você tentou, e prazos só correm depois disso. Sem protocolo, a loja pode dizer que você nunca contatou.",
+      "Toda vez que falar com o SAC, anote o número do protocolo e a data. É a prova de que você tentou resolver. Em caso de defeito, a reclamação comprovada ainda suspende o prazo pra reclamar (CDC, art. 26, § 2º).",
   },
   {
     titulo: "Guarde TODOS os comprovantes",
@@ -24,12 +24,12 @@ const dicas = [
   {
     titulo: "Dê prazo escrito, sempre",
     texto:
-      "Em vez de 'estou aguardando uma solução', escreva 'aguardo retorno em até 7 dias úteis, sob pena de escalar pra órgãos competentes'. Prazo concreto + consequência = pressão real.",
+      "Em vez de 'estou aguardando uma solução', escreva 'aguardo retorno em até 48 horas; sem solução, vou registrar no Consumidor.gov e no Procon'. Prazo concreto + consequência = pressão real.",
   },
   {
     titulo: "Cite o artigo do CDC",
     texto:
-      "Art. 18 (vício do produto), Art. 35 (descumprimento de oferta), Art. 49 (direito de arrependimento). Mencionar artigo específico mostra que você sabe seus direitos. Loja respeita mais.",
+      "Art. 18 (produto com defeito), Arts. 30 e 35 (oferta não cumprida, atraso, cancelamento), Art. 49 (direito de arrependimento). Citar o artigo certo mostra que você conhece seus direitos.",
   },
   {
     titulo: "Não aceite a primeira resposta",
@@ -39,12 +39,17 @@ const dicas = [
   {
     titulo: "Reclame Aqui resolve mais do que parece",
     texto:
-      "Lojas grandes (Magalu, Amazon, Mercado Livre) monitoram o score público obsessivamente. Uma reclamação bem feita no Reclame Aqui geralmente é respondida em 24–48h, e bem.",
+      "Lojas grandes acompanham de perto a nota pública no Reclame Aqui. Uma reclamação objetiva, com datas e o que você quer, costuma ser respondida rápido. Não é órgão oficial, mas a pressão da reputação funciona.",
+  },
+  {
+    titulo: "Use os canais oficiais: Consumidor.gov e Procon",
+    texto:
+      "Os dois são grátis. No Consumidor.gov.br a empresa cadastrada tem 10 dias pra responder. O Procon do seu estado atende qualquer empresa, pode notificar a loja, marcar audiência de conciliação e aplicar multa. Se a loja não estiver no Consumidor.gov, vá ao Procon.",
   },
   {
     titulo: "Quando ir pro Juizado Especial",
     texto:
-      "Se passou 30 dias sem solução e o valor é até 20 salários mínimos, abre JEC. Não precisa advogado, não tem custas iniciais. A loja é obrigada a comparecer ou perde por revelia. É menos assustador do que parece.",
+      "Se os outros canais não resolveram, o Juizado Especial Cível é o último degrau. Não há custas na 1ª instância e, em causas de até 20 salários mínimos, não precisa de advogado. Se a loja não comparecer à audiência, pode ser julgada à revelia. É menos assustador do que parece.",
   },
 ];
 
@@ -63,7 +68,7 @@ export default function DicasPage() {
           lineHeight:    1.2,
           marginBottom:  20,
         }}>
-          Como reclamar e dar certo: 7 dicas que ninguém te ensina
+          Como reclamar e dar certo: 8 dicas que ninguém te ensina
         </h1>
         <p style={{ fontSize: 17, color: "var(--text-muted)", lineHeight: 1.7, marginBottom: 52 }}>
           Saber escrever a reclamação é metade da batalha. Estas são as práticas que separam quem resolve em 1 semana de quem fica meses dando voltas.

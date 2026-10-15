@@ -41,7 +41,7 @@ export const GUIAS: Guia[] = [
       {
         titulo: "3. Se a Shopee não resolver: Reclame Aqui e Consumidor.gov",
         paragrafos: [
-          "Grandes plataformas acompanham de perto a reputação no Reclame Aqui e costumam responder rápido por lá. Se mesmo assim não houver solução, registre no Consumidor.gov.br: a empresa tem 10 dias para responder.",
+          "Grandes plataformas acompanham de perto a reputação no Reclame Aqui e costumam responder rápido por lá. Se mesmo assim não houver solução, registre no Consumidor.gov.br (a empresa tem 10 dias para responder) ou no Procon do seu estado.",
           "O Código de Defesa do Consumidor diz que todos os que participam da cadeia de fornecimento respondem pelos danos ao consumidor (art. 7º, parágrafo único, e art. 25, § 1º). Por isso faz sentido incluir a Shopee na reclamação, e não só o vendedor.",
         ],
       },
@@ -94,7 +94,8 @@ export const GUIAS: Guia[] = [
         lista: [
           "Reclame Aqui: reclamação pública, que pesa na reputação.",
           "Consumidor.gov.br: a empresa tem 10 dias para responder.",
-          "Juizado Especial Cível: até 20 salários mínimos, sem advogado.",
+          "Procon do seu estado: pode notificar a loja, marcar conciliação e aplicar multa.",
+          "Juizado Especial Cível: sem custas na 1ª instância e, até 20 salários mínimos, sem advogado.",
         ],
       },
     ],
@@ -126,7 +127,7 @@ export const GUIAS: Guia[] = [
         titulo: "Cobrança de imposto na entrega",
         paragrafos: [
           "Em compras internacionais, as regras de importação mudam com frequência. Em muitos casos, os tributos já são cobrados no momento da compra e aparecem no resumo do pedido.",
-          "Se você já pagou os impostos no checkout e recebeu outra cobrança, junte o comprovante do pedido (com os tributos destacados) e a cobrança recebida e conteste com a Shein antes de pagar. Se a loja não resolver, use o Reclame Aqui e o Consumidor.gov.br.",
+          "Se você já pagou os impostos no checkout e recebeu outra cobrança, junte o comprovante do pedido (com os tributos destacados) e a cobrança recebida e conteste com a Shein antes de pagar. Se a loja não resolver, use o Reclame Aqui, o Consumidor.gov.br ou o Procon.",
         ],
       },
       {
@@ -175,7 +176,7 @@ export const GUIAS: Guia[] = [
       },
     ],
     faq: [
-      { p: "E se a Amazon disser que a entrega foi feita?", r: "Peça a prova: assinatura, foto ou nome de quem recebeu. Sem isso, siga para o Reclame Aqui e o Consumidor.gov.br." },
+      { p: "E se a Amazon disser que a entrega foi feita?", r: "Peça a prova: assinatura, foto ou nome de quem recebeu. Sem isso, siga para o Reclame Aqui e depois para o Consumidor.gov.br ou o Procon." },
       { p: "Preciso fazer boletim de ocorrência?", r: "Não é obrigatório para reclamar com a loja. Pode ajudar se houver suspeita de extravio ou fraude." },
       { p: "Quanto tempo tenho para reclamar?", r: "Reclame o quanto antes. Problemas na entrega podem ser cobrados mesmo depois, mas a rapidez facilita a investigação." },
     ],
@@ -210,7 +211,7 @@ export const GUIAS: Guia[] = [
         lista: [
           "Tire print do anúncio, do pedido confirmado e do e-mail de cancelamento.",
           "Peça à loja, por escrito, o cumprimento do pedido pelo preço anunciado.",
-          "Sem solução: Reclame Aqui, Consumidor.gov.br e, se valer a pena, Juizado Especial.",
+          "Sem solução: Reclame Aqui, Consumidor.gov.br ou Procon e, se valer a pena, Juizado Especial.",
         ],
       },
     ],
@@ -356,9 +357,49 @@ export const GUIAS: Guia[] = [
     faq: [
       { p: "É de graça?", r: "Sim, o Consumidor.gov.br é um serviço público e gratuito." },
       { p: "Quanto tempo a empresa tem para responder?", r: "Até 10 dias." },
-      { p: "E se a empresa não resolver?", r: "Você pode procurar o Procon ou o Juizado Especial Cível. O registro no Consumidor.gov.br serve como prova de que você tentou resolver." },
+      { p: "E se a empresa não resolver?", r: "Você pode procurar o Procon ou o Juizado Especial Cível. O registro no Consumidor.gov.br serve como prova de que você tentou resolver. Veja também o nosso guia sobre o Procon." },
     ],
     cta: { texto: "Gerar meu texto para o Consumidor.gov" },
+    atualizado: "2026-10-15",
+  },
+  {
+    slug: "procon-como-reclamar",
+    titulo: "Procon: como reclamar e qual a diferença para o Consumidor.gov",
+    tituloSeo: "Como reclamar no Procon (e quando usar o Consumidor.gov) | Cadê Meu Pacote",
+    descricao: "Saiba como registrar reclamação no Procon, o que o órgão pode fazer contra a loja e quando é melhor usar o Consumidor.gov.br. Grátis.",
+    resumo: "O Procon é o órgão de defesa do consumidor do seu estado ou cidade. A reclamação é grátis e, em muitos lugares, pode ser feita pela internet. O Procon pode notificar a loja, marcar uma audiência de conciliação e aplicar multas. Se a loja estiver cadastrada no Consumidor.gov.br, você pode começar por lá; se não estiver, o Procon é o caminho.",
+    secoes: [
+      {
+        titulo: "Procon ou Consumidor.gov?",
+        lista: [
+          "Consumidor.gov.br: plataforma federal e online. Você fala direto com a empresa, que tem 10 dias para responder. Só vale para empresas cadastradas.",
+          "Procon: órgão estadual ou municipal. Atende reclamações contra qualquer empresa, pode notificar, chamar para conciliação e aplicar sanções administrativas, como multa.",
+          "Não precisa escolher para sempre: se um canal não resolver, você pode tentar o outro ou seguir para o Juizado.",
+        ],
+      },
+      {
+        titulo: "Como registrar",
+        lista: [
+          "Procure o site do Procon do seu estado (ou da sua cidade). Muitos têm atendimento online.",
+          "Tenha em mãos: documento, CPF, comprovante de endereço, nota fiscal ou comprovante da compra, prints e protocolos do SAC.",
+          "Descreva os fatos em ordem, com datas, e diga o que você quer: entrega, troca, conserto ou dinheiro de volta.",
+          "Guarde o número da reclamação e acompanhe as respostas.",
+        ],
+      },
+      {
+        titulo: "O que esperar",
+        paragrafos: [
+          "Em geral, o Procon notifica a empresa e pede uma resposta. Dependendo do caso e do órgão, pode marcar uma audiência de conciliação entre você e a loja. Os prazos variam de um Procon para outro.",
+          "O Procon não decide indenizações como um juiz. Se você quer reparação por danos, o caminho é o Juizado Especial Cível.",
+        ],
+      },
+    ],
+    faq: [
+      { p: "Reclamar no Procon custa alguma coisa?", r: "Não. O atendimento do Procon é gratuito." },
+      { p: "Posso reclamar no Procon de uma loja de outro estado?", r: "Em geral, sim: o Procon do seu estado atende reclamações de consumidores que moram nele, mesmo contra empresas de fora. Confira as regras do seu Procon." },
+      { p: "O Procon pode me dar o dinheiro de volta?", r: "O Procon busca um acordo e pode punir a empresa com multa, mas não condena a pagar indenização. Para isso, use o Juizado Especial Cível." },
+    ],
+    cta: { texto: "Gerar meu texto para o Procon" },
     atualizado: "2026-10-15",
   },
   {
@@ -371,7 +412,7 @@ export const GUIAS: Guia[] = [
       {
         titulo: "Quando vale a pena",
         lista: [
-          "Você já tentou resolver (SAC, Reclame Aqui, Consumidor.gov) e não teve solução.",
+          "Você já tentou resolver (SAC, Reclame Aqui, Consumidor.gov ou Procon) e não teve solução.",
           "O valor em discussão cabe no limite do Juizado.",
           "Você tem provas: pedido, pagamento, prints e protocolos.",
         ],

@@ -8,7 +8,7 @@ import Assinar from "./Assinar";
 
 export const metadata = {
   title: "Cadê Meu Pacote Pro — a gente acompanha seu caso até o fim",
-  description: "Prazos legais, lembretes e o próximo texto pronto em cada etapa: SAC, Reclame Aqui, Consumidor.gov e Juizado.",
+  description: "Prazos, lembretes e o próximo texto pronto em cada etapa: SAC, Reclame Aqui, Consumidor.gov, Procon e Juizado.",
 };
 
 export default async function ProPage({ searchParams }: { searchParams: Promise<{ plano?: string; erro?: string }> }) {
@@ -28,7 +28,7 @@ export default async function ProPage({ searchParams }: { searchParams: Promise<
         <p className="conta-sub">A maioria das reclamações morre no SAC porque o consumidor cansa. O Pro acompanha cada caso, avisa os prazos e entrega o próximo texto pronto, até você ter seu dinheiro ou seu produto.</p>
 
         <ul className="pro-lista pro-lista-grande">
-          <li><span>🗺️</span> Linha do tempo de cada caso: SAC → Reclame Aqui → Consumidor.gov → Juizado</li>
+          <li><span>🗺️</span> Linha do tempo de cada caso: SAC → Reclame Aqui → Consumidor.gov ou Procon → Juizado</li>
           <li><span>⏰</span> Aviso por e-mail quando o prazo da loja vence</li>
           <li><span>✍️</span> Próximo texto gerado com o histórico do caso, mais forte a cada etapa</li>
           <li><span>📊</span> Painel com todos os casos, valor em disputa e prazos vencidos</li>

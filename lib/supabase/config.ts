@@ -5,4 +5,4 @@ export const SUPABASE_PUBLISHABLE_KEY =
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "sb_publishable_EOKxuEJk8FgA5qDw0nvnMA_6cyHqdMs";
 
 // Versão dos termos aceitos no cadastro. Trocar quando /termos ou /privacidade mudarem.
-export const TERMOS_VERSAO = "2026-10-14";
+export const TERMOS_VERSAO = "2026-10-15";

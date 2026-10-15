@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteNav from "@/app/components/SiteNav";
 import SiteFooter from "@/app/components/SiteFooter";
+import { GUIAS } from "@/lib/guias";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { STORES, PROBLEMS } from "@/lib/constants";
@@ -99,6 +100,8 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
       }
     : null;
 
+  const guia = GUIAS.find(g => g.lojaRelacionada === slug);
+
   return (
     <>
       {jsonLd && (
@@ -113,11 +116,12 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
 
         {/* Hero */}
         <div style={{ marginBottom: 48 }}>
-          <Link href="/ranking" className="loja-back">← Voltar ao ranking</Link>
+          <Link href="/lojas" className="loja-back">← Todas as lojas</Link>
           <div style={{ fontSize: 64, marginBottom: 12 }}>{store.emoji}</div>
           <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 700, letterSpacing: "-0.5px", marginBottom: 12 }}>
             {store.name}
           </h1>
+          {store.aviso && <div className="loja-aviso">⚠️ {store.aviso}</div>}
           <p style={{ fontSize: 16, color: "var(--text-muted)", lineHeight: 1.6 }}>
             {hasData ? (
               <><strong style={{ color: "var(--primary)" }}>{stats.total} reclamações</strong> registradas nos últimos 30 dias.</>
@@ -203,7 +207,7 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
         <div className="loja-stat-card" style={{ marginTop: 40 }}>
           <h2>Como reclamar da {store.name}</h2>
           <p style={{ color: "var(--text-muted)", fontSize: 15, lineHeight: 1.75, marginBottom: 20 }}>
-            Antes de partir pro Reclame Aqui, tente primeiro o SAC oficial. Se não resolverem em 48h, escale pro Reclame Aqui (lojas grandes monitoram score). Se passar de 5 dias sem solução, abra no Consumidor.gov.br — empresa cadastrada tem 10 dias por lei pra responder.
+            Comece pelo SAC oficial e anote o protocolo. Sem solução em 2 a 3 dias, publique no Reclame Aqui (lojas grandes cuidam da nota pública). Se ainda não resolver, use um canal oficial: no Consumidor.gov.br a empresa cadastrada tem 10 dias pra responder, e o Procon do seu estado pode notificar a loja e chamar pra conciliação. O último degrau é o Juizado Especial Cível: sem custas na 1ª instância e, até 20 salários mínimos, sem advogado.
           </p>
           <Link href={`/app?store=${slug}`} className="btn btn-primary" style={{ fontSize: 15, padding: "12px 22px" }}>
             Gerar reclamação contra {store.name} →
@@ -218,10 +222,10 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
           </p>
           <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
             {[
-              { art: "Art. 35", texto: "a loja é obrigada a cumprir a oferta como anunciada. Atraso ou cancelamento dá direito a reembolso integral com correção." },
+              { art: "Arts. 30 e 35", texto: "a oferta anunciada obriga a loja. Se ela não cumprir (atraso, cancelamento, produto diferente), você escolhe: exigir o cumprimento, aceitar outro produto equivalente ou receber o dinheiro de volta, corrigido." },
               { art: "Art. 18", texto: "produto com defeito tem 30 dias pra ser consertado. Se não for, você escolhe: troca, reembolso ou abatimento do preço." },
-              { art: "Art. 49", texto: "compras online têm 7 dias de arrependimento contados do recebimento — sem motivo, sem multa." },
-              { art: "Direito básico", texto: "NÃO existe \"política da loja\" que invalide o CDC. Cláusula contratual contra a lei é nula." },
+              { art: "Art. 49", texto: "compras online têm 7 dias de arrependimento contados do recebimento, sem precisar de motivo, com devolução de tudo o que foi pago." },
+              { art: "Art. 51", texto: "nenhuma \"política da loja\" pode tirar direitos do CDC. Cláusulas abusivas são nulas." },
             ].map(({ art, texto }) => (
               <li key={art} style={{ fontSize: 15, color: "var(--text-muted)", lineHeight: 1.7, display: "flex", gap: 10 }}>
                 <span style={{ color: "var(--primary)", fontWeight: 700, whiteSpace: "nowrap", flexShrink: 0 }}>{art}:</span>
@@ -230,9 +234,15 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
             ))}
           </ul>
           <p style={{ marginTop: 20 }}>
-            <Link href="/dicas" style={{ color: "var(--primary)", fontWeight: 600, fontSize: 15 }}>
-              Veja todas as dicas pra reclamar com força →
-            </Link>
+            {guia ? (
+              <Link href={`/guias/${guia.slug}`} style={{ color: "var(--primary)", fontWeight: 600, fontSize: 15 }}>
+                Guia completo: {guia.titulo} →
+              </Link>
+            ) : (
+              <Link href="/guias" style={{ color: "var(--primary)", fontWeight: 600, fontSize: 15 }}>
+                Veja os guias pra reclamar com força →
+              </Link>
+            )}
           </p>
         </div>
 

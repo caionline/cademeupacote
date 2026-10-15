@@ -25,7 +25,8 @@ function montarEmail(l: Lembrete): { subject: string; html: string; text: string
     "",
     "Se ainda não resolveu, o próximo passo é subir o tom:",
     "1. Registre no Consumidor.gov.br (a loja tem até 10 dias pra responder): https://www.consumidor.gov.br",
-    "2. Sem solução lá, dá pra entrar no Juizado Especial Cível — até 20 salários mínimos não precisa de advogado.",
+    "   Se a loja não estiver lá, use o Procon do seu estado.",
+    "2. Sem solução, dá pra entrar no Juizado Especial Cível: sem custas na 1ª instância e, até 20 salários mínimos, sem advogado.",
     "",
     `Gere um novo texto, já focado no próximo canal: ${SITE}/app`,
     "",
@@ -46,8 +47,8 @@ function montarEmail(l: Lembrete): { subject: string; html: string; text: string
   </p>
   <p style="font-size:16px;line-height:1.6;margin:0 0 8px"><b>Se ainda não resolveu</b>, é hora de subir o tom:</p>
   <ol style="font-size:16px;line-height:1.6;margin:0 0 24px;padding-left:20px">
-    <li>Registre no <a href="https://www.consumidor.gov.br" style="color:#F97316">Consumidor.gov.br</a> — a loja tem até 10 dias pra responder.</li>
-    <li>Sem solução lá, dá pra entrar no Juizado Especial Cível. Até 20 salários mínimos, não precisa de advogado.</li>
+    <li>Registre no <a href="https://www.consumidor.gov.br" style="color:#F97316">Consumidor.gov.br</a> (a loja tem até 10 dias pra responder). Se a loja não estiver lá, use o Procon do seu estado.</li>
+    <li>Sem solução, dá pra entrar no Juizado Especial Cível: sem custas na 1ª instância e, até 20 salários mínimos, sem advogado.</li>
   </ol>
   <a href="${SITE}/app" style="display:inline-block;background:#F97316;color:#fff;text-decoration:none;font-weight:bold;padding:14px 24px;border-radius:10px">Gerar texto pro próximo passo</a>
   <p style="font-size:12px;line-height:1.5;color:#78716C;margin:32px 0 0">
@@ -84,7 +85,7 @@ export async function enviarLembrete(l: Lembrete): Promise<void> {
 const escapar = (s: string) => s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 
 const ETAPA_NOME: Record<string, string> = {
-  sac: "SAC da loja", reclameaqui: "Reclame Aqui", consumidorgov: "Consumidor.gov", jec: "Juizado Especial",
+  sac: "SAC da loja", reclameaqui: "Reclame Aqui", consumidorgov: "Consumidor.gov ou Procon", jec: "Juizado Especial",
 };
 const PROXIMA: Record<string, string> = { sac: "reclameaqui", reclameaqui: "consumidorgov", consumidorgov: "jec" };
 

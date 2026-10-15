@@ -953,3 +953,5 @@ footer.site-footer { padding: 56px var(--gutter) 32px; background: var(--bg); bo
 .guias-lista a:hover { border-color: var(--primary); }
 .guias-lista strong { font-size: 16.5px; }
 .guias-lista span { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+.loja-aviso { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.55; color: var(--text-muted); margin-bottom: 14px; }

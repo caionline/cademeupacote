@@ -25,7 +25,7 @@ CANAIS:
 
 2) reclameaqui (Reclame Aqui): tom público, indignado mas profissional, pra ser lido por outros consumidores. Médio (até 12 linhas). Fatos em ordem cronológica e um pedido específico. Cita o CDC art. 35 ou art. 18, conforme o caso.
 
-3) consumidor (Consumidor.gov.br): tom formal e jurídico, pra órgão oficial. Longo (até 18 linhas). Cita artigos específicos do CDC (Lei 8.078/90) e prazos legais, e exige solução em prazo formal (10 dias úteis). Tom de quem conhece os próprios direitos.
+3) consumidor (Consumidor.gov.br ou Procon): tom formal e jurídico, pra órgão oficial. Longo (até 18 linhas). Cita artigos específicos do CDC (Lei 8.078/90) e prazos legais, e exige solução em prazo formal (10 dias úteis). Tom de quem conhece os próprios direitos.
 
 ORIENTAÇÃO POR TIPO DE PROBLEMA:
 - Atraso ou não entrega: oferta e prazo vinculam a loja (CDC arts. 30 e 35); a loja responde pela entrega, inclusive pela transportadora.
@@ -97,7 +97,7 @@ export async function gerarTextos(
 const CANAL_PROXIMO: Record<"sac" | "reclameaqui" | "consumidorgov", string> = {
   sac: "SAC da loja (chat/WhatsApp/e-mail): tom direto e firme, curto (até 8 linhas). Cita o histórico e cobra solução em 48h.",
   reclameaqui: "Reclame Aqui: tom público, indignado mas profissional (até 14 linhas). Fatos em ordem cronológica, incluindo as tentativas anteriores sem solução, e um pedido específico.",
-  consumidorgov: "Consumidor.gov.br: tom formal e jurídico (até 20 linhas). Cita artigos do CDC (Lei 8.078/90) adequados ao problema, as tentativas anteriores com datas e protocolos, e exige solução em 10 dias.",
+  consumidorgov: "Consumidor.gov.br ou Procon: tom formal e jurídico (até 20 linhas). Cita artigos do CDC (Lei 8.078/90) adequados ao problema, as tentativas anteriores com datas e protocolos, e exige solução em 10 dias.",
 };
 
 const ProximoSchema = z.object({ texto: z.string() });

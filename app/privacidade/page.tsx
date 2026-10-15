@@ -23,7 +23,7 @@ export default function PrivacidadePage() {
         <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 700, letterSpacing: "-0.5px", marginBottom: 8 }}>
           Política de Privacidade
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 48 }}>Última atualização: outubro de 2026.</p>
+        <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 48 }}>Última atualização: 15 de outubro de 2026.</p>
 
         <p style={{ marginBottom: 32, lineHeight: 1.7, color: "var(--text-muted)" }}>
           Sua privacidade é prioridade. Esta política explica como tratamos seus dados.
@@ -84,6 +84,8 @@ export default function PrivacidadePage() {
             <li>Sem conta, os dados do formulário NÃO são armazenados em nossos servidores. Ficam apenas no seu navegador (localStorage) para você não perder o rascunho, e são apagados quando você limpa os dados do site.</li>
             <li>Com conta, os dados ficam no Supabase (banco de dados hospedado em São Paulo), com acesso restrito: cada pessoa só consegue ver os próprios dados.</li>
             <li>E-mails de lembrete ficam no mesmo banco e são enviados pelo Resend.</li>
+            <li>Pagamentos do Pro são processados pelo Mercado Pago. Nós guardamos só o plano, o valor, a data e a situação do pagamento. Os dados do cartão ficam com o Mercado Pago e nunca passam pelos nossos servidores.</li>
+            <li>Para aplicar o limite diário de uso sem conta, guardamos uma versão embaralhada (hash) do endereço IP, nunca o IP em si.</li>
             <li>Você pode apagar qualquer caso a qualquer momento em &quot;Meus casos&quot;. Para apagar a conta inteira, escreva para o e-mail abaixo.</li>
           </ul>
         </section>
