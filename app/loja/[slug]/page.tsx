@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SiteNav from "@/app/components/SiteNav";
+import SiteFooter from "@/app/components/SiteFooter";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { STORES, PROBLEMS } from "@/lib/constants";
@@ -105,20 +107,7 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
-      <nav className="site-nav">
-        <div className="nav-inner">
-          <Link href="/" className="logo">
-            <div className="logo-mark">📦</div>
-            Cadê meu pacote?
-          </Link>
-          <div className="nav-links">
-            <a href="/#como-funciona">Como funciona</a>
-            <Link href="/ranking" style={{ color: "var(--primary)", fontWeight: 600 }}>Ranking</Link>
-            <a href="/#faq">FAQ</a>
-            <Link href="/app" className="nav-cta">Resolver agora →</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav ativo="lojas" />
 
       <main className="ranking-page">
 
@@ -252,18 +241,7 @@ export default async function LojaPage({ params }: { params: Promise<{ slug: str
         </p>
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="logo"><div className="logo-mark">📦</div>cademeupacote.com.br</div>
-          <div className="footer-links">
-            <a href="/termos">Termos</a>
-            <a href="/privacidade">Privacidade</a>
-            <a href="/ranking">Ranking</a>
-            <a href="/contato">Contato</a>
-          </div>
-          <div className="footer-meta">© {new Date().getFullYear()} · feito com 🧡 e CDC</div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SiteNav from "@/app/components/SiteNav";
+import SiteFooter from "@/app/components/SiteFooter";
 import type { Metadata } from "next";
 import { getRankingLojas } from "@/lib/db";
 import { STORES, PROBLEMS } from "@/lib/constants";
@@ -31,21 +33,7 @@ export default async function RankingPage() {
 
   return (
     <>
-      <nav className="site-nav">
-        <div className="nav-inner">
-          <Link href="/" className="logo">
-            <div className="logo-mark">📦</div>
-            Cadê meu pacote?
-          </Link>
-          <div className="nav-links">
-            <a href="/#como-funciona">Como funciona</a>
-            <a href="/#escalada">Escalada</a>
-            <a href="/ranking" style={{ color: "var(--primary)" }}>Ranking</a>
-            <a href="/#faq">FAQ</a>
-            <Link href="/app" className="nav-cta">Resolver agora →</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav ativo="ranking" />
 
       <main className="ranking-page">
 
@@ -59,9 +47,11 @@ export default async function RankingPage() {
           <p style={{ color: "var(--text-muted)", fontSize: 16, lineHeight: 1.7, marginBottom: 12 }}>
             Top 10 dos últimos 30 dias. Atualizado em tempo real conforme reclamações são geradas.
           </p>
-          <p style={{ fontSize: 14, fontWeight: 600, color: "var(--text-subtle)" }}>
-            {totalGeral} reclamações analisadas neste período
-          </p>
+          {hasData && (
+            <p style={{ fontSize: 14, fontWeight: 600, color: "var(--text-subtle)" }}>
+              {totalGeral} reclamações analisadas neste período
+            </p>
+          )}
         </div>
 
         {/* Info box */}
@@ -135,18 +125,7 @@ export default async function RankingPage() {
         </p>
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="logo"><div className="logo-mark">📦</div>cademeupacote.com.br</div>
-          <div className="footer-links">
-            <a href="/termos">Termos</a>
-            <a href="/privacidade">Privacidade</a>
-            <a href="/ranking">Ranking</a>
-            <a href="/contato">Contato</a>
-          </div>
-          <div className="footer-meta">© {new Date().getFullYear()} · feito com 🧡 e CDC</div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

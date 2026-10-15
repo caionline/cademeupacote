@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SiteNav from "@/app/components/SiteNav";
+import SiteFooter from "@/app/components/SiteFooter";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -48,20 +50,7 @@ const dicas = [
 export default function DicasPage() {
   return (
     <>
-      <nav className="site-nav">
-        <div className="nav-inner">
-          <Link href="/" className="logo">
-            <div className="logo-mark">📦</div>
-            Cadê meu pacote?
-          </Link>
-          <div className="nav-links">
-            <a href="/#como-funciona">Como funciona</a>
-            <Link href="/dicas" style={{ color: "var(--primary)", fontWeight: 600 }}>Dicas</Link>
-            <a href="/#faq">FAQ</a>
-            <Link href="/app" className="nav-cta">Resolver agora →</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav ativo="dicas" />
 
       <main style={{ maxWidth: 720, margin: "0 auto", padding: "56px 24px 80px" }}>
         <div className="section-kicker" style={{ marginBottom: 16 }}>Guia prático</div>
@@ -136,20 +125,7 @@ export default function DicasPage() {
         </div>
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="logo"><div className="logo-mark">📦</div>cademeupacote.com.br</div>
-          <div className="footer-links">
-            <a href="/sobre">Sobre</a>
-            <a href="/dicas">Dicas</a>
-            <a href="/termos">Termos</a>
-            <a href="/privacidade">Privacidade</a>
-            <a href="/ranking">Ranking</a>
-            <a href="/contato">Contato</a>
-          </div>
-          <div className="footer-meta">© {new Date().getFullYear()} · feito com 🧡 e CDC</div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SiteNav from "@/app/components/SiteNav";
+import SiteFooter from "@/app/components/SiteFooter";
 
 export const metadata = {
   title: "Sobre — Cadê Meu Pacote",
@@ -24,31 +26,19 @@ const bodyStyle = {
 export default function SobrePage() {
   return (
     <>
-      <nav className="site-nav">
-        <div className="nav-inner">
-          <Link href="/" className="logo">
-            <div className="logo-mark">📦</div>
-            Cadê meu pacote?
-          </Link>
-          <div className="nav-links">
-            <a href="/#como-funciona">Como funciona</a>
-            <a href="/ranking">Ranking</a>
-            <a href="/#faq">FAQ</a>
-            <Link href="/app" className="nav-cta">Resolver agora →</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav ativo="sobre" />
 
       <main style={{ maxWidth: 720, margin: "0 auto", padding: "64px 24px 96px" }}>
 
         {/* Título */}
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 700, letterSpacing: "-0.5px", marginBottom: 20 }}>
-          Sobre
+        <div className="section-kicker">Sobre</div>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5.5vw, 48px)", fontWeight: 600, letterSpacing: "-1.2px", lineHeight: 1.08, marginBottom: 16 }}>
+          Nasceu da raiva. <em style={{ fontStyle: "italic", color: "var(--primary)" }}>Virou ferramenta.</em>
         </h1>
 
         {/* Lead */}
         <p style={{ fontSize: 19, lineHeight: 1.5, color: "var(--text-muted)", marginBottom: 8 }}>
-          O Cadê Meu Pacote nasceu da raiva. Mas virou ferramenta.
+          Uma ferramenta feita por quem já brigou com uma loja grande, e ganhou. Pra você não precisar começar do zero.
         </p>
 
         {/* Seção 1 */}
@@ -66,7 +56,7 @@ export default function SobrePage() {
         {/* Seção 3 */}
         <h2 style={h2Style}>Por que esse site existe</h2>
         <p style={bodyStyle}>
-          Porque ninguém deveria precisar de meses e de processo pra ter o que pagou. Porque escrever uma boa reclamação é metade da batalha — e a maioria das pessoas nem sabe por onde começar. O Cadê Meu Pacote pega seus dados básicos e a IA monta o texto em segundos: com base legal real, no tom certo pra cada canal, prontíssimo pra colar. SAC, Reclame Aqui, Consumidor.gov, e (em breve) peças prontas pro JEC.
+          Porque ninguém deveria precisar de meses e de processo pra ter o que pagou. Porque escrever uma boa reclamação é metade da batalha — e a maioria das pessoas nem sabe por onde começar. O Cadê Meu Pacote pega seus dados básicos e a IA monta o texto em segundos: com base legal real, no tom certo pra cada canal, prontíssimo pra colar. SAC, Reclame Aqui e Consumidor.gov. E, se a loja enrolar, o acompanhamento do caso avisa cada prazo e escreve o próximo passo, até o Juizado se precisar.
         </p>
 
         {/* Seção 4 — Cards */}
@@ -76,12 +66,12 @@ export default function SobrePage() {
             {
               emoji: "🆓",
               title: "Grátis enquanto der",
-              text: "O básico vai ser sempre grátis. Plano Pro existirá pra quem quiser peças mais robustas (JEC), mas reclamar nunca pode custar.",
+              text: "Gerar a reclamação e os textos pra cada canal vai ser sempre grátis. O Pro é opcional, pra quem quer acompanhamento do caso até o fim. Reclamar nunca pode custar.",
             },
             {
               emoji: "🔒",
-              title: "Sem cadastro, sem coleta abusiva",
-              text: "Seus dados ficam no seu navegador. Só guardamos estatísticas anônimas pra mapear lojas problemáticas — nunca seu nome, CPF ou histórico.",
+              title: "Sem cadastro obrigatório",
+              text: "Pra gerar a reclamação, não precisa de conta. Se você criar uma, guardamos seus casos só pra você acompanhar. As estatísticas são anônimas, e não vendemos dado nenhum.",
             },
             {
               emoji: "⚖️",
@@ -91,7 +81,7 @@ export default function SobrePage() {
             {
               emoji: "📊",
               title: "Transparência radical",
-              text: "Em breve, ranking público das lojas mais reclamadas. Dado é poder. O consumidor merece saber.",
+              text: "Ranking público das lojas mais reclamadas, com dados anônimos. Dado é poder. O consumidor merece saber.",
             },
           ].map(({ emoji, title, text }) => (
             <div
@@ -128,28 +118,16 @@ export default function SobrePage() {
             Tá com problema agora?
           </h3>
           <p style={{ color: "var(--text-muted)", marginBottom: 24, fontSize: 16 }}>
-            Bora resolver. 3 minutos, sem cadastro.
+            Sua reclamação com base no CDC em 3 minutos. Grátis e sem cadastro.
           </p>
           <Link href="/app" className="btn btn-primary" style={{ fontSize: 17, padding: "16px 32px" }}>
-            Começar minha reclamação →
+            Gerar minha reclamação grátis →
           </Link>
         </div>
 
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="logo"><div className="logo-mark">📦</div>cademeupacote.com.br</div>
-          <div className="footer-links">
-            <a href="/sobre">Sobre</a>
-            <a href="/termos">Termos</a>
-            <a href="/privacidade">Privacidade</a>
-            <a href="/ranking">Ranking</a>
-            <a href="/contato">Contato</a>
-          </div>
-          <div className="footer-meta">© {new Date().getFullYear()} · feito com 🧡 e CDC</div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

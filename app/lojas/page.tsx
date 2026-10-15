@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SiteNav from "@/app/components/SiteNav";
+import SiteFooter from "@/app/components/SiteFooter";
 import type { Metadata } from "next";
 import { STORES } from "@/lib/constants";
 
@@ -13,20 +15,7 @@ export default function LojasPage() {
 
   return (
     <>
-      <nav className="site-nav">
-        <div className="nav-inner">
-          <Link href="/" className="logo">
-            <div className="logo-mark">📦</div>
-            Cadê meu pacote?
-          </Link>
-          <div className="nav-links">
-            <a href="/#como-funciona">Como funciona</a>
-            <Link href="/ranking">Ranking</Link>
-            <a href="/#faq">FAQ</a>
-            <Link href="/app" className="nav-cta">Resolver agora →</Link>
-          </div>
-        </div>
-      </nav>
+      <SiteNav ativo="lojas" />
 
       <main className="ranking-page">
         <div style={{ marginBottom: 40 }}>
@@ -62,27 +51,12 @@ export default function LojasPage() {
             Não achou a sua loja?
           </p>
           <Link href="/app" className="btn btn-primary">
-            Gera reclamação aqui →
+            Gerar minha reclamação →
           </Link>
         </div>
       </main>
 
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="logo">
-            <div className="logo-mark">📦</div>
-            cademeupacote.com.br
-          </div>
-          <div className="footer-links">
-            <a href="/termos">Termos</a>
-            <a href="/privacidade">Privacidade</a>
-            <a href="/ranking">Ranking</a>
-            <a href="/lojas">Todas as lojas</a>
-            <a href="/contato">Contato</a>
-          </div>
-          <div className="footer-meta">© {new Date().getFullYear()} · feito com 🧡 e CDC</div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
