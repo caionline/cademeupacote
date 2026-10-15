@@ -27,7 +27,7 @@ const secoes: { titulo: string; paragrafos: string[] }[] = [
   {
     titulo: "3. Uso grátis e limites",
     paragrafos: [
-      "Gerar reclamações é grátis. Para evitar abuso e manter o serviço no ar, há um limite diário de uso: hoje, 5 reclamações por dia sem conta e 15 com conta. Os limites podem mudar.",
+      "A primeira reclamação é grátis e uma nova libera a cada 15 dias, por conta e por aparelho. Assinantes do Pro geram sem essa espera, dentro de um limite diário de uso para evitar abuso. Os limites podem mudar.",
     ],
   },
   {

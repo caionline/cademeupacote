@@ -67,7 +67,7 @@ export default function SobrePage() {
             {
               emoji: "🆓",
               title: "Reclamar é grátis",
-              text: "Gerar a reclamação e os textos pra cada canal é grátis, e vai continuar assim. O Pro é opcional, pra quem quer acompanhamento do caso até o fim.",
+              text: "A sua primeira reclamação, com os textos pra cada canal, é grátis, e uma nova libera a cada 15 dias. O Pro é opcional, pra quem quer gerar sem espera e ter o caso acompanhado até o fim.",
             },
             {
               emoji: "🔒",

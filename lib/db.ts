@@ -158,6 +158,27 @@ export async function consumirUsoIa(chave: string, limite: number, limiteGlobal:
   return data as "ok" | "pessoa" | "global";
 }
 
+/** Dias entre uma reclamação grátis e a próxima. */
+export const DIAS_GRATIS = 15;
+
+/** Reserva a reclamação grátis. null = liberou; senão, quando libera de novo. */
+export async function reservarGratis(chaves: string[]): Promise<Date | null> {
+  const { data, error } = await db().rpc("reservar_gratis", { p_chaves: chaves, p_dias: DIAS_GRATIS });
+  if (error) throw error;
+  return data ? new Date(data as string) : null;
+}
+
+/** Devolve a vaga quando a geração falhou. */
+export async function liberarGratis(chaves: string[]): Promise<void> {
+  const { error } = await db().rpc("liberar_gratis", { p_chaves: chaves });
+  if (error) console.error("[GRATIS] falha ao liberar:", error);
+}
+
+export async function usuarioEhPro(userId: string): Promise<boolean> {
+  const { data } = await db().from("perfis").select("pro_ate").eq("id", userId).maybeSingle();
+  return !!data?.pro_ate && new Date(data.pro_ate).getTime() > Date.now();
+}
+
 // ---------------------------------------------------------------------------
 // Oferta do Pro: interessados e funil
 // ---------------------------------------------------------------------------

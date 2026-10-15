@@ -15,7 +15,7 @@ export const metadata = seo({
 });
 
 const FAQ_HOME: { p: string; r: string }[] = [
-  { p: "É grátis mesmo?", r: "É. Gerar a reclamação e os textos para SAC, Reclame Aqui e Consumidor.gov (ou Procon) é grátis e sem cadastro: até 5 reclamações por dia sem conta, 15 com conta. O Pro (a partir de R$ 11,63/mês) é opcional: serve pra quem quer que a gente acompanhe o caso, avise os prazos e escreva os próximos passos." },
+  { p: "É grátis mesmo?", r: "É. A primeira reclamação, com os textos para SAC, Reclame Aqui e Consumidor.gov (ou Procon), é grátis e sem cadastro, e uma nova libera a cada 15 dias. O Pro (a partir de R$ 11,63/mês) é opcional: serve pra quem quer gerar sem esperar, ter o caso acompanhado, os prazos avisados e os próximos passos escritos." },
   { p: "Quem escreve a reclamação? É uma IA?", r: "É uma IA (o Claude, da Anthropic), orientada a escrever textos formais com base no Código de Defesa do Consumidor, usando os dados do seu pedido e o tipo de problema. A decisão de enviar é sempre sua: revise o texto antes de mandar." },
   { p: "A loja cancelou meu pedido (ou a promoção). Tem jeito?", r: "Às vezes sim. A oferta anunciada obriga a loja (art. 30 e 35 do CDC), e o site te ajuda a cobrar do jeito certo. Mas quando o erro de preço é muito absurdo, a Justiça costuma dar razão à loja. Ninguém pode garantir o resultado." },
   { p: "Preciso de CPF ou de conta?", r: "Não. O CPF é opcional no texto, mas é pedido em canais formais como Consumidor.gov, Procon e Juizado. A conta também é opcional: ela serve pra guardar seus casos em “Meus casos” e acompanhar cada um." },
@@ -264,9 +264,9 @@ export default async function HomePage() {
             <div className="plano">
               <div className="plano-nome">Grátis</div>
               <div className="plano-preco">R$ 0</div>
-              <p className="plano-desc">Pra resolver na primeira tentativa.</p>
+              <p className="plano-desc">Pra resolver na primeira tentativa. Uma nova a cada 15 dias.</p>
               <ul className="plano-lista">
-                <li>Reclamação com base no CDC em 3 minutos</li>
+                <li>1 reclamação completa com base no CDC em 3 minutos (nova a cada 15 dias)</li>
                 <li>Textos para SAC, Reclame Aqui e Consumidor.gov ou Procon</li>
                 <li>Casos salvos em “Meus casos” (com conta)</li>
                 <li>Guia da escalada passo a passo</li>
@@ -278,6 +278,7 @@ export default async function HomePage() {
               <div className="plano-nome">Pro · acompanhamento do caso</div>
               <p className="plano-desc">Pra quando a loja não resolve de primeira.</p>
               <ul className="plano-lista">
+                <li>Reclamações sem espera de 15 dias</li>
                 <li>A gente conta os prazos de cada etapa e te avisa quando vencem</li>
                 <li>Próximo texto pronto, já com o histórico do caso</li>
                 <li>Linha do tempo do caso: SAC, Reclame Aqui, Consumidor.gov ou Procon, Juizado</li>

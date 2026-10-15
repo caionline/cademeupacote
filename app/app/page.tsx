@@ -56,6 +56,7 @@ export default function AppPage() {
   const [results, setResults] = useState<{ whatsapp: string; reclameaqui: string; consumidor: string } | null>(null);
   const [activeChannel, setActiveChannel] = useState<Channel>("whatsapp");
   const [error, setError] = useState<string | null>(null);
+  const [gratisAte, setGratisAte] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const humano = useTurnstile();
@@ -182,6 +183,7 @@ export default function AppPage() {
   async function gerar() {
     setLoading(true);
     setError(null);
+    setGratisAte(null);
     try {
       const r = await fetch("/api/gerar", {
         method: "POST",
@@ -189,7 +191,13 @@ export default function AppPage() {
         body: JSON.stringify({ ...form, turnstile: await humano.obterToken() }),
       });
       const data = await r.json();
-      if (!r.ok) throw new Error(data?.error || "Erro ao gerar.");
+      if (!r.ok) {
+        if (data?.codigo === "gratis_usado") {
+          setGratisAte(data.liberaEm);
+          return;
+        }
+        throw new Error(data?.error || "Erro ao gerar.");
+      }
       setResults(data);
       setStep(5);
       rastrear("ReclamacaoGerada", { content_category: form.problem ?? undefined, store_id: form.store ?? undefined });
@@ -514,6 +522,17 @@ export default function AppPage() {
             <p style={{ fontSize: 12, color: "var(--text-subtle)", marginTop: 12, lineHeight: 1.6 }}>
               📊 Só a loja e o tipo de problema entram, de forma anônima, no ranking de lojas. Sem conta, seu nome e CPF não ficam guardados.
             </p>
+
+            {gratisAte && (
+              <div style={{ marginTop: 16, padding: 18, background: "var(--primary-soft)", border: "1px solid var(--primary-border)", borderRadius: 14, fontSize: 14, lineHeight: 1.6 }}>
+                <strong>Você já usou sua reclamação grátis.</strong>
+                <p style={{ margin: "6px 0 12px", color: "var(--text-muted)" }}>
+                  A próxima grátis libera em {new Date(gratisAte).toLocaleDateString("pt-BR", { day: "2-digit", month: "long" })}.
+                  Com o Pro você gera quando precisar, sem esperar, e ainda acompanha os prazos do caso até resolver.
+                </p>
+                <Link href="/pro" className="btn btn-primary" style={{ fontSize: 14, padding: "10px 18px" }}>Ver o Pro a partir de R$ 11,63/mês →</Link>
+              </div>
+            )}
 
             {error && (
               <div style={{ marginTop: 16, padding: 14, background: "var(--hot)", border: "1px solid var(--hot-border)", borderRadius: 12, color: "var(--danger)", fontSize: 14 }}>
