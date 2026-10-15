@@ -3,7 +3,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 // Cliente do servidor (chave secreta): ignora RLS. Nunca importar em componente "use client".
 let client: SupabaseClient | null = null;
 
-function db(): SupabaseClient {
+export function db(): SupabaseClient {
   if (!client) {
     const url = process.env.SUPABASE_URL;
     const key = process.env.SUPABASE_SECRET_KEY;
@@ -279,4 +279,19 @@ export async function getProVencendo(limite = 100): Promise<{ user_id: string; e
 export async function marcarLembretePro(userId: string, proAte: string): Promise<void> {
   const { error } = await db().from("perfis").update({ pro_lembrete_para: proAte }).eq("id", userId);
   if (error) throw error;
+}
+
+// ---------------------------------------------------------------------------
+// Custo real da IA (só tokens; nunca o conteúdo)
+// ---------------------------------------------------------------------------
+
+export type TipoUsoIa = "reclamacao" | "prints" | "analise" | "proximo_texto";
+
+/** Registra os tokens de uma chamada. Nunca derruba a resposta principal. */
+export async function registrarUsoIa(tipo: TipoUsoIa, modelo: string, uso: { input_tokens: number; output_tokens: number }): Promise<void> {
+  try {
+    await db().from("ia_uso_log").insert({ tipo, modelo, input_tokens: uso.input_tokens, output_tokens: uso.output_tokens });
+  } catch (e) {
+    console.error("[IA log] falha ao registrar uso:", e);
+  }
 }

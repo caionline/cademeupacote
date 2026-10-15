@@ -1,8 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { initialFormState, type FormState } from "@/lib/constants";
-import { consumirUsoIa } from "@/lib/db";
+import { consumirUsoIa, registrarUsoIa } from "@/lib/db";
 import { analisarResposta, IaRecusou, type ImagemPrint } from "@/lib/ia";
+import { MODELO } from "@/lib/ia";
 import { montarHistorico } from "@/lib/historico";
 import { ehPro, ETAPA_INFO, type Etapa } from "@/lib/pro";
 import { supabaseServer } from "@/lib/supabase/server";
@@ -72,6 +73,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
       imagens,
     });
     console.log(`[IA resposta] imgs=${imagens.length} in=${uso.input_tokens} out=${uso.output_tokens}`);
+    await registrarUsoIa("analise", MODELO, uso);
 
     // Guarda só o resumo (não a resposta inteira da loja) — alimenta o próximo texto.
     await supabase.from("caso_eventos").insert({

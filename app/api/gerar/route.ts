@@ -1,8 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { PROBLEMS, STORES, type FormState } from "@/lib/constants";
-import { consumirUsoIa, registrarCaso } from "@/lib/db";
+import { consumirUsoIa, registrarCaso, registrarUsoIa } from "@/lib/db";
 import { gerarTextos, IaRecusou } from "@/lib/ia";
+import { MODELO } from "@/lib/ia";
 import { identificar } from "@/lib/quem";
 import { getValueRange } from "@/lib/value-ranges";
 
@@ -50,6 +51,7 @@ export async function POST(req: Request) {
 
     const { textos, uso } = await gerarTextos(body);
     console.log(`[IA] in=${uso.input_tokens} out=${uso.output_tokens} cache_read=${uso.cache_read_input_tokens ?? 0}`);
+    await registrarUsoIa("reclamacao", MODELO, uso);
 
     // Coleta anônima — nunca quebra a resposta principal
     try {

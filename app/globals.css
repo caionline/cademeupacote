@@ -987,3 +987,42 @@ footer.site-footer { padding: 56px var(--gutter) 32px; background: var(--bg); bo
 .analise-alertas li { font-size: 13.5px; background: #FFFBEB; border-radius: 8px; padding: 8px 10px; color: var(--text-muted); }
 .analise-resposta-titulo { font-weight: 700; font-size: 14px; margin: 8px 0 6px; }
 .analise-nota { font-size: 11.5px; color: var(--text-subtle); margin-top: 10px; }
+
+/* ===== PAINEL DO ADMIN ===== */
+.adm { max-width: 960px; margin: 0 auto; }
+.adm-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.adm-periodos { display: flex; gap: 4px; background: var(--surface-alt); padding: 4px; border-radius: 12px; }
+.adm-periodos a { padding: 6px 12px; border-radius: 9px; font-size: 13.5px; font-weight: 600; color: var(--text-muted); }
+.adm-periodos a.ativo { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
+.adm-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.adm-cards > div, .adm-funil > div { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px; }
+.adm-cards strong { font-size: 22px; }
+.adm-cards span, .adm-funil span { font-size: 12.5px; color: var(--text-muted); }
+.adm-sec { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-top: 16px; }
+.adm-sec h2 { font-family: var(--font-display); font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+.adm-sec h3 { font-size: 14px; font-weight: 700; margin: 18px 0 8px; }
+.adm-funil { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.adm-funil > div { background: var(--surface-alt); border: none; }
+.adm-funil strong { font-size: 20px; }
+.adm-grafico { display: flex; align-items: flex-end; gap: 3px; height: 120px; padding: 4px 0; border-bottom: 1px solid var(--border); }
+.adm-barra { flex: 1; height: 100%; display: flex; align-items: flex-end; }
+.adm-barra span { display: block; width: 100%; min-height: 2px; background: var(--primary); border-radius: 3px 3px 0 0; }
+.adm-grafico-eixo { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-subtle); margin-top: 4px; }
+.adm-lista { list-style: none; padding: 0; margin: 0; }
+.adm-lista li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-light); font-size: 14px; }
+.adm-lista li span:last-child { color: var(--text-muted); text-align: right; }
+.adm-total { font-weight: 700; }
+.adm-tabela-wrap { overflow-x: auto; }
+.adm-tabela { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.adm-tabela th { text-align: left; font-size: 12px; color: var(--text-subtle); font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.adm-tabela td { padding: 8px; border-bottom: 1px solid var(--border-light); white-space: nowrap; }
+.adm-vazio { font-size: 14px; color: var(--text-subtle); }
+.adm-nota { font-size: 12px; color: var(--text-subtle); margin-top: 8px; }
+.adm-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.adm-form input, .adm-form select { font-family: inherit; font-size: 15px; padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); }
+.adm-form input { flex: 1; min-width: 200px; }
+@media (max-width: 640px) {
+  .adm-cards { grid-template-columns: repeat(2, 1fr); }
+  .adm-funil { grid-template-columns: repeat(2, 1fr); }
+  .adm-cards strong { font-size: 18px; }
+}

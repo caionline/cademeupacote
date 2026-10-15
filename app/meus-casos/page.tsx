@@ -4,6 +4,7 @@ import SiteShell from "@/app/components/SiteShell";
 import { getUsuario } from "@/lib/supabase/server";
 import type { CasoEvento, Reclamacao } from "@/lib/casos";
 import { ehPro } from "@/lib/pro";
+import { getAdmin } from "@/lib/admin";
 import ListaCasos from "./ListaCasos";
 
 export const metadata = { title: "Meus casos — Cadê Meu Pacote", robots: { index: false } };
@@ -24,6 +25,7 @@ export default async function MeusCasosPage() {
     : { data: [] };
 
   const primeiroNome = u.perfil.nome?.split(" ")[0] ?? "";
+  const admin = !!(await getAdmin());
 
   return (
     <SiteShell>
@@ -34,6 +36,7 @@ export default async function MeusCasosPage() {
             <p className="conta-sub" style={{ marginBottom: 0 }}>Olá{primeiroNome ? `, ${primeiroNome}` : ""}! Aqui ficam todas as suas reclamações.</p>
           </div>
           <div className="casos-head-acoes">
+            {admin && <Link href="/admin" className="btn btn-ghost btn-sm">📊 Painel</Link>}
             <Link href="/cadastro?next=/meus-casos" className="btn btn-ghost btn-sm">Meus dados</Link>
             <form action="/auth/sair" method="post">
               <button className="btn btn-ghost btn-sm">Sair</button>

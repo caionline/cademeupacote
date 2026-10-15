@@ -23,5 +23,5 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   // Só onde o login importa — o resto do site continua estático e rápido.
-  matcher: ["/app", "/meus-casos/:path*", "/cadastro", "/entrar", "/auth/:path*", "/pro/:path*"],
+  matcher: ["/app", "/meus-casos/:path*", "/cadastro", "/entrar", "/auth/:path*", "/pro/:path*", "/admin/:path*"],
 };

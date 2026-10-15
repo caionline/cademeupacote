@@ -1,7 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
-import { consumirUsoIa } from "@/lib/db";
+import { consumirUsoIa, registrarUsoIa } from "@/lib/db";
 import { extrairDePrints, IaRecusou, type ImagemPrint } from "@/lib/ia";
+import { MODELO } from "@/lib/ia";
 import { identificar } from "@/lib/quem";
 
 export const runtime = "nodejs";
@@ -50,6 +51,7 @@ export async function POST(req: Request) {
 
     const { dados, uso } = await extrairDePrints(imagens);
     console.log(`[IA prints] n=${imagens.length} in=${uso.input_tokens} out=${uso.output_tokens}`);
+    await registrarUsoIa("prints", MODELO, uso);
 
     if (!dados.eh_compra) {
       return NextResponse.json({ error: "Não encontramos dados de uma compra nesses prints. Tente o print do pedido, do rastreio ou do e-mail da loja." }, { status: 422 });

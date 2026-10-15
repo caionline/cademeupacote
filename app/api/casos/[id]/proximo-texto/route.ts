@@ -1,8 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { initialFormState, type FormState } from "@/lib/constants";
-import { consumirUsoIa } from "@/lib/db";
+import { consumirUsoIa, registrarUsoIa } from "@/lib/db";
 import { gerarProximoTexto, IaRecusou } from "@/lib/ia";
+import { MODELO } from "@/lib/ia";
 import { ehPro, type Etapa } from "@/lib/pro";
 import { montarHistorico } from "@/lib/historico";
 import { supabaseServer } from "@/lib/supabase/server";
@@ -51,6 +52,7 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   try {
     const { texto, uso } = await gerarProximoTexto({ dados, etapa: caso.etapa, historico });
     console.log(`[IA proximo] in=${uso.input_tokens} out=${uso.output_tokens}`);
+    await registrarUsoIa("proximo_texto", MODELO, uso);
     await supabase.from("caso_eventos").insert({ caso_id: id, tipo: "texto_gerado", etapa: caso.etapa, nota: texto });
     return NextResponse.json({ texto });
   } catch (err) {
