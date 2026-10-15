@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { aprovarPagamento, dadosConfirmacao, getPagamento, marcarPagamento } from "@/lib/db";
 import { enviarConfirmacaoCompra } from "@/lib/lembrete-email";
+import { enviarEventoMeta } from "@/lib/meta-capi";
 import { assinaturaValida, buscarPagamento } from "@/lib/mercadopago";
 
 export const runtime = "nodejs";
@@ -40,7 +41,17 @@ export async function POST(req: Request) {
         // Confirmação da compra (Decreto 7.962/2013). Falha no e-mail nunca derruba a liberação.
         try {
           const c = await dadosConfirmacao(nosso.id);
-          if (c) await enviarConfirmacaoCompra(c);
+          if (c) {
+            await enviarConfirmacaoCompra(c);
+            await enviarEventoMeta(null, {
+              evento: "Purchase",
+              eventId: `compra-${nosso.id}`,
+              url: "https://www.cademeupacote.com.br/pro/obrigado",
+              email: c.email,
+              dados: { value: c.valor, currency: "BRL", content_name: c.plano },
+              contexto: c.metaContexto,
+            });
+          }
         } catch (e) {
           console.error("[WEBHOOK] falha ao enviar confirmação:", e instanceof Error ? e.message : e);
         }

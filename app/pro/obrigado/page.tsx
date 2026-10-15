@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import SiteShell from "@/app/components/SiteShell";
 import { getUsuario } from "@/lib/supabase/server";
 import Aguardando from "./Aguardando";
+import PixelCompra from "./PixelCompra";
 
 export const metadata = { title: "Pagamento — Cadê Meu Pacote Pro", robots: { index: false } };
 
@@ -13,7 +14,7 @@ export default async function ObrigadoPage({ searchParams }: { searchParams: Pro
 
   // RLS: só encontra se o pagamento for desta pessoa.
   const { data: pg } = id
-    ? await u.supabase.from("pagamentos").select("status, plano").eq("id", id).maybeSingle()
+    ? await u.supabase.from("pagamentos").select("status, plano, valor").eq("id", id).maybeSingle()
     : { data: null };
 
   const aprovado = pg?.status === "aprovado";
@@ -24,6 +25,7 @@ export default async function ObrigadoPage({ searchParams }: { searchParams: Pro
       <div className="conta-card" style={{ textAlign: "center" }}>
         {aprovado ? (
           <>
+            {id && <PixelCompra id={id} valor={Number(pg?.valor ?? 0)} plano={pg?.plano ?? ""} />}
             <div style={{ fontSize: 44 }}>🎉</div>
             <h1 className="conta-h1">Pro ativado!</h1>
             <p className="conta-sub">

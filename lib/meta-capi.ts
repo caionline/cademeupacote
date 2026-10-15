@@ -13,23 +13,35 @@ function cookie(req: Request, nome: string): string | undefined {
   return m?.[1];
 }
 
-export async function enviarEventoMeta(req: Request, e: {
+/** Cookies e navegador do comprador, guardados no checkout (sem IP). */
+export type ContextoMeta = { fbp?: string; fbc?: string; ua?: string };
+
+export function contextoMeta(req: Request): ContextoMeta {
+  return {
+    fbp: cookie(req, "_fbp")?.slice(0, 200),
+    fbc: cookie(req, "_fbc")?.slice(0, 300),
+    ua: req.headers.get("user-agent")?.slice(0, 400) || undefined,
+  };
+}
+
+export async function enviarEventoMeta(req: Request | null, e: {
   evento: EventoMeta;
   eventId: string;
   url?: string | null;
   email?: string | null;
   dados?: Record<string, string | number | null>;
+  contexto?: ContextoMeta | null;
 }): Promise<void> {
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const token   = process.env.META_CAPI_TOKEN;
   if (!pixelId || !token) return;
 
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  const ip = req?.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
   const user_data: Record<string, unknown> = {
     client_ip_address: ip || undefined,
-    client_user_agent: req.headers.get("user-agent") || undefined,
-    fbp: cookie(req, "_fbp"),
-    fbc: cookie(req, "_fbc"),
+    client_user_agent: e.contexto?.ua ?? req?.headers.get("user-agent") ?? undefined,
+    fbp: e.contexto?.fbp ?? (req ? cookie(req, "_fbp") : undefined),
+    fbc: e.contexto?.fbc ?? (req ? cookie(req, "_fbc") : undefined),
     em: e.email ? [sha256(e.email)] : undefined,
   };
 
@@ -39,7 +51,7 @@ export async function enviarEventoMeta(req: Request, e: {
       event_time:       Math.floor(Date.now() / 1000),
       event_id:         e.eventId,
       action_source:    "website",
-      event_source_url: e.url || req.headers.get("referer") || undefined,
+      event_source_url: e.url || req?.headers.get("referer") || undefined,
       user_data,
       custom_data:      e.dados,
     }],

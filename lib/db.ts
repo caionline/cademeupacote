@@ -231,10 +231,10 @@ export async function marcarPrazoAvisado(c: CasoPrazoVencido): Promise<void> {
 // Pagamentos do Pro
 // ---------------------------------------------------------------------------
 
-export async function criarPagamento(p: { userId: string; plano: string; valor: number; dias: number }): Promise<string> {
+export async function criarPagamento(p: { userId: string; plano: string; valor: number; dias: number; metaContexto?: unknown }): Promise<string> {
   const { data, error } = await db()
     .from("pagamentos")
-    .insert({ user_id: p.userId, plano: p.plano, valor: p.valor, dias: p.dias })
+    .insert({ user_id: p.userId, plano: p.plano, valor: p.valor, dias: p.dias, meta_contexto: p.metaContexto ?? null })
     .select("id")
     .single();
   if (error) throw error;
@@ -301,16 +301,16 @@ export async function registrarUsoIa(tipo: TipoUsoIa, modelo: string, uso: { inp
 // ---------------------------------------------------------------------------
 
 /** Dados pro e-mail de confirmação de uma compra aprovada. */
-export async function dadosConfirmacao(pagamentoId: string): Promise<{ email: string; nome: string | null; plano: string; valor: number; proAte: string } | null> {
+export async function dadosConfirmacao(pagamentoId: string): Promise<{ email: string; nome: string | null; plano: string; valor: number; proAte: string; metaContexto: Record<string, string> | null } | null> {
   const d = db();
-  const { data: pg } = await d.from("pagamentos").select("user_id, plano, valor").eq("id", pagamentoId).single();
+  const { data: pg } = await d.from("pagamentos").select("user_id, plano, valor, meta_contexto").eq("id", pagamentoId).single();
   if (!pg) return null;
   const [{ data: u }, { data: perfil }] = await Promise.all([
     d.auth.admin.getUserById(pg.user_id),
     d.from("perfis").select("nome, pro_ate").eq("id", pg.user_id).single(),
   ]);
   if (!u.user?.email || !perfil?.pro_ate) return null;
-  return { email: u.user.email, nome: perfil.nome, plano: pg.plano, valor: Number(pg.valor), proAte: perfil.pro_ate };
+  return { email: u.user.email, nome: perfil.nome, plano: pg.plano, valor: Number(pg.valor), proAte: perfil.pro_ate, metaContexto: pg.meta_contexto ?? null };
 }
 
 export async function getPagamentosAbandonados(): Promise<{ pagamento_id: string; email: string; nome: string | null; plano: string }[]> {

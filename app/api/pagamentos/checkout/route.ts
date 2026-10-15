@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { criarPagamento, salvarPreferencia } from "@/lib/db";
 import { criarCheckout } from "@/lib/mercadopago";
 import { PLANOS, planoValido } from "@/lib/planos";
+import { contextoMeta } from "@/lib/meta-capi";
 import { supabaseServer } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
 
   const p = PLANOS[plano];
   try {
-    const pagamentoId = await criarPagamento({ userId: user.id, plano, valor: p.valor, dias: p.dias });
+    const pagamentoId = await criarPagamento({ userId: user.id, plano, valor: p.valor, dias: p.dias, metaContexto: contextoMeta(req) });
     const { preferenceId, url } = await criarCheckout({
       pagamentoId,
       titulo: `Cadê Meu Pacote Pro · ${p.nome}`,

@@ -3,9 +3,9 @@
 
 export const META_PIXEL_ID = (process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "").replace(/\D/g, "");
 
-export type EventoMeta = "PageView" | "ViewContent" | "ReclamacaoGerada" | "InteressePro";
+export type EventoMeta = "PageView" | "ViewContent" | "ReclamacaoGerada" | "InteressePro" | "Purchase";
 
-const PADRAO: EventoMeta[] = ["PageView", "ViewContent"];
+const PADRAO: EventoMeta[] = ["PageView", "ViewContent", "Purchase"];
 
 declare global {
   interface Window { fbq?: (...args: unknown[]) => void }
@@ -24,7 +24,7 @@ export function pixel(evento: EventoMeta, dados: Record<string, unknown> = {}, e
 }
 
 /** Pixel + Conversions API (via /api/meta). */
-export function rastrear(evento: Exclude<EventoMeta, "InteressePro">, dados: Record<string, unknown> = {}): void {
+export function rastrear(evento: Exclude<EventoMeta, "InteressePro" | "Purchase">, dados: Record<string, unknown> = {}): void {
   if (!META_PIXEL_ID) return;
   const eventId = pixel(evento, dados);
   fetch("/api/meta", {
