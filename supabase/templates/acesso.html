@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<body style="margin:0;background:#FAF7F2;font-family:Arial,Helvetica,sans-serif;color:#1C1917">
+  <div style="max-width:480px;margin:0 auto;padding:32px 24px">
+    <p style="font-size:14px;color:#F97316;font-weight:bold;margin:0 0 24px">📦 Cadê Meu Pacote</p>
+    <h1 style="font-size:22px;line-height:1.3;margin:0 0 16px">Seu link de acesso</h1>
+    <p style="font-size:16px;line-height:1.6;margin:0 0 24px">
+      Olá! Clique no botão abaixo para entrar na sua conta do Cadê Meu Pacote e acompanhar suas reclamações.
+    </p>
+    <a href="{{ .SiteURL }}/auth/confirmar?token_hash={{ .TokenHash }}&type=email"
+       style="display:inline-block;background:#F97316;color:#ffffff;text-decoration:none;font-weight:bold;padding:14px 24px;border-radius:10px">
+      Entrar na minha conta
+    </a>
+    <p style="font-size:14px;line-height:1.6;color:#57534E;margin:24px 0 0">
+      O link vale por 1 hora e só pode ser usado uma vez.
+    </p>
+    <p style="font-size:12px;line-height:1.5;color:#78716C;margin:32px 0 0">
+      Não pediu este acesso? Pode ignorar este e-mail com tranquilidade, nada vai acontecer com a sua conta.<br>
+      cademeupacote.com.br
+    </p>
+  </div>
+</body>
+</html>
