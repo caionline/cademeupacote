@@ -52,6 +52,8 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 - [ ] Qual canal funciona pra cada loja (dados próprios)
 - [ ] Modo revendedor: vários pedidos de uma vez
 
+- [x] Proteção contra robôs: Cloudflare Turnstile (conta Cloudflare pessoal do Caio, Worker turnstile-siteverify-cademeupacote.cademeupacote.workers.dev)
+
 ## Fase 5 — Pagamento
 - [ ] Comparar taxas atuais de Pix e cartão (Mercado Pago, Asaas, Stripe, Pagar.me, AbacatePay…) e escolher a menor
 - [ ] Assinatura mensal + compra avulsa por caso
