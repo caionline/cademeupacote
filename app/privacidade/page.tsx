@@ -71,6 +71,7 @@ export default function PrivacidadePage() {
         <section style={{ marginBottom: 32 }}>
           <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 12, letterSpacing: "-0.2px" }}>2. COMO USAMOS</h2>
           <ul style={{ paddingLeft: 20, lineHeight: 1.9, color: "var(--text-muted)" }}>
+            <li>Se você enviar prints da compra, as imagens vão para a API da Anthropic (Claude) só para ler os dados do pedido e preencher o formulário. Elas não ficam guardadas nos nossos servidores. Evite enviar prints com dados que não sejam da compra.</li>
             <li>Os dados do formulário são enviados à API da Anthropic (Claude) para gerar o texto da reclamação. A Anthropic não treina modelos com esses dados (configuração padrão do produto).</li>
             <li>O e-mail (se fornecido) é usado exclusivamente para enviar o lembrete acordado. Não vendemos, não compartilhamos, não usamos para spam.</li>
             <li>Os dados da conta servem para guardar e acompanhar seus casos, assinar as reclamações, avisar você sobre prazos (por e-mail ou WhatsApp) e, no futuro, preencher formulários do Consumidor.gov e do Juizado Especial a seu pedido.</li>

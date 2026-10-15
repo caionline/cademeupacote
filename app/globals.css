@@ -955,3 +955,18 @@ footer.site-footer { padding: 56px var(--gutter) 32px; background: var(--bg); bo
 .guias-lista span { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
 
 .loja-aviso { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.55; color: var(--text-muted); margin-bottom: 14px; }
+
+/* ===== PRINTS -> RECLAMAÇÃO ===== */
+.prints { border: 1.5px dashed var(--primary-border); background: var(--primary-soft); border-radius: 16px; padding: 16px; margin-bottom: 8px; }
+.prints-topo { display: flex; gap: 12px; align-items: flex-start; }
+.prints-icone { font-size: 26px; line-height: 1; }
+.prints-topo strong { font-size: 15px; }
+.prints-topo p { font-size: 13.5px; color: var(--text-muted); line-height: 1.45; margin-top: 2px; }
+.prints-lista { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.prints-lista li { display: flex; justify-content: space-between; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; font-size: 13px; }
+.prints-lista button { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--text-subtle); padding: 0 4px; }
+.prints-acoes { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.prints-erro { color: var(--danger); font-size: 13px; margin-top: 8px; }
+.prints-nota { font-size: 11.5px; color: var(--text-subtle); margin-top: 10px; }
+.prints-ou { display: flex; align-items: center; gap: 12px; color: var(--text-subtle); font-size: 12.5px; margin: 14px 0; }
+.prints-ou::before, .prints-ou::after { content: ""; flex: 1; height: 1px; background: var(--border); }

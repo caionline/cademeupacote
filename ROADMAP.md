@@ -43,6 +43,15 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 - [ ] Aviso de prazo por WhatsApp
 - Preços definidos: Trimestral R$ 34,90 · Mensal R$ 14,90 · Fundador Copping R$ 9,90/mês (100 primeiros)
 
+## Diferenciais (fora da caixa)
+- [x] Print → reclamação: a pessoa sobe até 4 prints e a IA preenche o formulário (≈ R$ 0,003 por leitura, imagens não guardadas)
+- [ ] "A loja respondeu. E agora?": IA analisa a resposta da loja e sugere a réplica
+- [ ] Dossiê de provas em PDF (Procon/Juizado)
+- [ ] Salvar prova da oferta (Copping)
+- [ ] Encaminhar e-mail da loja e receber a reclamação pronta
+- [ ] Qual canal funciona pra cada loja (dados próprios)
+- [ ] Modo revendedor: vários pedidos de uma vez
+
 ## Fase 5 — Pagamento
 - [ ] Comparar taxas atuais de Pix e cartão (Mercado Pago, Asaas, Stripe, Pagar.me, AbacatePay…) e escolher a menor
 - [ ] Assinatura mensal + compra avulsa por caso

@@ -1,10 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { createHash } from "crypto";
 import { NextResponse } from "next/server";
 import { PROBLEMS, STORES, type FormState } from "@/lib/constants";
 import { consumirUsoIa, registrarCaso } from "@/lib/db";
 import { gerarTextos, IaRecusou } from "@/lib/ia";
-import { supabaseServer } from "@/lib/supabase/server";
+import { identificar } from "@/lib/quem";
 import { getValueRange } from "@/lib/value-ranges";
 
 export const runtime = "nodejs";
@@ -14,18 +13,6 @@ export const maxDuration = 60;
 const LIMITE_SEM_CONTA = 5;
 const LIMITE_COM_CONTA = 15;
 const LIMITE_GLOBAL    = 500;
-
-/** Quem está pedindo: id da conta, ou hash do IP (nunca guardamos o IP puro). */
-async function identificar(req: Request): Promise<{ chave: string; logado: boolean }> {
-  try {
-    const supabase = await supabaseServer();
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) return { chave: `u:${user.id}`, logado: true };
-  } catch {}
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "desconhecido";
-  const hash = createHash("sha256").update(`${ip}:${process.env.CRON_SECRET ?? ""}`).digest("hex").slice(0, 32);
-  return { chave: `ip:${hash}`, logado: false };
-}
 
 export async function POST(req: Request) {
   try {

@@ -43,6 +43,7 @@ export default async function HomePage() {
           </p>
           <ul className="hero-checks">
             <li>Atraso, extravio, defeito, estorno e pedido cancelado</li>
+            <li>Tem print da compra? A IA lê e preenche pra você</li>
             <li>Grátis e sem cadastro pra começar</li>
             <li>Você revisa tudo antes de enviar</li>
           </ul>

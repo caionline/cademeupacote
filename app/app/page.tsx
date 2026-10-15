@@ -16,6 +16,7 @@ import { formatBRL, parseBRL } from "@/lib/currency";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { salvarCaso, guardarPendente } from "@/lib/casos";
 import ProOferta from "./ProOferta";
+import PrintsUpload, { type DadosExtraidos } from "./PrintsUpload";
 import { rastrear } from "@/lib/meta";
 
 const LOADING_MSGS = [
@@ -124,6 +125,36 @@ export default function AppPage() {
     }, 2500);
     return () => clearInterval(id);
   }, [loading]);
+
+  // Prints lidos pela IA: preenche o que veio e leva pro primeiro passo que ainda falta.
+  function preencherDePrints(d: DadosExtraidos) {
+    const data = (v: string | null) => (v && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : "");
+    const lojaValida = d.loja_id && STORES.some(s => s.id === d.loja_id && !s.encerrada) ? d.loja_id : null;
+    const probValido = d.problema_id && PROBLEMS.some(p => p.id === d.problema_id) ? d.problema_id : null;
+    let preenchidos = 0;
+    const prev = form;
+    const novo = { ...prev };
+    {
+      const poe = <K extends keyof FormState>(k: K, v: FormState[K] | null | undefined) => {
+        if (v) { novo[k] = v; preenchidos++; }
+      };
+      poe("problem", probValido);
+      poe("store", lojaValida);
+      if (lojaValida === "other") poe("storeOtherName", d.loja_nome?.slice(0, 80));
+      poe("product", d.produto?.slice(0, 120));
+      poe("value", d.valor?.replace(/^\s*R\$\s*/i, "").slice(0, 30)); // o campo já mostra o "R$"
+      poe("purchaseDate", data(d.data_compra));
+      poe("promisedDate", data(d.data_prometida));
+      poe("orderNumber", d.numero_pedido?.slice(0, 60));
+      if (d.fatos) {
+        novo.details = [d.fatos.trim(), prev.details.trim()].filter(Boolean).join("\n\n").slice(0, 2000);
+        preenchidos++;
+      }
+    }
+    setForm(novo);
+    setStep(!probValido ? 1 : !lojaValida ? 2 : 3);
+    showToast(preenchidos > 0 ? "Pronto! Confira os dados preenchidos ✓" : "Não achamos dados nos prints. Preencha à mão.");
+  }
 
   function showToast(msg: string) {
     setToast(msg);
@@ -290,6 +321,8 @@ export default function AppPage() {
             <div className="section-kicker" style={{ fontFamily: "var(--mono)", fontSize: 13, marginBottom: 12 }}>4 passos · sem cadastro · menos de 3 minutos</div>
             <h1 className="app-h1">O que <em>aconteceu?</em></h1>
             <p className="app-sub">Escolha o problema que mais bate. Você poderá detalhar nos próximos passos.</p>
+            <PrintsUpload onPreencher={preencherDePrints} />
+            <div className="prints-ou"><span>ou escolha abaixo</span></div>
             <div className="option-list">
               {PROBLEMS.map(p => (
                 <button
