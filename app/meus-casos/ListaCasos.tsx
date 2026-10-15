@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CHANNELS, PROBLEMS, STORES, type Channel } from "@/lib/constants";
 import { salvarPendente, type CasoEvento, type Reclamacao } from "@/lib/casos";
 import CasoPro from "./CasoPro";
+import AnaliseResposta from "./AnaliseResposta";
 import { supabaseBrowser } from "@/lib/supabase/client";
 
 function dataBR(iso: string) {
@@ -167,6 +168,7 @@ export default function ListaCasos({ inicial, eventos: eventosIniciais, pro }: {
                     onAcao={a => acaoPro(c, a)}
                     onCopiar={copiar}
                     onTexto={ev => setEventos(es => [...es, ev])}
+                    onAnalisado={() => router.refresh()}
                   />
                   <div className="caso-acoes">
                     <button className="btn btn-ghost btn-sm caso-apagar" onClick={() => apagar(c)}>Apagar caso</button>
@@ -191,6 +193,11 @@ export default function ListaCasos({ inicial, eventos: eventosIniciais, pro }: {
                     </button>
                     <button className="btn btn-ghost btn-sm caso-apagar" onClick={() => apagar(c)}>Apagar</button>
                   </div>
+                  {c.status === "aberto" && (
+                    <div style={{ marginTop: 14 }}>
+                      <AnaliseResposta casoId={c.id} onCopiar={copiar} />
+                    </div>
+                  )}
                   {c.status === "aberto" && (
                     <div className="pro-teaser">
                       <div>

@@ -45,7 +45,7 @@ Ordem pensada para que cada fase sirva de base para a seguinte. Atualizado em 14
 
 ## Diferenciais (fora da caixa)
 - [x] Print → reclamação: a pessoa sobe até 4 prints e a IA preenche o formulário (≈ R$ 0,003 por leitura, imagens não guardadas)
-- [ ] "A loja respondeu. E agora?": IA analisa a resposta da loja e sugere a réplica
+- [x] "A loja respondeu. E agora?": veredito, direitos, recomendação e resposta pronta (≈ R$ 0,008; grátis com conta, 5/dia; no Pro entra no histórico)
 - [ ] Dossiê de provas em PDF (Procon/Juizado)
 - [ ] Salvar prova da oferta (Copping)
 - [ ] Encaminhar e-mail da loja e receber a reclamação pronta

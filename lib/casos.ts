@@ -25,7 +25,7 @@ export type CasoEvento = {
   id: number;
   caso_id: string;
   created_at: string;
-  tipo: "enviado" | "resolvido" | "nao_resolveu" | "reaberto" | "texto_gerado" | "prazo_vencido";
+  tipo: "enviado" | "resolvido" | "nao_resolveu" | "reaberto" | "texto_gerado" | "prazo_vencido" | "loja_respondeu";
   etapa: string;
   nota: string | null;
 };

@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 import { initialFormState, type FormState } from "@/lib/constants";
 import { consumirUsoIa } from "@/lib/db";
 import { gerarProximoTexto, IaRecusou } from "@/lib/ia";
-import { ehPro, ETAPA_INFO, type Etapa } from "@/lib/pro";
+import { ehPro, type Etapa } from "@/lib/pro";
+import { montarHistorico } from "@/lib/historico";
 import { supabaseServer } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -11,17 +12,6 @@ export const maxDuration = 60;
 
 const LIMITE_PRO = 30;
 const LIMITE_GLOBAL = 500;
-
-function dataBR(iso: string) {
-  return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
-}
-
-const DESCRICAO: Record<string, (etapa: string) => string> = {
-  enviado:      e => `Consumidor enviou a reclamação pelo ${ETAPA_INFO[e as Etapa]?.nome ?? e}.`,
-  nao_resolveu: e => `A loja não resolveu pelo ${ETAPA_INFO[e as Etapa]?.nome ?? e}.`,
-  prazo_vencido:e => `Prazo de resposta pelo ${ETAPA_INFO[e as Etapa]?.nome ?? e} venceu sem solução.`,
-  reaberto:     () => "Caso reaberto pelo consumidor.",
-};
 
 // Gera o texto da etapa atual com o histórico do caso (Pro).
 export async function POST(_req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -47,14 +37,9 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   }
 
   const { data: eventos } = await supabase
-    .from("caso_eventos").select("created_at, tipo, etapa").eq("caso_id", id).order("created_at");
+    .from("caso_eventos").select("created_at, tipo, etapa, nota").eq("caso_id", id).order("created_at");
 
-  const historico = [
-    { data: dataBR(caso.created_at), descricao: "Caso aberto: reclamação inicial gerada." },
-    ...(eventos ?? [])
-      .filter(e => DESCRICAO[e.tipo])
-      .map(e => ({ data: dataBR(e.created_at), descricao: DESCRICAO[e.tipo](e.etapa) })),
-  ];
+  const historico = montarHistorico(caso.created_at, eventos ?? []);
 
   const dados: FormState = {
     ...initialFormState,

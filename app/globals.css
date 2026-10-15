@@ -970,3 +970,20 @@ footer.site-footer { padding: 56px var(--gutter) 32px; background: var(--bg); bo
 .prints-nota { font-size: 11.5px; color: var(--text-subtle); margin-top: 10px; }
 .prints-ou { display: flex; align-items: center; gap: 12px; color: var(--text-subtle); font-size: 12.5px; margin: 14px 0; }
 .prints-ou::before, .prints-ou::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+/* ===== A LOJA RESPONDEU ===== */
+.analise { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-top: 4px; }
+.analise-titulo { font-weight: 700; font-size: 15px; }
+.analise-sub { font-size: 13.5px; color: var(--text-muted); line-height: 1.5; margin: 4px 0 10px; }
+.analise-campo { width: 100%; font-family: inherit; font-size: 15px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); resize: vertical; }
+.analise-campo:focus { outline: none; border-color: var(--primary); }
+.analise-veredito { display: inline-block; font-weight: 700; font-size: 14px; padding: 6px 12px; border-radius: 999px; margin-bottom: 12px; }
+.analise-ok { background: #F0FDF4; color: var(--success); border: 1px solid #BBF7D0; }
+.analise-meio { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+.analise-ruim { background: var(--hot); color: var(--danger); border: 1px solid var(--hot-border); }
+.analise-item { font-size: 14.5px; line-height: 1.55; color: var(--text-muted); margin-bottom: 8px; }
+.analise-item b { color: var(--text); }
+.analise-alertas { list-style: none; padding: 0; margin: 4px 0 12px; display: flex; flex-direction: column; gap: 6px; }
+.analise-alertas li { font-size: 13.5px; background: #FFFBEB; border-radius: 8px; padding: 8px 10px; color: var(--text-muted); }
+.analise-resposta-titulo { font-weight: 700; font-size: 14px; margin: 8px 0 6px; }
+.analise-nota { font-size: 11.5px; color: var(--text-subtle); margin-top: 10px; }

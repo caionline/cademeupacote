@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { reduzirImagem } from "@/lib/imagem";
 
 export type DadosExtraidos = {
   loja_id: string | null;
@@ -15,33 +16,6 @@ export type DadosExtraidos = {
 };
 
 const MAX = 4;
-const LADO_MAX = 1280; // px: suficiente pra ler texto de print e barato pra IA
-
-/** Reduz a imagem no navegador (lado maior até 1280px, JPEG) e devolve o base64. */
-async function reduzir(arquivo: File): Promise<{ mediaType: "image/jpeg"; base64: string }> {
-  const url = URL.createObjectURL(arquivo);
-  try {
-    const img = await new Promise<HTMLImageElement>((ok, erro) => {
-      const i = new Image();
-      i.onload = () => ok(i);
-      i.onerror = () => erro(new Error("imagem inválida"));
-      i.src = url;
-    });
-    const escala = Math.min(1, LADO_MAX / Math.max(img.naturalWidth, img.naturalHeight));
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.round(img.naturalWidth * escala);
-    canvas.height = Math.round(img.naturalHeight * escala);
-    const ctx = canvas.getContext("2d")!;
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    const dataUrl = canvas.toDataURL("image/jpeg", 0.8);
-    return { mediaType: "image/jpeg", base64: dataUrl.split(",")[1] };
-  } finally {
-    URL.revokeObjectURL(url);
-  }
-}
-
 /** "Tem prints da compra?": a IA lê e preenche o formulário. As imagens não são guardadas. */
 export default function PrintsUpload({ onPreencher }: { onPreencher: (d: DadosExtraidos) => void }) {
   const input = useRef<HTMLInputElement>(null);
@@ -62,7 +36,7 @@ export default function PrintsUpload({ onPreencher }: { onPreencher: (d: DadosEx
     setErro(null);
     setLendo(true);
     try {
-      const imagens = await Promise.all(arquivos.map(reduzir));
+      const imagens = await Promise.all(arquivos.map(reduzirImagem));
       const r = await fetch("/api/extrair", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

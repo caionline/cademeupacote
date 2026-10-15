@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { CasoEvento, Reclamacao } from "@/lib/casos";
 import { ETAPA_INFO, ETAPAS, TEXTO_INICIAL, prazoDecadencia, proximaEtapa } from "@/lib/pro";
+import AnaliseResposta from "./AnaliseResposta";
 
 function dataBR(iso: string) {
   return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
@@ -19,17 +20,19 @@ const DESCRICAO_EVENTO: Record<CasoEvento["tipo"], string> = {
   reaberto:      "Caso reaberto no",
   texto_gerado:  "Novo texto gerado pro",
   prazo_vencido: "Prazo venceu no",
+  loja_respondeu: "A loja respondeu pelo",
 };
 
 /** Linha do tempo do caso (Pro): etapa atual, prazo, ações e próximo texto. */
 export default function CasoPro({
-  caso, eventos, onAcao, onCopiar, onTexto,
+  caso, eventos, onAcao, onCopiar, onTexto, onAnalisado,
 }: {
   caso: Reclamacao;
   eventos: CasoEvento[];
   onAcao: (acao: "enviei" | "resolveram" | "nao_resolveram" | "reabrir") => Promise<void>;
   onCopiar: (texto: string) => void;
   onTexto: (evento: CasoEvento) => void;
+  onAnalisado: () => void;
 }) {
   const [gerando, setGerando] = useState(false);
   const [ocupado, setOcupado] = useState(false);
@@ -128,6 +131,9 @@ export default function CasoPro({
                     : <b className="pro-vencido">O prazo venceu em {dataBR(caso.prazo_em)}.</b>
                 )}
               </p>
+              <div style={{ marginBottom: 12 }}>
+                <AnaliseResposta casoId={caso.id} onCopiar={onCopiar} onAnalisado={onAnalisado} />
+              </div>
               <p className="pro-agora-texto">
                 {caso.prazo_em && diasAte(caso.prazo_em) <= 0
                   ? "Se a loja não resolveu, é hora do próximo passo."
@@ -160,6 +166,7 @@ export default function CasoPro({
             {eventos.map(e => (
               <li key={e.id}>
                 <span>{dataBR(e.created_at)}</span> {DESCRICAO_EVENTO[e.tipo]} {ETAPA_INFO[e.etapa as keyof typeof ETAPA_INFO]?.nome ?? e.etapa}
+                {e.tipo === "loja_respondeu" && e.nota ? `: ${e.nota}` : ""}
               </li>
             ))}
           </ul>
